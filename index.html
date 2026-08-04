@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Talent Scan</title>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #F5F7F8; }
+  #root { min-height: 100vh; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+/**
+ * ============================================================================
+ * TALENT SCAN — MVP v2 (build standalone, sin herramientas de compilación)
+ * ============================================================================
+ * Este archivo es UN SOLO .html que funciona abriéndolo directo en el
+ * navegador o subiéndolo a la intranet. No necesita Node, npm, ni build:
+ *   - React / ReactDOM / Babel se cargan desde CDN (unpkg) como <script>.
+ *   - Babel transpila el JSX de este mismo archivo EN el navegador, al
+ *     vuelo, cada vez que se abre la página (por eso el <script type=
+ *     "text/babel"> en vez de "text/javascript").
+ *   - Los íconos son SVGs propios (abajo, componente <Icon>) para no
+ *     depender de ningún paquete de npm.
+ *
+ * MOTOR DE ANÁLISIS ACTUAL — "POR COINCIDENCIAS" (sin IA):
+ * Extrae el texto real de cada PDF con PDF.js, busca coincidencias de
+ * palabras clave por criterio y calcula un puntaje ponderado. Los
+ * "criterios de descarte" (becario, creador de redes, branded content,
+ * medios sin alcance nacional) son banderas duras: si aparecen, el
+ * candidato cae a "Baja compatibilidad" sin importar el resto del puntaje.
+ *
+ * FASE 2 — IA real: ver nota al final de este archivo.
+ * ============================================================================
+ */
+
+const { useState, useCallback, useMemo, useEffect } = React;
+
+/* ----------------------------------------------------------------------- */
+/* ÍCONOS (SVG propios, sin dependencias externas)                         */
+/* ----------------------------------------------------------------------- */
+
+function Icon({ name, size = 16, style }) {
+  const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", style };
+  switch (name) {
+    case "scan":
+      return <svg {...common}><path d="M4 7V5a1 1 0 0 1 1-1h2" /><path d="M17 4h2a1 1 0 0 1 1 1v2" /><path d="M20 17v2a1 1 0 0 1-1 1h-2" /><path d="M7 20H5a1 1 0 0 1-1-1v-2" /><line x1="4" y1="12" x2="20" y2="12" /></svg>;
+    case "upload":
+      return <svg {...common}><path d="M12 16V4" /><path d="M6 10l6-6 6 6" /><path d="M4 20h16" /></svg>;
+    case "filetext":
+      return <svg {...common}><path d="M6 2h9l5 5v15H6z" /><path d="M9 13h6M9 17h6M9 9h2" /></svg>;
+    case "x":
+      return <svg {...common}><line x1="5" y1="5" x2="19" y2="19" /><line x1="19" y1="5" x2="5" y2="19" /></svg>;
+    case "check":
+      return <svg {...common}><circle cx="12" cy="12" r="9" /><path d="M8.5 12.5l2.5 2.5 5-5" /></svg>;
+    case "alert":
+      return <svg {...common}><path d="M12 3l10 18H2z" /><line x1="12" y1="9" x2="12" y2="14" /><circle cx="12" cy="17.3" r="0.6" fill="currentColor" stroke="none" /></svg>;
+    case "xcircle":
+      return <svg {...common}><circle cx="12" cy="12" r="9" /><line x1="9" y1="9" x2="15" y2="15" /><line x1="15" y1="9" x2="9" y2="15" /></svg>;
+    case "chevrondown":
+      return <svg {...common}><polyline points="6 9 12 15 18 9" /></svg>;
+    case "chevronright":
+      return <svg {...common}><polyline points="9 6 15 12 9 18" /></svg>;
+    case "briefcase":
+      return <svg {...common}><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>;
+    case "grad":
+      return <svg {...common}><path d="M2 9l10-5 10 5-10 5-10-5z" /><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5" /></svg>;
+    case "wallet":
+      return <svg {...common}><rect x="3" y="6" width="18" height="13" rx="2" /><path d="M3 10h18" /><circle cx="16" cy="14" r="1" fill="currentColor" stroke="none" /></svg>;
+    case "shield":
+      return <svg {...common}><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z" /><line x1="12" y1="9" x2="12" y2="13" /><circle cx="12" cy="16.3" r="0.6" fill="currentColor" stroke="none" /></svg>;
+    case "sparkles":
+      return <svg {...common}><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z" /><path d="M19 15l0.7 2 2 0.7-2 0.7-0.7 2-0.7-2-2-0.7 2-0.7z" /></svg>;
+    case "users":
+      return <svg {...common}><circle cx="9" cy="8" r="3" /><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" /><circle cx="17" cy="9" r="2.5" /><path d="M15.5 14a5 5 0 0 1 5.5 5" /></svg>;
+    case "pin":
+      return <svg {...common}><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.3" /></svg>;
+    case "ban":
+      return <svg {...common}><circle cx="12" cy="12" r="9" /><line x1="6" y1="18" x2="18" y2="6" /></svg>;
+    case "arrowleft":
+      return <svg {...common}><line x1="19" y1="12" x2="5" y2="12" /><polyline points="11 6 5 12 11 18" /></svg>;
+    case "arrowright":
+      return <svg {...common}><line x1="5" y1="12" x2="19" y2="12" /><polyline points="13 6 19 12 13 18" /></svg>;
+    case "sliders":
+      return <svg {...common}><line x1="4" y1="7" x2="20" y2="7" /><circle cx="9" cy="7" r="1.6" fill="currentColor" stroke="none" /><line x1="4" y1="17" x2="20" y2="17" /><circle cx="16" cy="17" r="1.6" fill="currentColor" stroke="none" /></svg>;
+    case "loader":
+      return <svg {...common}><path d="M12 3a9 9 0 1 0 9 9" /></svg>;
+    default:
+      return null;
+  }
+}
+
+/* ----------------------------------------------------------------------- */
+/* DATOS DE LA VACANTE (MVP: única vacante, fija)                          */
+/* ----------------------------------------------------------------------- */
+
+const VACANTE_EDITOR_WEB = {
+  titulo: "Editor Web",
+  formacionObligatoria: [
+    "Licenciatura en Periodismo",
+    "Licenciatura en Ciencias de la Comunicación",
+  ],
+  experienciaIdeal: "1 a 3 años como Editor Web, en medios digitales nacionales",
+  ubicacion: "Residir en CDMX o zona conurbada",
+  mediosNacionales: ["El Universal", "Excelsior", "Milenio", "N+", "Infobae", "Animal Político"],
+  habilidades: [
+    "Redacción",
+    "Edición",
+    "Breaking News",
+    "Monitoreo de información",
+    "Inglés (deseable)",
+    "Trabajo en equipo",
+  ],
+  noRelevante: "Experiencia con WordPress o CMS comerciales (la empresa usa CMS propio)",
+  criteriosDescarte: [
+    "Becarios o practicantes en medios",
+    "Creadores de contenido para TikTok, YouTube u otras redes",
+    "Perfiles enfocados en branded content o contenidos publicitarios",
+    "Experiencia limitada a medios estatales pequeños, páginas de Facebook o canales de YouTube sin alcance nacional",
+  ],
+  salarioOfrecido: 20000,
+};
+
+const CRITERIOS = [
+  { id: "formacion", label: "Formación académica" },
+  { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)" },
+  { id: "medios", label: "Medios de alcance nacional" },
+  { id: "experiencia", label: "Experiencia como Editor Web" },
+  { id: "redaccion", label: "Redacción" },
+  { id: "edicion", label: "Edición" },
+  { id: "breaking", label: "Breaking News" },
+  { id: "monitoreo", label: "Monitoreo de información" },
+  { id: "ingles", label: "Inglés (deseable)" },
+  { id: "equipo", label: "Trabajo en equipo" },
+  { id: "salario", label: "Compatibilidad salarial" },
+];
+
+const ESTADOS = {
+  muy_recomendado: { label: "Muy recomendado", color: "#1E8E5A", bg: "#E7F6EE" },
+  recomendado: { label: "Recomendado", color: "#0F6B5C", bg: "#E4F2EE" },
+  revisar: { label: "Revisar", color: "#B4740E", bg: "#FCF1DD" },
+  baja: { label: "Baja compatibilidad", color: "#B3261E", bg: "#FBE9E7" },
+};
+
+/* ----------------------------------------------------------------------- */
+/* PALABRAS CLAVE POR CRITERIO                                             */
+/* ----------------------------------------------------------------------- */
+
+const KEYWORDS = {
+  periodismo: ["periodismo"],
+  cienciasComunicacion: ["ciencias de la comunicacion"],
+  comunicacionGeneral: ["comunicacion"],
+  ubicacion: [
+    "ciudad de mexico", "cdmx", "estado de mexico", "edomex", "zona metropolitana",
+    "zona conurbada", "naucalpan", "ecatepec", "nezahualcoyotl", "tlalnepantla",
+    "atizapan", "cuautitlan", "huixquilucan", "chalco", "chimalhuacan",
+    "coacalco", "tultitlan", "los reyes la paz",
+  ],
+  mediosNacionales: [
+    "el universal", "excelsior", "milenio", "n+", "nmas", "infobae",
+    "animal politico", "medio nacional", "alcance nacional",
+  ],
+  redaccion: ["redaccion"],
+  edicion: ["edicion"],
+  breaking: ["breaking news", "ultima hora", "noticia de ultimo momento", "noticias de ultimo momento"],
+  monitoreo: ["monitoreo de informacion", "monitoreo de medios", "monitoreo"],
+  ingles: ["ingles"],
+  equipo: ["trabajo en equipo", "trabajo colaborativo"],
+  becario: ["becario", "becaria", "practicante", "practicas profesionales", "servicio social"],
+  creadorRedes: ["tiktoker", "tik toker", "youtuber", "content creator", "creador de contenido", "influencer"],
+  brandedContent: ["branded content", "contenido patrocinado", "publirreportaje", "contenido publicitario"],
+  medioPequeno: ["pagina de facebook", "canal de youtube", "periodico local", "periodico estatal", "medio estatal"],
+};
+
+/* ----------------------------------------------------------------------- */
+/* UTILIDADES DE TEXTO                                                     */
+/* ----------------------------------------------------------------------- */
+
+function normalizar(str) {
+  return (str || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+function matchAny(text, keywords) {
+  return keywords.some((k) => text.includes(k));
+}
+
+function nombreDesdeArchivo(fileName) {
+  const sinExtension = fileName.replace(/\.[^/.]+$/, "");
+  const limpio = sinExtension.replace(/[_\-]+/g, " ").replace(/\s+/g, " ").trim();
+  return limpio
+    .split(" ")
+    .map((w) => (w.length ? w[0].toUpperCase() + w.slice(1).toLowerCase() : w))
+    .join(" ");
+}
+
+function extraerNombreProbable(textoOriginal, fileName) {
+  const primeraLinea = (textoOriginal || "").split("\n").map((l) => l.trim()).find((l) => l.length > 0);
+  if (primeraLinea && primeraLinea.length >= 4 && primeraLinea.length <= 45) {
+    const palabras = primeraLinea.split(/\s+/);
+    const pareceNombre =
+      palabras.length >= 2 &&
+      palabras.length <= 4 &&
+      /^[A-Za-zÀ-ÿ.\s]+$/.test(primeraLinea) &&
+      !/curriculum|resume|cv\b/i.test(primeraLinea);
+    if (pareceNombre) return primeraLinea;
+  }
+  return nombreDesdeArchivo(fileName);
+}
+
+function extraerAniosExperiencia(normText) {
+  const matches = [...normText.matchAll(/(\d{1,2})\s*\+?\s*(?:anos|ano)\b/g)];
+  if (!matches.length) return null;
+  const nums = matches.map((m) => parseInt(m[1], 10)).filter((n) => n > 0 && n < 40);
+  if (!nums.length) return null;
+  return Math.max(...nums);
+}
+
+/* ----------------------------------------------------------------------- */
+/* EXTRACCIÓN DE TEXTO DEL PDF (PDF.js, cargado dinámicamente)             */
+/* ----------------------------------------------------------------------- */
+
+const PDFJS_BASE = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174";
+
+function usePdfJs() {
+  const [status, setStatus] = useState("cargando");
+
+  useEffect(() => {
+    if (window.pdfjsLib) {
+      setStatus("listo");
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = `${PDFJS_BASE}/pdf.min.js`;
+    script.async = true;
+    script.onload = async () => {
+      try {
+        const workerCode = await fetch(`${PDFJS_BASE}/pdf.worker.min.js`).then((r) => r.text());
+        const blob = new Blob([workerCode], { type: "application/javascript" });
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(blob);
+        setStatus("listo");
+      } catch (e) {
+        setStatus("error");
+      }
+    };
+    script.onerror = () => setStatus("error");
+    document.body.appendChild(script);
+  }, []);
+
+  return status;
+}
+
+async function extraerTextoPDF(file) {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  let texto = "";
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    texto += content.items.map((it) => it.str).join(" ") + "\n";
+  }
+  return texto;
+}
+
+/* ----------------------------------------------------------------------- */
+/* MOTOR DE ANÁLISIS POR COINCIDENCIAS                                     */
+/* ----------------------------------------------------------------------- */
+
+function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, salarioManual }) {
+  const norm = normalizar(textoOriginal);
+  const tieneTexto = norm.trim().length > 40;
+
+  if (!tieneTexto) {
+    return {
+      id: fileName,
+      nombre: nombreDesdeArchivo(fileName),
+      archivo: fileName,
+      sinTexto: true,
+      compatibilidad: null,
+      estado: "revisar",
+      resumen:
+        "No fue posible extraer texto de este PDF (probablemente es un documento escaneado o basado en imágenes). Se necesita revisión manual.",
+      recomendacion: "Revisión manual requerida: el sistema no pudo leer el contenido del archivo.",
+      riesgos: ["No se pudo extraer texto del PDF."],
+      criteriosEval: {},
+      salarioSolicitado: salarioManual || null,
+      experienciaAnios: null,
+    };
+  }
+
+  const nombre = extraerNombreProbable(textoOriginal, fileName);
+  const riesgos = [];
+  const criteriosEval = {};
+  let score = 0;
+
+  let formacionStatus;
+  if (matchAny(norm, KEYWORDS.periodismo) || matchAny(norm, KEYWORDS.cienciasComunicacion)) {
+    formacionStatus = "cumple";
+    score += 25;
+  } else if (matchAny(norm, KEYWORDS.comunicacionGeneral)) {
+    formacionStatus = "parcial";
+    score += 12;
+  } else {
+    formacionStatus = "no_cumple";
+    score += 4;
+    riesgos.push("No se encontró evidencia de Licenciatura en Periodismo o Ciencias de la Comunicación.");
+  }
+  criteriosEval.formacion = {
+    status: formacionStatus,
+    comentario:
+      formacionStatus === "cumple"
+        ? "Se detectó la formación requerida en el texto del CV."
+        : formacionStatus === "parcial"
+        ? "Se menciona 'Comunicación' de forma genérica, no específicamente Ciencias de la Comunicación."
+        : "No se detectó la formación solicitada en el texto del CV.",
+  };
+
+  const ubicacionOk = matchAny(norm, KEYWORDS.ubicacion);
+  score += ubicacionOk ? 15 : 0;
+  criteriosEval.ubicacion = {
+    status: ubicacionOk ? "cumple" : "no_cumple",
+    comentario: ubicacionOk
+      ? "Se detectó residencia en CDMX o zona conurbada."
+      : "No se detectó residencia en CDMX o zona conurbada en el CV.",
+  };
+  if (!ubicacionOk) riesgos.push("No se identificó residencia en CDMX o zona conurbada.");
+
+  const mediosOk = matchAny(norm, KEYWORDS.mediosNacionales);
+  score += mediosOk ? 15 : 3;
+  criteriosEval.medios = {
+    status: mediosOk ? "cumple" : "no_cumple",
+    comentario: mediosOk
+      ? "Se detectó experiencia en medios de alcance nacional."
+      : "No se detectó experiencia en medios de alcance nacional (El Universal, Excelsior, Milenio, N+, Infobae, Animal Político u otro).",
+  };
+  if (!mediosOk) riesgos.push("Sin evidencia de experiencia en medios de alcance nacional.");
+
+  const anios = extraerAniosExperiencia(norm);
+  if (anios === null) {
+    score += 7;
+    criteriosEval.experiencia = {
+      status: "parcial",
+      comentario: "No se pudo determinar automáticamente los años de experiencia; revisar manualmente.",
+    };
+  } else if (anios >= 1 && anios <= 3) {
+    score += 15;
+    criteriosEval.experiencia = { status: "cumple", comentario: `${anios} año(s) de experiencia detectados, dentro del rango ideal.` };
+  } else if (anios < 1) {
+    score += 5;
+    criteriosEval.experiencia = { status: "no_cumple", comentario: "Menos de 1 año de experiencia detectado." };
+    riesgos.push("Experiencia detectada por debajo de 1 año.");
+  } else {
+    score += Math.max(15 - 2 * (anios - 3), 6);
+    criteriosEval.experiencia = {
+      status: "parcial",
+      comentario: `${anios} año(s) de experiencia detectados (por encima del rango ideal de 1 a 3 años).`,
+    };
+  }
+
+  const skillDefs = [
+    { id: "redaccion", kws: KEYWORDS.redaccion },
+    { id: "edicion", kws: KEYWORDS.edicion },
+    { id: "breaking", kws: KEYWORDS.breaking },
+    { id: "monitoreo", kws: KEYWORDS.monitoreo },
+    { id: "equipo", kws: KEYWORDS.equipo },
+  ];
+  let sumaSkills = 0;
+  skillDefs.forEach((s) => {
+    const ok = matchAny(norm, s.kws);
+    if (ok) sumaSkills += 1;
+    criteriosEval[s.id] = {
+      status: ok ? "cumple" : "no_cumple",
+      comentario: ok ? "Mencionado explícitamente en el CV." : "No se encontró mención explícita en el CV.",
+    };
+  });
+  score += (sumaSkills / skillDefs.length) * 20;
+
+  const inglesOk = matchAny(norm, KEYWORDS.ingles);
+  score += inglesOk ? 5 : 0;
+  criteriosEval.ingles = {
+    status: inglesOk ? "cumple" : "no_cumple",
+    comentario: inglesOk ? "Se menciona inglés en el CV." : "No se menciona inglés (habilidad deseable, no eliminatoria).",
+  };
+
+  if (salarioManual) {
+    const excedente = salarioManual / vacante.salarioOfrecido;
+    let salStatus;
+    if (excedente <= 1.05) {
+      salStatus = "cumple";
+      score += 5;
+    } else if (excedente <= 1.15) {
+      salStatus = "parcial";
+      score += 2;
+    } else {
+      salStatus = "no_cumple";
+      riesgos.push(
+        `Pretensión salarial de $${salarioManual.toLocaleString("es-MX")} MXN, ${Math.round(
+          (excedente - 1) * 100
+        )}% por encima del salario ofrecido ($${vacante.salarioOfrecido.toLocaleString("es-MX")} MXN).`
+      );
+    }
+    criteriosEval.salario = {
+      status: salStatus,
+      comentario: `Pretensión indicada: $${salarioManual.toLocaleString("es-MX")} MXN vs. $${vacante.salarioOfrecido.toLocaleString("es-MX")} MXN ofrecidos.`,
+    };
+  } else {
+    criteriosEval.salario = {
+      status: "parcial",
+      comentario: "Pretensión salarial no indicada (no suele venir en el CV); captúrala manualmente para evaluarla.",
+    };
+  }
+
+  const esBecario = matchAny(norm, KEYWORDS.becario);
+  const esCreadorRedes = matchAny(norm, KEYWORDS.creadorRedes);
+  const esBranded = matchAny(norm, KEYWORDS.brandedContent);
+  const esMedioPequeno = matchAny(norm, KEYWORDS.medioPequeno) && !mediosOk;
+
+  let descarte = false;
+  if (esBecario) {
+    descarte = true;
+    riesgos.unshift("Criterio de descarte: se detectó perfil de becario/practicante.");
+  }
+  if (esCreadorRedes) {
+    descarte = true;
+    riesgos.unshift("Criterio de descarte: perfil orientado a creación de contenido para redes (TikTok/YouTube).");
+  }
+  if (esBranded) {
+    descarte = true;
+    riesgos.unshift("Criterio de descarte: experiencia en branded content / contenido publicitario.");
+  }
+  if (esMedioPequeno) {
+    descarte = true;
+    riesgos.unshift("Criterio de descarte: experiencia limitada a medios estatales pequeños, Facebook o YouTube sin alcance nacional.");
+  }
+
+  let compatibilidad = Math.max(0, Math.min(100, Math.round(score)));
+  if (descarte) compatibilidad = Math.min(compatibilidad, 20);
+
+  let estado;
+  if (descarte) estado = "baja";
+  else if (compatibilidad >= 85) estado = "muy_recomendado";
+  else if (compatibilidad >= 70) estado = "recomendado";
+  else if (compatibilidad >= 50) estado = "revisar";
+  else estado = "baja";
+
+  const resumen = [
+    formacionStatus === "cumple" ? "Cuenta con la formación requerida." : "No se confirmó la formación requerida en el texto del CV.",
+    ubicacionOk ? "Reside en CDMX o zona conurbada." : "No se confirmó residencia en CDMX o zona conurbada.",
+    mediosOk ? "Tiene experiencia en medios de alcance nacional." : "No se detectó experiencia en medios de alcance nacional.",
+    descarte ? "Se detectó al menos un criterio de descarte para esta vacante." : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const recomendacion = descarte
+    ? "Este perfil cumple con uno o más criterios de descarte definidos para la vacante; no se recomienda continuar el proceso."
+    : estado === "muy_recomendado"
+    ? "Perfil altamente alineado con la vacante. Se recomienda avanzar a entrevista."
+    : estado === "recomendado"
+    ? "Buen encaje general con la vacante. Se recomienda considerar para entrevista."
+    : estado === "revisar"
+    ? "Encaje parcial o con datos insuficientes; conviene revisar manualmente antes de decidir."
+    : "El perfil se aleja de forma importante de los requisitos de la vacante.";
+
+  return {
+    id: `${fileName}-${norm.length}`,
+    nombre,
+    archivo: fileName,
+    compatibilidad,
+    estado,
+    resumen,
+    recomendacion,
+    riesgos,
+    criteriosEval,
+    salarioSolicitado: salarioManual || null,
+    experienciaAnios: anios,
+  };
+}
+
+/* ----------------------------------------------------------------------- */
+/* UI: PIEZAS PEQUEÑAS                                                      */
+/* ----------------------------------------------------------------------- */
+
+function EstadoBadge({ estado }) {
+  const cfg = ESTADOS[estado];
+  return (
+    <span className="ts-badge" style={{ color: cfg.color, backgroundColor: cfg.bg }}>
+      {cfg.label}
+    </span>
+  );
+}
+
+function CriterioIcon({ status }) {
+  if (status === "cumple") return <Icon name="check" size={16} style={{ color: "#1E8E5A" }} />;
+  if (status === "parcial") return <Icon name="alert" size={16} style={{ color: "#B4740E" }} />;
+  return <Icon name="xcircle" size={16} style={{ color: "#B3261E" }} />;
+}
+
+function ScanMeter({ value }) {
+  if (value === null) {
+    return <span className="ts-muted-sm">Sin datos</span>;
+  }
+  const cfg =
+    value >= 85 ? ESTADOS.muy_recomendado : value >= 70 ? ESTADOS.recomendado : value >= 50 ? ESTADOS.revisar : ESTADOS.baja;
+  return (
+    <div className="ts-meter-wrap">
+      <div className="ts-meter-track">
+        <div className="ts-meter-fill" style={{ width: `${value}%`, backgroundColor: cfg.color }} />
+      </div>
+      <span className="ts-meter-value" style={{ color: cfg.color }}>
+        {value}%
+      </span>
+    </div>
+  );
+}
+
+function Stepper({ step }) {
+  const steps = [
+    { n: 1, label: "Vacante" },
+    { n: 2, label: "Candidatos" },
+    { n: 3, label: "Resultados" },
+  ];
+  return (
+    <div className="ts-stepper">
+      {steps.map((s, i) => (
+        <React.Fragment key={s.n}>
+          <div className="ts-step">
+            <div className={`ts-step-circle ${step === s.n ? "is-active" : step > s.n ? "is-done" : ""}`}>
+              {step > s.n ? <Icon name="check" size={16} /> : s.n}
+            </div>
+            <span className={`ts-step-label ${step === s.n ? "is-active" : ""}`}>{s.label}</span>
+          </div>
+          {i < steps.length - 1 && <div className={`ts-step-line ${step > s.n ? "is-done" : ""}`} />}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
+/* ----------------------------------------------------------------------- */
+/* UI: PASO 1 — VACANTE                                                    */
+/* ----------------------------------------------------------------------- */
+
+function PasoVacante({ vacante, setVacante, onNext }) {
+  return (
+    <div className="ts-fade-in">
+      <div className="ts-card ts-card--hero">
+        <div className="ts-eyebrow">
+          <Icon name="briefcase" size={14} />
+          <span>Vacante activa</span>
+        </div>
+        <h2 className="ts-h2">{vacante.titulo}</h2>
+        <p className="ts-muted" style={{ maxWidth: 560 }}>
+          En esta primera versión, Talent Scan trabaja con una sola vacante para validar el flujo completo.
+          Los criterios abajo son los que se usan para evaluar a cada candidato.
+        </p>
+      </div>
+
+      <div className="ts-grid-2" style={{ marginTop: 20 }}>
+        <div className="ts-card">
+          <div className="ts-card-title">
+            <Icon name="grad" size={16} /> Formación obligatoria
+          </div>
+          <ul className="ts-list">
+            {vacante.formacionObligatoria.map((f) => (
+              <li key={f}>{f}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="ts-card">
+          <div className="ts-card-title">
+            <Icon name="pin" size={16} /> Ubicación
+          </div>
+          <p className="ts-body">{vacante.ubicacion}</p>
+        </div>
+
+        <div className="ts-card">
+          <div className="ts-card-title">
+            <Icon name="users" size={16} /> Experiencia ideal
+          </div>
+          <p className="ts-body">{vacante.experienciaIdeal}</p>
+          <div className="ts-chip-row" style={{ marginTop: 10 }}>
+            {vacante.mediosNacionales.map((m) => (
+              <span className="ts-chip" key={m}>
+                {m}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="ts-card">
+          <div className="ts-card-title">
+            <Icon name="sparkles" size={16} /> Habilidades importantes
+          </div>
+          <div className="ts-chip-row">
+            {vacante.habilidades.map((h) => (
+              <span className="ts-chip" key={h}>
+                {h}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="ts-card">
+          <div className="ts-card-title">
+            <Icon name="wallet" size={16} /> Salario ofrecido
+          </div>
+          <div className="ts-salario-input">
+            <span>$</span>
+            <input
+              type="number"
+              value={vacante.salarioOfrecido}
+              min={0}
+              step={500}
+              onChange={(e) => setVacante((v) => ({ ...v, salarioOfrecido: Number(e.target.value) || 0 }))}
+            />
+            <span className="ts-muted-sm">MXN / mes</span>
+          </div>
+        </div>
+
+        <div className="ts-card">
+          <div className="ts-card-title">
+            <Icon name="shield" size={16} /> No relevante para esta vacante
+          </div>
+          <p className="ts-body ts-muted">{vacante.noRelevante}</p>
+        </div>
+
+        <div className="ts-card" style={{ gridColumn: "1 / -1", borderColor: "#F0D9D6" }}>
+          <div className="ts-card-title" style={{ color: "#B3261E" }}>
+            <Icon name="ban" size={16} /> Criterios de descarte
+          </div>
+          <ul className="ts-list">
+            {vacante.criteriosDescarte.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="ts-actions-right">
+        <button className="ts-btn ts-btn--primary" onClick={onNext}>
+          Continuar a subir CVs <Icon name="arrowright" size={16} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ----------------------------------------------------------------------- */
+/* UI: PASO 2 — SUBIR CVs                                                  */
+/* ----------------------------------------------------------------------- */
+
+function PasoCandidatos({ files, setFiles, salarios, setSalarios, onBack, onAnalyze, isAnalyzing, progress, pdfStatus }) {
+  const [isDragging, setIsDragging] = useState(false);
+
+  const addFiles = useCallback(
+    (fileList) => {
+      const nuevos = Array.from(fileList).filter((f) => f.type === "application/pdf" || f.name.toLowerCase().endsWith(".pdf"));
+      setFiles((prev) => {
+        const existentes = new Set(prev.map((f) => f.name + f.size));
+        const filtrados = nuevos.filter((f) => !existentes.has(f.name + f.size));
+        return [...prev, ...filtrados];
+      });
+    },
+    [setFiles]
+  );
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    if (e.dataTransfer.files?.length) addFiles(e.dataTransfer.files);
+  };
+
+  const removeFile = (idx) => setFiles((prev) => prev.filter((_, i) => i !== idx));
+
+  return (
+    <div className="ts-fade-in">
+      <div className="ts-card">
+        <div className="ts-card-title">
+          <Icon name="upload" size={16} /> Sube los CVs en PDF de los candidatos
+        </div>
+
+        <div
+          className={`ts-dropzone ${isDragging ? "is-dragging" : ""}`}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setIsDragging(true);
+          }}
+          onDragLeave={() => setIsDragging(false)}
+          onDrop={handleDrop}
+          onClick={() => document.getElementById("ts-file-input").click()}
+        >
+          <Icon name="upload" size={28} style={{ opacity: 0.55 }} />
+          <p className="ts-body" style={{ margin: "8px 0 2px" }}>
+            Arrastra los archivos aquí o haz clic para seleccionarlos
+          </p>
+          <p className="ts-muted-sm">Solo PDF con texto seleccionable · puedes subir varios a la vez</p>
+          <input
+            id="ts-file-input"
+            type="file"
+            accept="application/pdf"
+            multiple
+            style={{ display: "none" }}
+            onChange={(e) => e.target.files && addFiles(e.target.files)}
+          />
+        </div>
+
+        {files.length > 0 && (
+          <div className="ts-file-list">
+            {files.map((f, i) => {
+              const key = f.name + f.size;
+              return (
+                <div className="ts-file-row" key={key}>
+                  <Icon name="filetext" size={16} style={{ opacity: 0.6, flexShrink: 0 }} />
+                  <span className="ts-file-name">{f.name}</span>
+                  <span className="ts-muted-sm">{(f.size / 1024).toFixed(0)} KB</span>
+                  <div className="ts-salario-mini">
+                    <span className="ts-muted-sm">Pretensión $</span>
+                    <input
+                      type="number"
+                      placeholder="opcional"
+                      value={salarios[key] || ""}
+                      onChange={(e) =>
+                        setSalarios((prev) => ({ ...prev, [key]: e.target.value ? Number(e.target.value) : undefined }))
+                      }
+                    />
+                  </div>
+                  <button className="ts-icon-btn" onClick={() => removeFile(i)} aria-label={`Quitar ${f.name}`}>
+                    <Icon name="x" size={14} />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {pdfStatus === "error" && (
+          <div className="ts-notice ts-notice--warn">
+            No se pudo cargar el lector de PDF (revisa tu conexión a internet), así que no es posible analizar
+            automáticamente. Puedes reintentar recargando la página.
+          </div>
+        )}
+
+        {isAnalyzing && (
+          <div style={{ marginTop: 16 }}>
+            <div className="ts-progress-track">
+              <div className="ts-progress-fill" style={{ width: `${progress}%` }} />
+            </div>
+            <p className="ts-muted-sm" style={{ marginTop: 6 }}>
+              Leyendo y analizando candidatos contra el perfil de Editor Web… {progress}%
+            </p>
+          </div>
+        )}
+      </div>
+
+      <div className="ts-actions-between">
+        <button className="ts-btn ts-btn--ghost" onClick={onBack} disabled={isAnalyzing}>
+          <Icon name="arrowleft" size={16} /> Volver a la vacante
+        </button>
+        <button
+          className="ts-btn ts-btn--primary"
+          onClick={onAnalyze}
+          disabled={files.length === 0 || isAnalyzing || pdfStatus !== "listo"}
+        >
+          {pdfStatus === "cargando" ? (
+            <>
+              <Icon name="loader" size={16} style={{ animation: "tsSpin 0.9s linear infinite" }} /> Cargando lector de PDF…
+            </>
+          ) : (
+            <>
+              <Icon name="scan" size={16} />
+              {isAnalyzing ? "Analizando…" : `Analizar ${files.length || ""} candidato${files.length === 1 ? "" : "s"}`}
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ----------------------------------------------------------------------- */
+/* UI: PASO 3 — RESULTADOS                                                 */
+/* ----------------------------------------------------------------------- */
+
+function DetalleCandidato({ candidato }) {
+  if (candidato.sinTexto) {
+    return (
+      <div className="ts-detalle">
+        <div className="ts-detalle-col" style={{ gridColumn: "1 / -1" }}>
+          <p className="ts-body">{candidato.resumen}</p>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="ts-detalle">
+      <div className="ts-detalle-col">
+        <div className="ts-detalle-heading">Evaluación por criterio</div>
+        <div className="ts-criterios">
+          {CRITERIOS.map((c) => {
+            const ev = candidato.criteriosEval[c.id];
+            if (!ev) return null;
+            return (
+              <div className="ts-criterio-row" key={c.id}>
+                <CriterioIcon status={ev.status} />
+                <div>
+                  <div className="ts-criterio-label">{c.label}</div>
+                  <div className="ts-muted-sm">{ev.comentario}</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="ts-detalle-col">
+        <div className="ts-detalle-heading">Riesgos detectados</div>
+        {candidato.riesgos.length === 0 ? (
+          <p className="ts-muted-sm">No se detectaron riesgos relevantes.</p>
+        ) : (
+          <ul className="ts-riesgos">
+            {candidato.riesgos.map((r, i) => (
+              <li key={i}>
+                <Icon name="alert" size={14} style={{ color: "#B4740E", flexShrink: 0, marginTop: 2 }} />
+                <span>{r}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <div className="ts-detalle-heading" style={{ marginTop: 18 }}>
+          Recomendación final
+        </div>
+        <p className="ts-body">{candidato.recomendacion}</p>
+      </div>
+    </div>
+  );
+}
+
+function CandidatoCard({ candidato, expanded, onToggle }) {
+  return (
+    <div className="ts-card ts-candidato-card">
+      <button className="ts-candidato-header" onClick={onToggle}>
+        <div className="ts-candidato-main">
+          <div className="ts-avatar">{candidato.nombre.charAt(0)}</div>
+          <div>
+            <div className="ts-candidato-nombre">{candidato.nombre}</div>
+            <div className="ts-muted-sm">{candidato.archivo}</div>
+          </div>
+        </div>
+
+        <div className="ts-candidato-right">
+          <EstadoBadge estado={candidato.estado} />
+          <ScanMeter value={candidato.compatibilidad} />
+          {expanded ? <Icon name="chevrondown" size={18} /> : <Icon name="chevronright" size={18} />}
+        </div>
+      </button>
+
+      <p className="ts-body ts-resumen">{candidato.resumen}</p>
+
+      {expanded && <DetalleCandidato candidato={candidato} />}
+    </div>
+  );
+}
+
+function PasoResultados({ candidatos, onBack, onReiniciar }) {
+  const [filtro, setFiltro] = useState("todos");
+  const [expandedId, setExpandedId] = useState(null);
+
+  const filtrados = useMemo(() => {
+    const base = filtro === "todos" ? candidatos : candidatos.filter((c) => c.estado === filtro);
+    return [...base].sort((a, b) => (b.compatibilidad ?? -1) - (a.compatibilidad ?? -1));
+  }, [candidatos, filtro]);
+
+  const conteos = useMemo(() => {
+    const c = { muy_recomendado: 0, recomendado: 0, revisar: 0, baja: 0 };
+    candidatos.forEach((cand) => (c[cand.estado] += 1));
+    return c;
+  }, [candidatos]);
+
+  return (
+    <div className="ts-fade-in">
+      <div className="ts-resultados-header">
+        <div>
+          <h2 className="ts-h2" style={{ marginBottom: 2 }}>
+            Ranking de candidatos
+          </h2>
+          <p className="ts-muted-sm">
+            {candidatos.length} candidato{candidatos.length === 1 ? "" : "s"} evaluado
+            {candidatos.length === 1 ? "" : "s"} contra el perfil de Editor Web
+          </p>
+        </div>
+        <button className="ts-btn ts-btn--ghost" onClick={onReiniciar}>
+          Nuevo análisis
+        </button>
+      </div>
+
+      <div className="ts-filtros">
+        <Icon name="sliders" size={14} style={{ opacity: 0.5 }} />
+        {[
+          { id: "todos", label: `Todos (${candidatos.length})` },
+          { id: "muy_recomendado", label: `Muy recomendado (${conteos.muy_recomendado})` },
+          { id: "recomendado", label: `Recomendado (${conteos.recomendado})` },
+          { id: "revisar", label: `Revisar (${conteos.revisar})` },
+          { id: "baja", label: `Baja compatibilidad (${conteos.baja})` },
+        ].map((f) => (
+          <button key={f.id} className={`ts-filtro-chip ${filtro === f.id ? "is-active" : ""}`} onClick={() => setFiltro(f.id)}>
+            {f.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="ts-candidatos-list">
+        {filtrados.map((c) => (
+          <CandidatoCard
+            key={c.id}
+            candidato={c}
+            expanded={expandedId === c.id}
+            onToggle={() => setExpandedId(expandedId === c.id ? null : c.id)}
+          />
+        ))}
+        {filtrados.length === 0 && (
+          <div className="ts-card" style={{ textAlign: "center", color: "var(--ts-muted)" }}>
+            No hay candidatos en este filtro.
+          </div>
+        )}
+      </div>
+
+      <div className="ts-actions-left">
+        <button className="ts-btn ts-btn--ghost" onClick={onBack}>
+          <Icon name="arrowleft" size={16} /> Volver a candidatos
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ----------------------------------------------------------------------- */
+/* APP PRINCIPAL                                                           */
+/* ----------------------------------------------------------------------- */
+
+function TalentScan() {
+  const [step, setStep] = useState(1);
+  const [vacante, setVacante] = useState(VACANTE_EDITOR_WEB);
+  const [files, setFiles] = useState([]);
+  const [salarios, setSalarios] = useState({});
+  const [candidatos, setCandidatos] = useState([]);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const pdfStatus = usePdfJs();
+
+  const analizar = async () => {
+    setIsAnalyzing(true);
+    setProgress(0);
+    const resultados = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const f = files[i];
+      const key = f.name + f.size;
+      try {
+        const texto = await extraerTextoPDF(f);
+        resultados.push(
+          analizarCandidatoPorCoincidencias({
+            textoOriginal: texto,
+            fileName: f.name,
+            vacante,
+            salarioManual: salarios[key],
+          })
+        );
+      } catch (e) {
+        resultados.push(
+          analizarCandidatoPorCoincidencias({
+            textoOriginal: "",
+            fileName: f.name,
+            vacante,
+            salarioManual: salarios[key],
+          })
+        );
+      }
+      setProgress(Math.round(((i + 1) / files.length) * 100));
+    }
+
+    setCandidatos(resultados);
+    setIsAnalyzing(false);
+    setStep(3);
+  };
+
+  const reiniciar = () => {
+    setFiles([]);
+    setSalarios({});
+    setCandidatos([]);
+    setStep(2);
+  };
+
+  return (
+    <div className="ts-root">
+      <div className="ts-shell">
+        <div className="ts-brand">
+          <div className="ts-brand-icon">
+            <Icon name="scan" size={19} />
+          </div>
+          <div>
+            <div className="ts-brand-name">Talent Scan</div>
+            <div className="ts-brand-tag">Preselección de candidatos — apoyo a la decisión de RH</div>
+          </div>
+        </div>
+
+        <Stepper step={step} />
+
+        {step === 1 && <PasoVacante vacante={vacante} setVacante={setVacante} onNext={() => setStep(2)} />}
+
+        {step === 2 && (
+          <PasoCandidatos
+            files={files}
+            setFiles={setFiles}
+            salarios={salarios}
+            setSalarios={setSalarios}
+            onBack={() => setStep(1)}
+            onAnalyze={analizar}
+            isAnalyzing={isAnalyzing}
+            progress={progress}
+            pdfStatus={pdfStatus}
+          />
+        )}
+
+        {step === 3 && <PasoResultados candidatos={candidatos} onBack={() => setStep(2)} onReiniciar={reiniciar} />}
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<TalentScan />);
+
+/**
+ * ============================================================================
+ * NOTA: CÓMO CONECTAR IA REAL MÁS ADELANTE (fase 2)
+ * ============================================================================
+ * El único bloque que cambiaría es el `for` dentro de `analizar()`: en vez
+ * de extraer texto con PDF.js y correr el motor de coincidencias, se manda
+ * el PDF (en base64) directo a la API de Claude como bloque tipo
+ * "document", junto con el perfil de la vacante en el prompt, pidiendo un
+ * JSON con la misma forma que ya regresa la función de coincidencias
+ * (compatibilidad, estado, resumen, riesgos, criteriosEval, recomendacion).
+ * Ventaja: Claude lee el PDF directamente, sin PDF.js ni listas de
+ * palabras clave, y entiende sinónimos y contexto que este motor no capta.
+ * ============================================================================
+ */
+</script>
+</body>
+</html>
