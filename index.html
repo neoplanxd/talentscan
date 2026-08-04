@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Talent Scan</title>
+<title>Talent Scan REFORMA</title>
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
@@ -25,18 +25,22 @@
     font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     padding: 32px 24px 64px;
   }
-  .ts-shell { max-width: 880px; margin: 0 auto; }
+  .ts-shell { max-width: 900px; margin: 0 auto; }
 
-  .ts-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+  .ts-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
   .ts-brand-icon {
-    width: 36px; height: 36px; border-radius: 10px;
+    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
     background: var(--ts-primary); color: white;
     display: flex; align-items: center; justify-content: center;
   }
-  .ts-brand-name { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; }
-  .ts-brand-tag { font-size: 12px; color: var(--ts-muted); margin-top: -2px; }
+  .ts-brand-name { font-size: 27px; font-weight: 800; letter-spacing: -0.02em; display: flex; align-items: baseline; gap: 9px; line-height: 1; }
+  .ts-brand-org { font-size: 15px; font-weight: 700; color: var(--ts-primary); letter-spacing: 0.03em; }
+  .ts-version-badge {
+    display: inline-block; margin-top: 6px; font-size: 10.5px; font-weight: 700; color: var(--ts-muted);
+    background: var(--ts-surface); border: 1px solid var(--ts-border); padding: 2px 9px; border-radius: 999px;
+  }
 
-  .ts-stepper { display: flex; align-items: center; gap: 8px; margin-bottom: 32px; }
+  .ts-stepper { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
   .ts-step { display: flex; align-items: center; gap: 8px; }
   .ts-step-circle {
     width: 26px; height: 26px; border-radius: 999px;
@@ -50,6 +54,13 @@
   .ts-step-label.is-active { color: var(--ts-ink); font-weight: 700; }
   .ts-step-line { width: 40px; height: 1.5px; background: var(--ts-border); }
   .ts-step-line.is-done { background: var(--ts-primary); }
+
+  .ts-vacante-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .ts-vacante-chip {
+    font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 10px;
+    border: 1.5px solid var(--ts-border); background: var(--ts-surface); color: var(--ts-muted); cursor: pointer;
+  }
+  .ts-vacante-chip.is-active { border-color: var(--ts-primary); background: var(--ts-primary-soft); color: var(--ts-primary); }
 
   .ts-fade-in { animation: tsFadeIn 0.25s ease; }
   @keyframes tsFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
@@ -79,20 +90,8 @@
   .ts-muted-sm { font-size: 12px; color: var(--ts-muted); }
   .ts-list { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.7; }
   .ts-chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
-  .ts-chip {
-    font-size: 12.5px; font-weight: 600; padding: 5px 12px; border-radius: 999px;
-    background: var(--ts-primary-soft); color: var(--ts-primary);
-  }
-  .ts-salario-input {
-    display: flex; align-items: baseline; gap: 6px;
-    font-size: 22px; font-weight: 700; font-family: ui-monospace, "SF Mono", monospace;
-  }
-  .ts-salario-input input {
-    border: none; border-bottom: 2px solid var(--ts-border); background: transparent;
-    font: inherit; width: 130px; padding: 2px 0; color: var(--ts-ink);
-  }
-  .ts-salario-input input:focus { outline: none; border-color: var(--ts-primary); }
-  .ts-salario-input .ts-muted-sm { font-family: ui-sans-serif, sans-serif; font-weight: 500; }
+  .ts-chip { font-size: 12.5px; font-weight: 600; padding: 5px 12px; border-radius: 999px; background: var(--ts-primary-soft); color: var(--ts-primary); }
+  .ts-chip--soft { background: var(--ts-bg); color: var(--ts-muted); }
 
   .ts-actions-right { display: flex; justify-content: flex-end; margin-top: 22px; }
   .ts-actions-left { display: flex; justify-content: flex-start; margin-top: 22px; }
@@ -114,29 +113,16 @@
     margin-top: 4px; border: 1.5px dashed var(--ts-border); border-radius: 14px;
     padding: 30px 20px; text-align: center; cursor: pointer; transition: all 0.15s;
   }
-  .ts-dropzone:hover, .ts-dropzone.is-dragging {
-    border-color: var(--ts-primary); background: var(--ts-primary-soft);
-  }
+  .ts-dropzone:hover, .ts-dropzone.is-dragging { border-color: var(--ts-primary); background: var(--ts-primary-soft); }
   .ts-file-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
-  .ts-file-row {
-    display: flex; align-items: center; gap: 10px; padding: 8px 10px;
-    background: var(--ts-bg); border-radius: 8px; font-size: 13px;
-  }
+  .ts-file-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--ts-bg); border-radius: 8px; font-size: 13px; }
   .ts-file-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .ts-salario-mini { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
-  .ts-salario-mini input {
-    width: 76px; border: 1px solid var(--ts-border); border-radius: 6px;
-    padding: 3px 6px; font-size: 12.5px; background: var(--ts-surface);
-  }
-  .ts-icon-btn {
-    border: none; background: transparent; cursor: pointer; color: var(--ts-muted);
-    display: flex; align-items: center; padding: 4px; border-radius: 6px; flex-shrink: 0;
-  }
+  .ts-salario-mini input { width: 76px; border: 1px solid var(--ts-border); border-radius: 6px; padding: 3px 6px; font-size: 12.5px; background: var(--ts-surface); }
+  .ts-icon-btn { border: none; background: transparent; cursor: pointer; color: var(--ts-muted); display: flex; align-items: center; padding: 4px; border-radius: 6px; flex-shrink: 0; }
   .ts-icon-btn:hover { background: var(--ts-border); color: var(--ts-ink); }
 
-  .ts-notice {
-    margin-top: 14px; padding: 10px 14px; border-radius: 10px; font-size: 12.5px; line-height: 1.5;
-  }
+  .ts-notice { margin-top: 14px; padding: 10px 14px; border-radius: 10px; font-size: 12.5px; line-height: 1.5; }
   .ts-notice--warn { background: #FCF1DD; color: #7A5209; }
 
   .ts-progress-track { height: 6px; border-radius: 999px; background: var(--ts-border); overflow: hidden; }
@@ -144,24 +130,14 @@
 
   .ts-resultados-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
   .ts-filtros { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
-  .ts-filtro-chip {
-    font-size: 12.5px; font-weight: 600; padding: 7px 13px; border-radius: 999px;
-    border: 1px solid var(--ts-border); background: var(--ts-surface); color: var(--ts-muted); cursor: pointer;
-  }
+  .ts-filtro-chip { font-size: 12.5px; font-weight: 600; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--ts-border); background: var(--ts-surface); color: var(--ts-muted); cursor: pointer; }
   .ts-filtro-chip.is-active { background: var(--ts-ink); border-color: var(--ts-ink); color: white; }
 
   .ts-candidatos-list { display: flex; flex-direction: column; gap: 12px; }
   .ts-candidato-card { padding: 16px 18px; }
-  .ts-candidato-header {
-    width: 100%; display: flex; justify-content: space-between; align-items: center;
-    background: none; border: none; cursor: pointer; padding: 0; font: inherit; color: inherit;
-  }
+  .ts-candidato-header { width: 100%; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; padding: 0; font: inherit; color: inherit; }
   .ts-candidato-main { display: flex; align-items: center; gap: 12px; text-align: left; }
-  .ts-avatar {
-    width: 38px; height: 38px; border-radius: 10px; background: var(--ts-primary-soft);
-    color: var(--ts-primary); display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 15px; flex-shrink: 0;
-  }
+  .ts-avatar { width: 38px; height: 38px; border-radius: 10px; background: var(--ts-primary-soft); color: var(--ts-primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; flex-shrink: 0; }
   .ts-candidato-nombre { font-weight: 700; font-size: 14.5px; }
   .ts-candidato-right { display: flex; align-items: center; gap: 14px; }
   .ts-resumen { margin-top: 12px; color: var(--ts-muted); }
@@ -173,10 +149,7 @@
   .ts-meter-fill { height: 100%; border-radius: 999px; transition: width 0.6s ease; }
   .ts-meter-value { font-family: ui-monospace, "SF Mono", monospace; font-weight: 700; font-size: 13px; width: 38px; }
 
-  .ts-detalle {
-    margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--ts-border);
-    display: grid; grid-template-columns: 1.2fr 1fr; gap: 26px;
-  }
+  .ts-detalle { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--ts-border); display: grid; grid-template-columns: 1.2fr 1fr; gap: 26px; }
   @media (max-width: 640px) { .ts-detalle { grid-template-columns: 1fr; } }
   .ts-detalle-heading { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--ts-muted); margin-bottom: 10px; }
   .ts-criterios { display: flex; flex-direction: column; gap: 10px; }
@@ -192,27 +165,24 @@
 <script type="text/babel">
 /**
  * ============================================================================
- * TALENT SCAN — MVP v2 (build standalone, sin herramientas de compilación)
+ * TALENT SCAN REFORMA — index.html (vista para RH, SOLO LECTURA)
  * ============================================================================
- * Este archivo es UN SOLO .html que funciona abriéndolo directo en el
- * navegador o subiéndolo a la intranet. No necesita Node, npm, ni build:
- *   - React / ReactDOM / Babel se cargan desde CDN (unpkg) como <script>.
- *   - Babel transpila el JSX de este mismo archivo EN el navegador, al
- *     vuelo, cada vez que se abre la página (por eso el <script type=
- *     "text/babel"> en vez de "text/javascript").
- *   - Los íconos son SVGs propios (abajo, componente <Icon>) para no
- *     depender de ningún paquete de npm.
+ * Esta versión NO tiene panel de edición. Los criterios de cada vacante se
+ * cargan desde vacantes.json (mismo folder). Para editar vacantes o agregar
+ * nuevas, se usa la herramienta separada `vacantes-editor.html` — esa nunca
+ * se sube a producción, es de uso interno.
  *
- * MOTOR DE ANÁLISIS ACTUAL — "POR COINCIDENCIAS" (sin IA):
- * Extrae el texto real de cada PDF con PDF.js, busca coincidencias de
- * palabras clave por criterio y calcula un puntaje ponderado. Los
- * "criterios de descarte" (becario, creador de redes, branded content,
- * medios sin alcance nacional) son banderas duras: si aparecen, el
- * candidato cae a "Baja compatibilidad" sin importar el resto del puntaje.
+ * Si vacantes.json no existe o falla la carga, se usan los datos por
+ * defecto (VACANTES_INICIALES) definidos abajo, para que la app nunca se
+ * quede sin funcionar.
  *
- * FASE 2 — IA real: ver nota al final de este archivo.
+ * VERSIONADO: v0.1, v0.2, v0.3... hasta v0.9, luego v1.0. Después de v1.9,
+ * v2.0, y así. Súbelo a mano en la constante VERSION cada vez que subas un
+ * cambio relevante.
  * ============================================================================
  */
+
+const VERSION = "0.2";
 
 const { useState, useCallback, useMemo, useEffect } = React;
 
@@ -271,49 +241,77 @@ function Icon({ name, size = 16, style }) {
 }
 
 /* ----------------------------------------------------------------------- */
-/* DATOS DE LA VACANTE (MVP: única vacante, fija)                          */
+/* DATOS POR DEFECTO — se usan si vacantes.json no carga                   */
 /* ----------------------------------------------------------------------- */
 
-const VACANTE_EDITOR_WEB = {
-  titulo: "Editor Web",
-  formacionObligatoria: [
-    "Licenciatura en Periodismo",
-    "Licenciatura en Ciencias de la Comunicación",
-  ],
-  experienciaIdeal: "1 a 3 años como Editor Web, en medios digitales nacionales",
-  ubicacion: "Residir en CDMX o zona conurbada",
-  mediosNacionales: ["El Universal", "Excelsior", "Milenio", "N+", "Infobae", "Animal Político"],
-  habilidades: [
-    "Redacción",
-    "Edición",
-    "Breaking News",
-    "Monitoreo de información",
-    "Inglés (deseable)",
-    "Trabajo en equipo",
-  ],
-  noRelevante: "Experiencia con WordPress o CMS comerciales (la empresa usa CMS propio)",
-  criteriosDescarte: [
-    "Becarios o practicantes en medios",
-    "Creadores de contenido para TikTok, YouTube u otras redes",
-    "Perfiles enfocados en branded content o contenidos publicitarios",
-    "Experiencia limitada a medios estatales pequeños, páginas de Facebook o canales de YouTube sin alcance nacional",
-  ],
-  salarioOfrecido: 20000,
+const UBICACION_KEYWORDS = [
+  "ciudad de mexico", "cdmx", "estado de mexico", "edomex", "zona metropolitana",
+  "zona conurbada", "naucalpan", "ecatepec", "nezahualcoyotl", "tlalnepantla",
+  "atizapan", "cuautitlan", "huixquilucan", "chalco", "chimalhuacan",
+  "coacalco", "tultitlan", "los reyes la paz",
+];
+
+const ICONOS_CATEGORIA = {
+  formacion: "grad", ubicacion: "pin", experiencia: "users", salario: "wallet",
+  habilidad_indispensable: "sparkles", habilidad_deseable: "sparkles", descarte: "ban",
 };
 
-const CRITERIOS = [
-  { id: "formacion", label: "Formación académica" },
-  { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)" },
-  { id: "medios", label: "Medios de alcance nacional" },
-  { id: "experiencia", label: "Experiencia como Editor Web" },
-  { id: "redaccion", label: "Redacción" },
-  { id: "edicion", label: "Edición" },
-  { id: "breaking", label: "Breaking News" },
-  { id: "monitoreo", label: "Monitoreo de información" },
-  { id: "ingles", label: "Inglés (deseable)" },
-  { id: "equipo", label: "Trabajo en equipo" },
-  { id: "salario", label: "Compatibilidad salarial" },
-];
+const VACANTES_INICIALES = {
+  editor_web: {
+    id: "editor_web", titulo: "Editor Web",
+    resumenCorto: "Redacción y edición para medios digitales de alcance nacional.",
+    salarioOfrecido: 20000,
+    perfil: { requisitosAdicionales: [] },
+    criterios: [
+      { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "formacion", peso: 25, pesoParcial: 12, pesoNoCumple: 4, keywords: ["periodismo", "ciencias de la comunicacion"], keywordsParcial: ["comunicacion"] },
+      { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "ubicacion", peso: 15, pesoNoCumple: 0, keywords: UBICACION_KEYWORDS },
+      { id: "medios", label: "Medios de alcance nacional", tipo: "keyword", categoria: "habilidad_indispensable", peso: 15, pesoNoCumple: 3, keywords: ["el universal", "excelsior", "milenio", "n+", "nmas", "infobae", "animal politico", "medio nacional", "alcance nacional"] },
+      { id: "experiencia", label: "Experiencia como Editor Web", tipo: "anios", categoria: "experiencia", peso: 15, anioMin: 1, anioMax: 3 },
+      { id: "redaccion", label: "Redacción", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["redaccion"] },
+      { id: "edicion", label: "Edición", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["edicion"] },
+      { id: "breaking", label: "Breaking News", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["breaking news", "ultima hora", "noticia de ultimo momento", "noticias de ultimo momento"] },
+      { id: "monitoreo", label: "Monitoreo de información", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["monitoreo de informacion", "monitoreo de medios", "monitoreo"] },
+      { id: "equipo", label: "Trabajo en equipo", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["trabajo en equipo", "trabajo colaborativo"] },
+      { id: "ingles", label: "Inglés", tipo: "keyword", categoria: "habilidad_deseable", peso: 5, keywords: ["ingles"] },
+      { id: "salario", label: "Compatibilidad salarial", tipo: "salario", categoria: "salario", peso: 5 },
+      { id: "becario", label: "Becario/practicante", tipo: "keyword", categoria: "descarte", soloDescarte: true, keywords: ["becario", "becaria", "practicante", "practicas profesionales", "servicio social"], descarteSi: "cumple", descarteMensaje: "Criterio de descarte: se detectó perfil de becario/practicante." },
+      { id: "creadorRedes", label: "Creador de contenido para redes", tipo: "keyword", categoria: "descarte", soloDescarte: true, keywords: ["tiktoker", "tik toker", "youtuber", "content creator", "creador de contenido", "influencer"], descarteSi: "cumple", descarteMensaje: "Criterio de descarte: perfil orientado a creación de contenido para redes (TikTok/YouTube)." },
+      { id: "brandedContent", label: "Branded content", tipo: "keyword", categoria: "descarte", soloDescarte: true, keywords: ["branded content", "contenido patrocinado", "publirreportaje", "contenido publicitario"], descarteSi: "cumple", descarteMensaje: "Criterio de descarte: experiencia en branded content / contenido publicitario." },
+      { id: "medioPequeno", label: "Medio sin alcance nacional", tipo: "keyword", categoria: "descarte", soloDescarte: true, keywords: ["pagina de facebook", "canal de youtube", "periodico local", "periodico estatal", "medio estatal"], descarteSi: "cumple", anularSiCumpleId: "medios", descarteMensaje: "Criterio de descarte: experiencia limitada a medios estatales pequeños, Facebook o YouTube sin alcance nacional." },
+    ],
+  },
+  disenador_digital: {
+    id: "disenador_digital", titulo: "Diseñador Digital",
+    resumenCorto: "Diseño gráfico y digital para plataformas y contenido de marca.",
+    salarioOfrecido: 18000,
+    perfil: { requisitosAdicionales: ["Disponibilidad para laborar de 16:00 horas al cierre (promedio 1:30 a.m.)", "Descansos entre semana"] },
+    criterios: [
+      { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "formacion", peso: 20, pesoParcial: 10, pesoNoCumple: 4, keywords: ["diseno grafico", "diseno digital", "diseno multimedia"], keywordsParcial: ["diseno"] },
+      { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "ubicacion", peso: 10, pesoNoCumple: 0, keywords: UBICACION_KEYWORDS, descarteSi: "no_cumple", descarteMensaje: "Criterio de descarte: no se identificó residencia en CDMX o zona conurbada." },
+      { id: "portafolio", label: "Liga a portafolio", tipo: "url", categoria: "habilidad_indispensable", peso: 10, pesoNoCumple: 0, keywords: ["portafolio", "portfolio", "behance", "dribbble"], descarteSi: "no_cumple", descarteMensaje: "Criterio de descarte: no se encontró liga a portafolio en el CV." },
+      { id: "experiencia", label: "Experiencia en diseño digital", tipo: "anios", categoria: "experiencia", peso: 15, anioMin: 1, anioMax: 3 },
+      { id: "illustrator", label: "Adobe Illustrator", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["illustrator"] },
+      { id: "photoshop", label: "Adobe Photoshop", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["photoshop"] },
+      { id: "figma", label: "Figma", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["figma"] },
+      { id: "disenoRedes", label: "Diseño para redes sociales", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["diseno para redes sociales", "contenido para redes sociales"] },
+      { id: "trabajoEquipo", label: "Trabajo en equipo", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["trabajo en equipo", "trabajo colaborativo"] },
+      { id: "organizacion", label: "Organización", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["organizacion", "organizado"] },
+      { id: "creatividad", label: "Creatividad", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["creatividad", "creativo"] },
+      { id: "atencionDetalle", label: "Atención al detalle", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["atencion al detalle", "atencion a detalle"] },
+      { id: "comunicacionEfectiva", label: "Comunicación efectiva", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["comunicacion efectiva", "buena comunicacion"] },
+      { id: "html", label: "HTML", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["html"] },
+      { id: "css", label: "CSS", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["css"] },
+      { id: "disenoWeb", label: "Diseño web", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["diseno web"] },
+      { id: "disenoResponsivo", label: "Diseño responsivo", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["diseno responsivo", "responsive"] },
+      { id: "uxui", label: "UX/UI", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["ux/ui", "ux ui", "experiencia de usuario", "interfaz de usuario"] },
+      { id: "cms", label: "CMS", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["cms", "wordpress"] },
+      { id: "indesign", label: "Adobe InDesign", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["indesign"] },
+      { id: "edicionVideo", label: "Edición de video", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["edicion de video", "edicion de videos"] },
+      { id: "motionGraphics", label: "Motion Graphics", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["motion graphics", "motion graphic"] },
+      { id: "areaNoRelacionada", label: "Área no relacionada con diseño", tipo: "areaNoRelacionada", categoria: "descarte", soloDescarte: true, keywords: ["administracion", "ventas", "logistica", "atencion a clientes", "call center", "recursos humanos", "contabilidad"], keywordsExcluyentes: ["diseno grafico", "diseno digital", "illustrator", "photoshop", "figma", "diseno web", "ux/ui", "ui/ux"], descarteMensaje: "Criterio de descarte: la experiencia detectada parece estar exclusivamente en áreas no relacionadas con diseño (administración, ventas, logística, etc.)." },
+    ],
+  },
+};
 
 const ESTADOS = {
   muy_recomendado: { label: "Muy recomendado", color: "#1E8E5A", bg: "#E7F6EE" },
@@ -323,79 +321,40 @@ const ESTADOS = {
 };
 
 /* ----------------------------------------------------------------------- */
-/* PALABRAS CLAVE POR CRITERIO                                             */
-/* ----------------------------------------------------------------------- */
-
-const KEYWORDS = {
-  periodismo: ["periodismo"],
-  cienciasComunicacion: ["ciencias de la comunicacion"],
-  comunicacionGeneral: ["comunicacion"],
-  ubicacion: [
-    "ciudad de mexico", "cdmx", "estado de mexico", "edomex", "zona metropolitana",
-    "zona conurbada", "naucalpan", "ecatepec", "nezahualcoyotl", "tlalnepantla",
-    "atizapan", "cuautitlan", "huixquilucan", "chalco", "chimalhuacan",
-    "coacalco", "tultitlan", "los reyes la paz",
-  ],
-  mediosNacionales: [
-    "el universal", "excelsior", "milenio", "n+", "nmas", "infobae",
-    "animal politico", "medio nacional", "alcance nacional",
-  ],
-  redaccion: ["redaccion"],
-  edicion: ["edicion"],
-  breaking: ["breaking news", "ultima hora", "noticia de ultimo momento", "noticias de ultimo momento"],
-  monitoreo: ["monitoreo de informacion", "monitoreo de medios", "monitoreo"],
-  ingles: ["ingles"],
-  equipo: ["trabajo en equipo", "trabajo colaborativo"],
-  becario: ["becario", "becaria", "practicante", "practicas profesionales", "servicio social"],
-  creadorRedes: ["tiktoker", "tik toker", "youtuber", "content creator", "creador de contenido", "influencer"],
-  brandedContent: ["branded content", "contenido patrocinado", "publirreportaje", "contenido publicitario"],
-  medioPequeno: ["pagina de facebook", "canal de youtube", "periodico local", "periodico estatal", "medio estatal"],
-};
-
-/* ----------------------------------------------------------------------- */
 /* UTILIDADES DE TEXTO                                                     */
 /* ----------------------------------------------------------------------- */
 
 function normalizar(str) {
-  return (str || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
+  return (str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
-
 function matchAny(text, keywords) {
-  return keywords.some((k) => text.includes(k));
+  return (keywords || []).some((k) => text.includes(k));
 }
-
 function nombreDesdeArchivo(fileName) {
   const sinExtension = fileName.replace(/\.[^/.]+$/, "");
   const limpio = sinExtension.replace(/[_\-]+/g, " ").replace(/\s+/g, " ").trim();
-  return limpio
-    .split(" ")
-    .map((w) => (w.length ? w[0].toUpperCase() + w.slice(1).toLowerCase() : w))
-    .join(" ");
+  return limpio.split(" ").map((w) => (w.length ? w[0].toUpperCase() + w.slice(1).toLowerCase() : w)).join(" ");
 }
-
 function extraerNombreProbable(textoOriginal, fileName) {
   const primeraLinea = (textoOriginal || "").split("\n").map((l) => l.trim()).find((l) => l.length > 0);
   if (primeraLinea && primeraLinea.length >= 4 && primeraLinea.length <= 45) {
     const palabras = primeraLinea.split(/\s+/);
-    const pareceNombre =
-      palabras.length >= 2 &&
-      palabras.length <= 4 &&
-      /^[A-Za-zÀ-ÿ.\s]+$/.test(primeraLinea) &&
-      !/curriculum|resume|cv\b/i.test(primeraLinea);
+    const pareceNombre = palabras.length >= 2 && palabras.length <= 4 && /^[A-Za-zÀ-ÿ.\s]+$/.test(primeraLinea) && !/curriculum|resume|cv\b/i.test(primeraLinea);
     if (pareceNombre) return primeraLinea;
   }
   return nombreDesdeArchivo(fileName);
 }
-
 function extraerAniosExperiencia(normText) {
   const matches = [...normText.matchAll(/(\d{1,2})\s*\+?\s*(?:anos|ano)\b/g)];
   if (!matches.length) return null;
   const nums = matches.map((m) => parseInt(m[1], 10)).filter((n) => n > 0 && n < 40);
   if (!nums.length) return null;
   return Math.max(...nums);
+}
+function comentarioGenerico(label, status) {
+  if (status === "cumple") return `Se detectó "${label}" en el texto del CV.`;
+  if (status === "parcial") return `Se encontró una coincidencia parcial relacionada con "${label}".`;
+  return `No se detectó "${label}" en el texto del CV.`;
 }
 
 /* ----------------------------------------------------------------------- */
@@ -406,12 +365,8 @@ const PDFJS_BASE = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174";
 
 function usePdfJs() {
   const [status, setStatus] = useState("cargando");
-
   useEffect(() => {
-    if (window.pdfjsLib) {
-      setStatus("listo");
-      return;
-    }
+    if (window.pdfjsLib) { setStatus("listo"); return; }
     const script = document.createElement("script");
     script.src = `${PDFJS_BASE}/pdf.min.js`;
     script.async = true;
@@ -421,14 +376,11 @@ function usePdfJs() {
         const blob = new Blob([workerCode], { type: "application/javascript" });
         window.pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(blob);
         setStatus("listo");
-      } catch (e) {
-        setStatus("error");
-      }
+      } catch (e) { setStatus("error"); }
     };
     script.onerror = () => setStatus("error");
     document.body.appendChild(script);
   }, []);
-
   return status;
 }
 
@@ -445,7 +397,7 @@ async function extraerTextoPDF(file) {
 }
 
 /* ----------------------------------------------------------------------- */
-/* MOTOR DE ANÁLISIS POR COINCIDENCIAS                                     */
+/* MOTOR DE ANÁLISIS GENÉRICO                                              */
 /* ----------------------------------------------------------------------- */
 
 function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, salarioManual }) {
@@ -454,19 +406,12 @@ function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, s
 
   if (!tieneTexto) {
     return {
-      id: fileName,
-      nombre: nombreDesdeArchivo(fileName),
-      archivo: fileName,
-      sinTexto: true,
-      compatibilidad: null,
-      estado: "revisar",
-      resumen:
-        "No fue posible extraer texto de este PDF (probablemente es un documento escaneado o basado en imágenes). Se necesita revisión manual.",
+      id: fileName, nombre: nombreDesdeArchivo(fileName), archivo: fileName, sinTexto: true,
+      compatibilidad: null, estado: "revisar",
+      resumen: "No fue posible extraer texto de este PDF (probablemente es un documento escaneado o basado en imágenes). Se necesita revisión manual.",
       recomendacion: "Revisión manual requerida: el sistema no pudo leer el contenido del archivo.",
-      riesgos: ["No se pudo extraer texto del PDF."],
-      criteriosEval: {},
-      salarioSolicitado: salarioManual || null,
-      experienciaAnios: null,
+      riesgos: ["No se pudo extraer texto del PDF."], criteriosEval: {},
+      salarioSolicitado: salarioManual || null, experienciaAnios: null,
     };
   }
 
@@ -474,148 +419,80 @@ function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, s
   const riesgos = [];
   const criteriosEval = {};
   let score = 0;
-
-  let formacionStatus;
-  if (matchAny(norm, KEYWORDS.periodismo) || matchAny(norm, KEYWORDS.cienciasComunicacion)) {
-    formacionStatus = "cumple";
-    score += 25;
-  } else if (matchAny(norm, KEYWORDS.comunicacionGeneral)) {
-    formacionStatus = "parcial";
-    score += 12;
-  } else {
-    formacionStatus = "no_cumple";
-    score += 4;
-    riesgos.push("No se encontró evidencia de Licenciatura en Periodismo o Ciencias de la Comunicación.");
-  }
-  criteriosEval.formacion = {
-    status: formacionStatus,
-    comentario:
-      formacionStatus === "cumple"
-        ? "Se detectó la formación requerida en el texto del CV."
-        : formacionStatus === "parcial"
-        ? "Se menciona 'Comunicación' de forma genérica, no específicamente Ciencias de la Comunicación."
-        : "No se detectó la formación solicitada en el texto del CV.",
-  };
-
-  const ubicacionOk = matchAny(norm, KEYWORDS.ubicacion);
-  score += ubicacionOk ? 15 : 0;
-  criteriosEval.ubicacion = {
-    status: ubicacionOk ? "cumple" : "no_cumple",
-    comentario: ubicacionOk
-      ? "Se detectó residencia en CDMX o zona conurbada."
-      : "No se detectó residencia en CDMX o zona conurbada en el CV.",
-  };
-  if (!ubicacionOk) riesgos.push("No se identificó residencia en CDMX o zona conurbada.");
-
-  const mediosOk = matchAny(norm, KEYWORDS.mediosNacionales);
-  score += mediosOk ? 15 : 3;
-  criteriosEval.medios = {
-    status: mediosOk ? "cumple" : "no_cumple",
-    comentario: mediosOk
-      ? "Se detectó experiencia en medios de alcance nacional."
-      : "No se detectó experiencia en medios de alcance nacional (El Universal, Excelsior, Milenio, N+, Infobae, Animal Político u otro).",
-  };
-  if (!mediosOk) riesgos.push("Sin evidencia de experiencia en medios de alcance nacional.");
-
-  const anios = extraerAniosExperiencia(norm);
-  if (anios === null) {
-    score += 7;
-    criteriosEval.experiencia = {
-      status: "parcial",
-      comentario: "No se pudo determinar automáticamente los años de experiencia; revisar manualmente.",
-    };
-  } else if (anios >= 1 && anios <= 3) {
-    score += 15;
-    criteriosEval.experiencia = { status: "cumple", comentario: `${anios} año(s) de experiencia detectados, dentro del rango ideal.` };
-  } else if (anios < 1) {
-    score += 5;
-    criteriosEval.experiencia = { status: "no_cumple", comentario: "Menos de 1 año de experiencia detectado." };
-    riesgos.push("Experiencia detectada por debajo de 1 año.");
-  } else {
-    score += Math.max(15 - 2 * (anios - 3), 6);
-    criteriosEval.experiencia = {
-      status: "parcial",
-      comentario: `${anios} año(s) de experiencia detectados (por encima del rango ideal de 1 a 3 años).`,
-    };
-  }
-
-  const skillDefs = [
-    { id: "redaccion", kws: KEYWORDS.redaccion },
-    { id: "edicion", kws: KEYWORDS.edicion },
-    { id: "breaking", kws: KEYWORDS.breaking },
-    { id: "monitoreo", kws: KEYWORDS.monitoreo },
-    { id: "equipo", kws: KEYWORDS.equipo },
-  ];
-  let sumaSkills = 0;
-  skillDefs.forEach((s) => {
-    const ok = matchAny(norm, s.kws);
-    if (ok) sumaSkills += 1;
-    criteriosEval[s.id] = {
-      status: ok ? "cumple" : "no_cumple",
-      comentario: ok ? "Mencionado explícitamente en el CV." : "No se encontró mención explícita en el CV.",
-    };
-  });
-  score += (sumaSkills / skillDefs.length) * 20;
-
-  const inglesOk = matchAny(norm, KEYWORDS.ingles);
-  score += inglesOk ? 5 : 0;
-  criteriosEval.ingles = {
-    status: inglesOk ? "cumple" : "no_cumple",
-    comentario: inglesOk ? "Se menciona inglés en el CV." : "No se menciona inglés (habilidad deseable, no eliminatoria).",
-  };
-
-  if (salarioManual) {
-    const excedente = salarioManual / vacante.salarioOfrecido;
-    let salStatus;
-    if (excedente <= 1.05) {
-      salStatus = "cumple";
-      score += 5;
-    } else if (excedente <= 1.15) {
-      salStatus = "parcial";
-      score += 2;
-    } else {
-      salStatus = "no_cumple";
-      riesgos.push(
-        `Pretensión salarial de $${salarioManual.toLocaleString("es-MX")} MXN, ${Math.round(
-          (excedente - 1) * 100
-        )}% por encima del salario ofrecido ($${vacante.salarioOfrecido.toLocaleString("es-MX")} MXN).`
-      );
-    }
-    criteriosEval.salario = {
-      status: salStatus,
-      comentario: `Pretensión indicada: $${salarioManual.toLocaleString("es-MX")} MXN vs. $${vacante.salarioOfrecido.toLocaleString("es-MX")} MXN ofrecidos.`,
-    };
-  } else {
-    criteriosEval.salario = {
-      status: "parcial",
-      comentario: "Pretensión salarial no indicada (no suele venir en el CV); captúrala manualmente para evaluarla.",
-    };
-  }
-
-  const esBecario = matchAny(norm, KEYWORDS.becario);
-  const esCreadorRedes = matchAny(norm, KEYWORDS.creadorRedes);
-  const esBranded = matchAny(norm, KEYWORDS.brandedContent);
-  const esMedioPequeno = matchAny(norm, KEYWORDS.medioPequeno) && !mediosOk;
-
+  let maxScore = 0;
   let descarte = false;
-  if (esBecario) {
-    descarte = true;
-    riesgos.unshift("Criterio de descarte: se detectó perfil de becario/practicante.");
-  }
-  if (esCreadorRedes) {
-    descarte = true;
-    riesgos.unshift("Criterio de descarte: perfil orientado a creación de contenido para redes (TikTok/YouTube).");
-  }
-  if (esBranded) {
-    descarte = true;
-    riesgos.unshift("Criterio de descarte: experiencia en branded content / contenido publicitario.");
-  }
-  if (esMedioPequeno) {
-    descarte = true;
-    riesgos.unshift("Criterio de descarte: experiencia limitada a medios estatales pequeños, Facebook o YouTube sin alcance nacional.");
-  }
+  let experienciaAniosDetectados = null;
 
-  let compatibilidad = Math.max(0, Math.min(100, Math.round(score)));
+  vacante.criterios.forEach((criterio) => {
+    if (criterio.tipo === "areaNoRelacionada") {
+      const disparado = matchAny(norm, criterio.keywords) && !matchAny(norm, criterio.keywordsExcluyentes);
+      if (disparado) { descarte = true; riesgos.unshift(criterio.descarteMensaje); }
+      return;
+    }
+
+    let status, s, comentario;
+
+    if (criterio.tipo === "keyword") {
+      const ok = matchAny(norm, criterio.keywords);
+      const parcialOk = !ok && criterio.keywordsParcial ? matchAny(norm, criterio.keywordsParcial) : false;
+      status = ok ? "cumple" : parcialOk ? "parcial" : "no_cumple";
+      s = ok ? criterio.peso : parcialOk ? (criterio.pesoParcial !== undefined ? criterio.pesoParcial : Math.round(criterio.peso / 2)) : (criterio.pesoNoCumple !== undefined ? criterio.pesoNoCumple : 0);
+      comentario = comentarioGenerico(criterio.label, status);
+    } else if (criterio.tipo === "url") {
+      const urlRegex = /https?:\/\/|www\.|behance|dribbble/;
+      const ok = urlRegex.test(norm) || matchAny(norm, criterio.keywords);
+      status = ok ? "cumple" : "no_cumple";
+      s = ok ? criterio.peso : (criterio.pesoNoCumple !== undefined ? criterio.pesoNoCumple : 0);
+      comentario = comentarioGenerico(criterio.label, status);
+    } else if (criterio.tipo === "anios") {
+      const anios = extraerAniosExperiencia(norm);
+      experienciaAniosDetectados = anios;
+      if (anios === null) {
+        status = "parcial"; s = Math.round(criterio.peso * 0.45);
+        comentario = "No se pudo determinar automáticamente los años de experiencia; revisar manualmente.";
+      } else if (anios >= criterio.anioMin && anios <= criterio.anioMax) {
+        status = "cumple"; s = criterio.peso;
+        comentario = `${anios} año(s) de experiencia detectados, dentro del rango ideal.`;
+      } else if (anios < criterio.anioMin) {
+        status = "no_cumple"; s = Math.max(Math.round(criterio.peso * (anios / Math.max(criterio.anioMin, 1)) * 0.5), 0);
+        comentario = "Experiencia detectada por debajo del mínimo requerido.";
+      } else {
+        const exceso = anios - criterio.anioMax;
+        status = "parcial"; s = Math.max(criterio.peso - 2 * exceso, Math.round(criterio.peso * 0.4));
+        comentario = `${anios} año(s) de experiencia detectados (fuera del rango ideal de ${criterio.anioMin} a ${criterio.anioMax}).`;
+      }
+    } else if (criterio.tipo === "salario") {
+      if (!salarioManual) {
+        status = "parcial"; s = 0;
+        comentario = "Pretensión salarial no indicada (no suele venir en el CV); captúrala manualmente para evaluarla.";
+      } else {
+        const excedente = salarioManual / vacante.salarioOfrecido;
+        if (excedente <= 1.05) { status = "cumple"; s = criterio.peso; }
+        else if (excedente <= 1.15) { status = "parcial"; s = Math.round(criterio.peso * 0.4); }
+        else {
+          status = "no_cumple"; s = 0;
+          riesgos.push(`Pretensión salarial de $${salarioManual.toLocaleString("es-MX")} MXN, ${Math.round((excedente - 1) * 100)}% por encima del salario ofrecido ($${vacante.salarioOfrecido.toLocaleString("es-MX")} MXN).`);
+        }
+        comentario = `Pretensión indicada: $${salarioManual.toLocaleString("es-MX")} MXN vs. $${vacante.salarioOfrecido.toLocaleString("es-MX")} MXN ofrecidos.`;
+      }
+    }
+
+    if (!criterio.soloDescarte) { maxScore += criterio.peso; score += s; }
+    criteriosEval[criterio.id] = { status, comentario };
+
+    if (!criterio.soloDescarte && status === "no_cumple" && ["formacion", "ubicacion", "habilidad_indispensable"].includes(criterio.categoria)) {
+      riesgos.push(comentarioGenerico(criterio.label, "no_cumple"));
+    }
+
+    if (criterio.descarteSi && status === criterio.descarteSi) {
+      const anuladoPor = criterio.anularSiCumpleId && criteriosEval[criterio.anularSiCumpleId];
+      const anulado = anuladoPor && anuladoPor.status === "cumple";
+      if (!anulado) { descarte = true; if (criterio.descarteMensaje) riesgos.unshift(criterio.descarteMensaje); }
+    }
+  });
+
+  let compatibilidad = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
+  compatibilidad = Math.max(0, Math.min(100, compatibilidad));
   if (descarte) compatibilidad = Math.min(compatibilidad, 20);
 
   let estado;
@@ -625,37 +502,24 @@ function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, s
   else if (compatibilidad >= 50) estado = "revisar";
   else estado = "baja";
 
+  const formEval = criteriosEval.formacion;
+  const ubiEval = criteriosEval.ubicacion;
   const resumen = [
-    formacionStatus === "cumple" ? "Cuenta con la formación requerida." : "No se confirmó la formación requerida en el texto del CV.",
-    ubicacionOk ? "Reside en CDMX o zona conurbada." : "No se confirmó residencia en CDMX o zona conurbada.",
-    mediosOk ? "Tiene experiencia en medios de alcance nacional." : "No se detectó experiencia en medios de alcance nacional.",
+    formEval ? (formEval.status === "cumple" ? "Cuenta con la formación requerida." : formEval.status === "parcial" ? "Formación parcialmente alineada; revisar manualmente." : "No se confirmó la formación requerida en el texto del CV.") : "",
+    ubiEval ? (ubiEval.status === "cumple" ? "Reside en CDMX o zona conurbada." : "No se confirmó residencia en CDMX o zona conurbada.") : "",
     descarte ? "Se detectó al menos un criterio de descarte para esta vacante." : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
+  ].filter(Boolean).join(" ");
 
   const recomendacion = descarte
     ? "Este perfil cumple con uno o más criterios de descarte definidos para la vacante; no se recomienda continuar el proceso."
-    : estado === "muy_recomendado"
-    ? "Perfil altamente alineado con la vacante. Se recomienda avanzar a entrevista."
-    : estado === "recomendado"
-    ? "Buen encaje general con la vacante. Se recomienda considerar para entrevista."
-    : estado === "revisar"
-    ? "Encaje parcial o con datos insuficientes; conviene revisar manualmente antes de decidir."
+    : estado === "muy_recomendado" ? "Perfil altamente alineado con la vacante. Se recomienda avanzar a entrevista."
+    : estado === "recomendado" ? "Buen encaje general con la vacante. Se recomienda considerar para entrevista."
+    : estado === "revisar" ? "Encaje parcial o con datos insuficientes; conviene revisar manualmente antes de decidir."
     : "El perfil se aleja de forma importante de los requisitos de la vacante.";
 
   return {
-    id: `${fileName}-${norm.length}`,
-    nombre,
-    archivo: fileName,
-    compatibilidad,
-    estado,
-    resumen,
-    recomendacion,
-    riesgos,
-    criteriosEval,
-    salarioSolicitado: salarioManual || null,
-    experienciaAnios: anios,
+    id: `${fileName}-${norm.length}`, nombre, archivo: fileName, compatibilidad, estado, resumen, recomendacion, riesgos, criteriosEval,
+    salarioSolicitado: salarioManual || null, experienciaAnios: experienciaAniosDetectados,
   };
 }
 
@@ -665,43 +529,25 @@ function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, s
 
 function EstadoBadge({ estado }) {
   const cfg = ESTADOS[estado];
-  return (
-    <span className="ts-badge" style={{ color: cfg.color, backgroundColor: cfg.bg }}>
-      {cfg.label}
-    </span>
-  );
+  return <span className="ts-badge" style={{ color: cfg.color, backgroundColor: cfg.bg }}>{cfg.label}</span>;
 }
-
 function CriterioIcon({ status }) {
   if (status === "cumple") return <Icon name="check" size={16} style={{ color: "#1E8E5A" }} />;
   if (status === "parcial") return <Icon name="alert" size={16} style={{ color: "#B4740E" }} />;
   return <Icon name="xcircle" size={16} style={{ color: "#B3261E" }} />;
 }
-
 function ScanMeter({ value }) {
-  if (value === null) {
-    return <span className="ts-muted-sm">Sin datos</span>;
-  }
-  const cfg =
-    value >= 85 ? ESTADOS.muy_recomendado : value >= 70 ? ESTADOS.recomendado : value >= 50 ? ESTADOS.revisar : ESTADOS.baja;
+  if (value === null) return <span className="ts-muted-sm">Sin datos</span>;
+  const cfg = value >= 85 ? ESTADOS.muy_recomendado : value >= 70 ? ESTADOS.recomendado : value >= 50 ? ESTADOS.revisar : ESTADOS.baja;
   return (
     <div className="ts-meter-wrap">
-      <div className="ts-meter-track">
-        <div className="ts-meter-fill" style={{ width: `${value}%`, backgroundColor: cfg.color }} />
-      </div>
-      <span className="ts-meter-value" style={{ color: cfg.color }}>
-        {value}%
-      </span>
+      <div className="ts-meter-track"><div className="ts-meter-fill" style={{ width: `${value}%`, backgroundColor: cfg.color }} /></div>
+      <span className="ts-meter-value" style={{ color: cfg.color }}>{value}%</span>
     </div>
   );
 }
-
 function Stepper({ step }) {
-  const steps = [
-    { n: 1, label: "Vacante" },
-    { n: 2, label: "Candidatos" },
-    { n: 3, label: "Resultados" },
-  ];
+  const steps = [{ n: 1, label: "Vacante" }, { n: 2, label: "Candidatos" }, { n: 3, label: "Resultados" }];
   return (
     <div className="ts-stepper">
       {steps.map((s, i) => (
@@ -720,105 +566,76 @@ function Stepper({ step }) {
 }
 
 /* ----------------------------------------------------------------------- */
-/* UI: PASO 1 — VACANTE                                                    */
+/* UI: PASO 1 — VACANTE (solo lectura)                                     */
 /* ----------------------------------------------------------------------- */
 
-function PasoVacante({ vacante, setVacante, onNext }) {
+function ResumenCriterios({ vacante }) {
+  const porCategoria = (cat) => vacante.criterios.filter((c) => c.categoria === cat);
+  const formacion = porCategoria("formacion");
+  const ubicacion = porCategoria("ubicacion");
+  const experiencia = porCategoria("experiencia")[0];
+  const indispensables = porCategoria("habilidad_indispensable");
+  const deseables = porCategoria("habilidad_deseable");
+  const descarte = porCategoria("descarte");
+
+  return (
+    <div className="ts-grid-2" style={{ marginTop: 16 }}>
+      <div className="ts-card">
+        <div className="ts-card-title"><Icon name="grad" size={16} /> Formación</div>
+        <ul className="ts-list">{formacion.map((c) => <li key={c.id}>{c.label}</li>)}</ul>
+      </div>
+      <div className="ts-card">
+        <div className="ts-card-title"><Icon name="pin" size={16} /> Ubicación</div>
+        <ul className="ts-list">{ubicacion.map((c) => <li key={c.id}>{c.label}</li>)}</ul>
+      </div>
+      <div className="ts-card" style={{ gridColumn: "1 / -1" }}>
+        <div className="ts-card-title"><Icon name="users" size={16} /> Experiencia</div>
+        {experiencia && <p className="ts-body">{experiencia.anioMin} a {experiencia.anioMax} años — {experiencia.label}</p>}
+      </div>
+      <div className="ts-card" style={{ gridColumn: "1 / -1" }}>
+        <div className="ts-card-title"><Icon name="sparkles" size={16} /> Habilidades indispensables</div>
+        <div className="ts-chip-row">{indispensables.map((c) => <span className="ts-chip" key={c.id}>{c.label}</span>)}</div>
+        {deseables.length > 0 && (
+          <>
+            <div className="ts-card-title" style={{ marginTop: 16 }}>Habilidades deseables</div>
+            <div className="ts-chip-row">{deseables.map((c) => <span className="ts-chip ts-chip--soft" key={c.id}>{c.label}</span>)}</div>
+          </>
+        )}
+      </div>
+      {vacante.perfil.requisitosAdicionales.length > 0 && (
+        <div className="ts-card" style={{ gridColumn: "1 / -1" }}>
+          <div className="ts-card-title"><Icon name="shield" size={16} /> Requisitos adicionales</div>
+          <ul className="ts-list">{vacante.perfil.requisitosAdicionales.map((r, i) => <li key={i}>{r}</li>)}</ul>
+        </div>
+      )}
+      <div className="ts-card" style={{ gridColumn: "1 / -1", borderColor: "#F0D9D6" }}>
+        <div className="ts-card-title" style={{ color: "#B3261E" }}><Icon name="ban" size={16} /> Criterios de descarte</div>
+        <ul className="ts-list">{descarte.map((c) => <li key={c.id}>{c.label}</li>)}</ul>
+      </div>
+    </div>
+  );
+}
+
+function PasoVacante({ vacantes, vacanteActivaId, setVacanteActivaId, onNext }) {
+  const vacante = vacantes[vacanteActivaId];
   return (
     <div className="ts-fade-in">
+      <div className="ts-vacante-selector">
+        {Object.values(vacantes).map((v) => (
+          <button key={v.id} className={`ts-vacante-chip ${v.id === vacanteActivaId ? "is-active" : ""}`} onClick={() => setVacanteActivaId(v.id)}>
+            {v.titulo}
+          </button>
+        ))}
+      </div>
+
       <div className="ts-card ts-card--hero">
-        <div className="ts-eyebrow">
-          <Icon name="briefcase" size={14} />
-          <span>Vacante activa</span>
-        </div>
+        <div className="ts-eyebrow"><Icon name="briefcase" size={14} /><span>Vacante activa</span></div>
         <h2 className="ts-h2">{vacante.titulo}</h2>
-        <p className="ts-muted" style={{ maxWidth: 560 }}>
-          En esta primera versión, Talent Scan trabaja con una sola vacante para validar el flujo completo.
-          Los criterios abajo son los que se usan para evaluar a cada candidato.
-        </p>
+        <p className="ts-muted" style={{ maxWidth: 560, marginBottom: 12 }}>{vacante.resumenCorto}</p>
+        <p className="ts-body">Salario ofrecido: <strong>${vacante.salarioOfrecido.toLocaleString("es-MX")} MXN / mes</strong></p>
       </div>
 
-      <div className="ts-grid-2" style={{ marginTop: 20 }}>
-        <div className="ts-card">
-          <div className="ts-card-title">
-            <Icon name="grad" size={16} /> Formación obligatoria
-          </div>
-          <ul className="ts-list">
-            {vacante.formacionObligatoria.map((f) => (
-              <li key={f}>{f}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="ts-card">
-          <div className="ts-card-title">
-            <Icon name="pin" size={16} /> Ubicación
-          </div>
-          <p className="ts-body">{vacante.ubicacion}</p>
-        </div>
-
-        <div className="ts-card">
-          <div className="ts-card-title">
-            <Icon name="users" size={16} /> Experiencia ideal
-          </div>
-          <p className="ts-body">{vacante.experienciaIdeal}</p>
-          <div className="ts-chip-row" style={{ marginTop: 10 }}>
-            {vacante.mediosNacionales.map((m) => (
-              <span className="ts-chip" key={m}>
-                {m}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="ts-card">
-          <div className="ts-card-title">
-            <Icon name="sparkles" size={16} /> Habilidades importantes
-          </div>
-          <div className="ts-chip-row">
-            {vacante.habilidades.map((h) => (
-              <span className="ts-chip" key={h}>
-                {h}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="ts-card">
-          <div className="ts-card-title">
-            <Icon name="wallet" size={16} /> Salario ofrecido
-          </div>
-          <div className="ts-salario-input">
-            <span>$</span>
-            <input
-              type="number"
-              value={vacante.salarioOfrecido}
-              min={0}
-              step={500}
-              onChange={(e) => setVacante((v) => ({ ...v, salarioOfrecido: Number(e.target.value) || 0 }))}
-            />
-            <span className="ts-muted-sm">MXN / mes</span>
-          </div>
-        </div>
-
-        <div className="ts-card">
-          <div className="ts-card-title">
-            <Icon name="shield" size={16} /> No relevante para esta vacante
-          </div>
-          <p className="ts-body ts-muted">{vacante.noRelevante}</p>
-        </div>
-
-        <div className="ts-card" style={{ gridColumn: "1 / -1", borderColor: "#F0D9D6" }}>
-          <div className="ts-card-title" style={{ color: "#B3261E" }}>
-            <Icon name="ban" size={16} /> Criterios de descarte
-          </div>
-          <ul className="ts-list">
-            {vacante.criteriosDescarte.map((c) => (
-              <li key={c}>{c}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <ResumenCriterios vacante={vacante} />
 
       <div className="ts-actions-right">
         <button className="ts-btn ts-btn--primary" onClick={onNext}>
@@ -833,20 +650,17 @@ function PasoVacante({ vacante, setVacante, onNext }) {
 /* UI: PASO 2 — SUBIR CVs                                                  */
 /* ----------------------------------------------------------------------- */
 
-function PasoCandidatos({ files, setFiles, salarios, setSalarios, onBack, onAnalyze, isAnalyzing, progress, pdfStatus }) {
+function PasoCandidatos({ vacante, files, setFiles, salarios, setSalarios, onBack, onAnalyze, isAnalyzing, progress, pdfStatus }) {
   const [isDragging, setIsDragging] = useState(false);
 
-  const addFiles = useCallback(
-    (fileList) => {
-      const nuevos = Array.from(fileList).filter((f) => f.type === "application/pdf" || f.name.toLowerCase().endsWith(".pdf"));
-      setFiles((prev) => {
-        const existentes = new Set(prev.map((f) => f.name + f.size));
-        const filtrados = nuevos.filter((f) => !existentes.has(f.name + f.size));
-        return [...prev, ...filtrados];
-      });
-    },
-    [setFiles]
-  );
+  const addFiles = useCallback((fileList) => {
+    const nuevos = Array.from(fileList).filter((f) => f.type === "application/pdf" || f.name.toLowerCase().endsWith(".pdf"));
+    setFiles((prev) => {
+      const existentes = new Set(prev.map((f) => f.name + f.size));
+      const filtrados = nuevos.filter((f) => !existentes.has(f.name + f.size));
+      return [...prev, ...filtrados];
+    });
+  }, [setFiles]);
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -859,33 +673,19 @@ function PasoCandidatos({ files, setFiles, salarios, setSalarios, onBack, onAnal
   return (
     <div className="ts-fade-in">
       <div className="ts-card">
-        <div className="ts-card-title">
-          <Icon name="upload" size={16} /> Sube los CVs en PDF de los candidatos
-        </div>
+        <div className="ts-card-title"><Icon name="upload" size={16} /> Sube los CVs en PDF para la vacante: {vacante.titulo}</div>
 
         <div
           className={`ts-dropzone ${isDragging ? "is-dragging" : ""}`}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setIsDragging(true);
-          }}
+          onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
           onClick={() => document.getElementById("ts-file-input").click()}
         >
           <Icon name="upload" size={28} style={{ opacity: 0.55 }} />
-          <p className="ts-body" style={{ margin: "8px 0 2px" }}>
-            Arrastra los archivos aquí o haz clic para seleccionarlos
-          </p>
+          <p className="ts-body" style={{ margin: "8px 0 2px" }}>Arrastra los archivos aquí o haz clic para seleccionarlos</p>
           <p className="ts-muted-sm">Solo PDF con texto seleccionable · puedes subir varios a la vez</p>
-          <input
-            id="ts-file-input"
-            type="file"
-            accept="application/pdf"
-            multiple
-            style={{ display: "none" }}
-            onChange={(e) => e.target.files && addFiles(e.target.files)}
-          />
+          <input id="ts-file-input" type="file" accept="application/pdf" multiple style={{ display: "none" }} onChange={(e) => e.target.files && addFiles(e.target.files)} />
         </div>
 
         {files.length > 0 && (
@@ -899,18 +699,9 @@ function PasoCandidatos({ files, setFiles, salarios, setSalarios, onBack, onAnal
                   <span className="ts-muted-sm">{(f.size / 1024).toFixed(0)} KB</span>
                   <div className="ts-salario-mini">
                     <span className="ts-muted-sm">Pretensión $</span>
-                    <input
-                      type="number"
-                      placeholder="opcional"
-                      value={salarios[key] || ""}
-                      onChange={(e) =>
-                        setSalarios((prev) => ({ ...prev, [key]: e.target.value ? Number(e.target.value) : undefined }))
-                      }
-                    />
+                    <input type="number" placeholder="opcional" value={salarios[key] || ""} onChange={(e) => setSalarios((prev) => ({ ...prev, [key]: e.target.value ? Number(e.target.value) : undefined }))} />
                   </div>
-                  <button className="ts-icon-btn" onClick={() => removeFile(i)} aria-label={`Quitar ${f.name}`}>
-                    <Icon name="x" size={14} />
-                  </button>
+                  <button className="ts-icon-btn" onClick={() => removeFile(i)} aria-label={`Quitar ${f.name}`}><Icon name="x" size={14} /></button>
                 </div>
               );
             })}
@@ -919,41 +710,25 @@ function PasoCandidatos({ files, setFiles, salarios, setSalarios, onBack, onAnal
 
         {pdfStatus === "error" && (
           <div className="ts-notice ts-notice--warn">
-            No se pudo cargar el lector de PDF (revisa tu conexión a internet), así que no es posible analizar
-            automáticamente. Puedes reintentar recargando la página.
+            No se pudo cargar el lector de PDF (revisa tu conexión a internet), así que no es posible analizar automáticamente. Puedes reintentar recargando la página.
           </div>
         )}
 
         {isAnalyzing && (
           <div style={{ marginTop: 16 }}>
-            <div className="ts-progress-track">
-              <div className="ts-progress-fill" style={{ width: `${progress}%` }} />
-            </div>
-            <p className="ts-muted-sm" style={{ marginTop: 6 }}>
-              Leyendo y analizando candidatos contra el perfil de Editor Web… {progress}%
-            </p>
+            <div className="ts-progress-track"><div className="ts-progress-fill" style={{ width: `${progress}%` }} /></div>
+            <p className="ts-muted-sm" style={{ marginTop: 6 }}>Leyendo y analizando candidatos contra el perfil de {vacante.titulo}… {progress}%</p>
           </div>
         )}
       </div>
 
       <div className="ts-actions-between">
-        <button className="ts-btn ts-btn--ghost" onClick={onBack} disabled={isAnalyzing}>
-          <Icon name="arrowleft" size={16} /> Volver a la vacante
-        </button>
-        <button
-          className="ts-btn ts-btn--primary"
-          onClick={onAnalyze}
-          disabled={files.length === 0 || isAnalyzing || pdfStatus !== "listo"}
-        >
+        <button className="ts-btn ts-btn--ghost" onClick={onBack} disabled={isAnalyzing}><Icon name="arrowleft" size={16} /> Volver a la vacante</button>
+        <button className="ts-btn ts-btn--primary" onClick={onAnalyze} disabled={files.length === 0 || isAnalyzing || pdfStatus !== "listo"}>
           {pdfStatus === "cargando" ? (
-            <>
-              <Icon name="loader" size={16} style={{ animation: "tsSpin 0.9s linear infinite" }} /> Cargando lector de PDF…
-            </>
+            <><Icon name="loader" size={16} style={{ animation: "tsSpin 0.9s linear infinite" }} /> Cargando lector de PDF…</>
           ) : (
-            <>
-              <Icon name="scan" size={16} />
-              {isAnalyzing ? "Analizando…" : `Analizar ${files.length || ""} candidato${files.length === 1 ? "" : "s"}`}
-            </>
+            <><Icon name="scan" size={16} />{isAnalyzing ? "Analizando…" : `Analizar ${files.length || ""} candidato${files.length === 1 ? "" : "s"}`}</>
           )}
         </button>
       </div>
@@ -965,37 +740,28 @@ function PasoCandidatos({ files, setFiles, salarios, setSalarios, onBack, onAnal
 /* UI: PASO 3 — RESULTADOS                                                 */
 /* ----------------------------------------------------------------------- */
 
-function DetalleCandidato({ candidato }) {
+function DetalleCandidato({ candidato, vacante }) {
   if (candidato.sinTexto) {
-    return (
-      <div className="ts-detalle">
-        <div className="ts-detalle-col" style={{ gridColumn: "1 / -1" }}>
-          <p className="ts-body">{candidato.resumen}</p>
-        </div>
-      </div>
-    );
+    return <div className="ts-detalle"><div className="ts-detalle-col" style={{ gridColumn: "1 / -1" }}><p className="ts-body">{candidato.resumen}</p></div></div>;
   }
+  const criteriosVisibles = vacante.criterios.filter((c) => !c.soloDescarte);
   return (
     <div className="ts-detalle">
       <div className="ts-detalle-col">
         <div className="ts-detalle-heading">Evaluación por criterio</div>
         <div className="ts-criterios">
-          {CRITERIOS.map((c) => {
+          {criteriosVisibles.map((c) => {
             const ev = candidato.criteriosEval[c.id];
             if (!ev) return null;
             return (
               <div className="ts-criterio-row" key={c.id}>
                 <CriterioIcon status={ev.status} />
-                <div>
-                  <div className="ts-criterio-label">{c.label}</div>
-                  <div className="ts-muted-sm">{ev.comentario}</div>
-                </div>
+                <div><div className="ts-criterio-label">{c.label}</div><div className="ts-muted-sm">{ev.comentario}</div></div>
               </div>
             );
           })}
         </div>
       </div>
-
       <div className="ts-detalle-col">
         <div className="ts-detalle-heading">Riesgos detectados</div>
         {candidato.riesgos.length === 0 ? (
@@ -1003,50 +769,38 @@ function DetalleCandidato({ candidato }) {
         ) : (
           <ul className="ts-riesgos">
             {candidato.riesgos.map((r, i) => (
-              <li key={i}>
-                <Icon name="alert" size={14} style={{ color: "#B4740E", flexShrink: 0, marginTop: 2 }} />
-                <span>{r}</span>
-              </li>
+              <li key={i}><Icon name="alert" size={14} style={{ color: "#B4740E", flexShrink: 0, marginTop: 2 }} /><span>{r}</span></li>
             ))}
           </ul>
         )}
-
-        <div className="ts-detalle-heading" style={{ marginTop: 18 }}>
-          Recomendación final
-        </div>
+        <div className="ts-detalle-heading" style={{ marginTop: 18 }}>Recomendación final</div>
         <p className="ts-body">{candidato.recomendacion}</p>
       </div>
     </div>
   );
 }
 
-function CandidatoCard({ candidato, expanded, onToggle }) {
+function CandidatoCard({ candidato, vacante, expanded, onToggle }) {
   return (
     <div className="ts-card ts-candidato-card">
       <button className="ts-candidato-header" onClick={onToggle}>
         <div className="ts-candidato-main">
           <div className="ts-avatar">{candidato.nombre.charAt(0)}</div>
-          <div>
-            <div className="ts-candidato-nombre">{candidato.nombre}</div>
-            <div className="ts-muted-sm">{candidato.archivo}</div>
-          </div>
+          <div><div className="ts-candidato-nombre">{candidato.nombre}</div><div className="ts-muted-sm">{candidato.archivo}</div></div>
         </div>
-
         <div className="ts-candidato-right">
           <EstadoBadge estado={candidato.estado} />
           <ScanMeter value={candidato.compatibilidad} />
           {expanded ? <Icon name="chevrondown" size={18} /> : <Icon name="chevronright" size={18} />}
         </div>
       </button>
-
       <p className="ts-body ts-resumen">{candidato.resumen}</p>
-
-      {expanded && <DetalleCandidato candidato={candidato} />}
+      {expanded && <DetalleCandidato candidato={candidato} vacante={vacante} />}
     </div>
   );
 }
 
-function PasoResultados({ candidatos, onBack, onReiniciar }) {
+function PasoResultados({ vacante, candidatos, onBack, onReiniciar }) {
   const [filtro, setFiltro] = useState("todos");
   const [expandedId, setExpandedId] = useState(null);
 
@@ -1069,17 +823,10 @@ function PasoResultados({ candidatos, onBack, onReiniciar }) {
     <div className="ts-fade-in">
       <div className="ts-resultados-header">
         <div>
-          <h2 className="ts-h2" style={{ marginBottom: 2 }}>
-            Ranking de candidatos
-          </h2>
-          <p className="ts-muted-sm">
-            {candidatos.length} candidato{candidatos.length === 1 ? "" : "s"} evaluado
-            {candidatos.length === 1 ? "" : "s"} contra el perfil de Editor Web
-          </p>
+          <h2 className="ts-h2" style={{ marginBottom: 2 }}>Ranking de candidatos</h2>
+          <p className="ts-muted-sm">{candidatos.length} candidato{candidatos.length === 1 ? "" : "s"} evaluado{candidatos.length === 1 ? "" : "s"} contra el perfil de {vacante.titulo}</p>
         </div>
-        <button className="ts-btn ts-btn--ghost" onClick={onReiniciar}>
-          Nuevo análisis
-        </button>
+        <button className="ts-btn ts-btn--ghost" onClick={onReiniciar}>Nuevo análisis</button>
       </div>
 
       <div className="ts-filtros">
@@ -1091,32 +838,19 @@ function PasoResultados({ candidatos, onBack, onReiniciar }) {
           { id: "revisar", label: `Revisar (${conteos.revisar})` },
           { id: "baja", label: `Baja compatibilidad (${conteos.baja})` },
         ].map((f) => (
-          <button key={f.id} className={`ts-filtro-chip ${filtro === f.id ? "is-active" : ""}`} onClick={() => setFiltro(f.id)}>
-            {f.label}
-          </button>
+          <button key={f.id} className={`ts-filtro-chip ${filtro === f.id ? "is-active" : ""}`} onClick={() => setFiltro(f.id)}>{f.label}</button>
         ))}
       </div>
 
       <div className="ts-candidatos-list">
         {filtrados.map((c) => (
-          <CandidatoCard
-            key={c.id}
-            candidato={c}
-            expanded={expandedId === c.id}
-            onToggle={() => setExpandedId(expandedId === c.id ? null : c.id)}
-          />
+          <CandidatoCard key={c.id} candidato={c} vacante={vacante} expanded={expandedId === c.id} onToggle={() => setExpandedId(expandedId === c.id ? null : c.id)} />
         ))}
-        {filtrados.length === 0 && (
-          <div className="ts-card" style={{ textAlign: "center", color: "var(--ts-muted)" }}>
-            No hay candidatos en este filtro.
-          </div>
-        )}
+        {filtrados.length === 0 && <div className="ts-card" style={{ textAlign: "center", color: "var(--ts-muted)" }}>No hay candidatos en este filtro.</div>}
       </div>
 
       <div className="ts-actions-left">
-        <button className="ts-btn ts-btn--ghost" onClick={onBack}>
-          <Icon name="arrowleft" size={16} /> Volver a candidatos
-        </button>
+        <button className="ts-btn ts-btn--ghost" onClick={onBack}><Icon name="arrowleft" size={16} /> Volver a candidatos</button>
       </div>
     </div>
   );
@@ -1128,46 +862,50 @@ function PasoResultados({ candidatos, onBack, onReiniciar }) {
 
 function TalentScan() {
   const [step, setStep] = useState(1);
-  const [vacante, setVacante] = useState(VACANTE_EDITOR_WEB);
+  const [vacantes, setVacantes] = useState(VACANTES_INICIALES);
+  const [vacanteActivaId, setVacanteActivaId] = useState("editor_web");
   const [files, setFiles] = useState([]);
   const [salarios, setSalarios] = useState({});
   const [candidatos, setCandidatos] = useState([]);
+  const [vacanteEvaluada, setVacanteEvaluada] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [progress, setProgress] = useState(0);
   const pdfStatus = usePdfJs();
+
+  useEffect(() => {
+    fetch("./vacantes.json")
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((data) => {
+        if (data && Object.keys(data).length) {
+          setVacantes(data);
+          setVacanteActivaId(Object.keys(data)[0]);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const vacanteActiva = vacantes[vacanteActivaId];
 
   const analizar = async () => {
     setIsAnalyzing(true);
     setProgress(0);
     const resultados = [];
+    const vacanteUsada = vacanteActiva;
 
     for (let i = 0; i < files.length; i++) {
       const f = files[i];
       const key = f.name + f.size;
       try {
         const texto = await extraerTextoPDF(f);
-        resultados.push(
-          analizarCandidatoPorCoincidencias({
-            textoOriginal: texto,
-            fileName: f.name,
-            vacante,
-            salarioManual: salarios[key],
-          })
-        );
+        resultados.push(analizarCandidatoPorCoincidencias({ textoOriginal: texto, fileName: f.name, vacante: vacanteUsada, salarioManual: salarios[key] }));
       } catch (e) {
-        resultados.push(
-          analizarCandidatoPorCoincidencias({
-            textoOriginal: "",
-            fileName: f.name,
-            vacante,
-            salarioManual: salarios[key],
-          })
-        );
+        resultados.push(analizarCandidatoPorCoincidencias({ textoOriginal: "", fileName: f.name, vacante: vacanteUsada, salarioManual: salarios[key] }));
       }
       setProgress(Math.round(((i + 1) / files.length) * 100));
     }
 
     setCandidatos(resultados);
+    setVacanteEvaluada(vacanteUsada);
     setIsAnalyzing(false);
     setStep(3);
   };
@@ -1183,34 +921,20 @@ function TalentScan() {
     <div className="ts-root">
       <div className="ts-shell">
         <div className="ts-brand">
-          <div className="ts-brand-icon">
-            <Icon name="scan" size={19} />
-          </div>
+          <div className="ts-brand-icon"><Icon name="scan" size={24} /></div>
           <div>
-            <div className="ts-brand-name">Talent Scan</div>
-            <div className="ts-brand-tag">Preselección de candidatos — apoyo a la decisión de RH</div>
+            <div className="ts-brand-name">Talent Scan <span className="ts-brand-org">REFORMA</span></div>
+            <span className="ts-version-badge">v{VERSION}</span>
           </div>
         </div>
 
         <Stepper step={step} />
 
-        {step === 1 && <PasoVacante vacante={vacante} setVacante={setVacante} onNext={() => setStep(2)} />}
-
+        {step === 1 && <PasoVacante vacantes={vacantes} vacanteActivaId={vacanteActivaId} setVacanteActivaId={setVacanteActivaId} onNext={() => setStep(2)} />}
         {step === 2 && (
-          <PasoCandidatos
-            files={files}
-            setFiles={setFiles}
-            salarios={salarios}
-            setSalarios={setSalarios}
-            onBack={() => setStep(1)}
-            onAnalyze={analizar}
-            isAnalyzing={isAnalyzing}
-            progress={progress}
-            pdfStatus={pdfStatus}
-          />
+          <PasoCandidatos vacante={vacanteActiva} files={files} setFiles={setFiles} salarios={salarios} setSalarios={setSalarios} onBack={() => setStep(1)} onAnalyze={analizar} isAnalyzing={isAnalyzing} progress={progress} pdfStatus={pdfStatus} />
         )}
-
-        {step === 3 && <PasoResultados candidatos={candidatos} onBack={() => setStep(2)} onReiniciar={reiniciar} />}
+        {step === 3 && <PasoResultados vacante={vacanteEvaluada} candidatos={candidatos} onBack={() => setStep(2)} onReiniciar={reiniciar} />}
       </div>
     </div>
   );
@@ -1218,21 +942,6 @@ function TalentScan() {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<TalentScan />);
-
-/**
- * ============================================================================
- * NOTA: CÓMO CONECTAR IA REAL MÁS ADELANTE (fase 2)
- * ============================================================================
- * El único bloque que cambiaría es el `for` dentro de `analizar()`: en vez
- * de extraer texto con PDF.js y correr el motor de coincidencias, se manda
- * el PDF (en base64) directo a la API de Claude como bloque tipo
- * "document", junto con el perfil de la vacante en el prompt, pidiendo un
- * JSON con la misma forma que ya regresa la función de coincidencias
- * (compatibilidad, estado, resumen, riesgos, criteriosEval, recomendacion).
- * Ventaja: Claude lee el PDF directamente, sin PDF.js ni listas de
- * palabras clave, y entiende sinónimos y contexto que este motor no capta.
- * ============================================================================
- */
 </script>
 </body>
 </html>
