@@ -12,79 +12,64 @@
   #root { min-height: 100vh; }
 
   .ts-root {
-    --ts-bg: #F5F7F8;
+    --ts-bg: #F7F6FB;
     --ts-surface: #FFFFFF;
-    --ts-ink: #14231F;
-    --ts-muted: #5B6B67;
-    --ts-border: #E4E9E7;
-    --ts-primary: #0F6B5C;
-    --ts-primary-soft: #E4F2EE;
+    --ts-ink: #1A1625;
+    --ts-muted: #6B6478;
+    --ts-border: #E7E3F0;
+    --ts-primary: #6D28D9;
+    --ts-primary-soft: #F0EBFC;
     background: var(--ts-bg);
     color: var(--ts-ink);
     min-height: 100%;
     font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     padding: 32px 24px 64px;
   }
-  .ts-shell { max-width: 900px; margin: 0 auto; }
+  .ts-shell { max-width: 920px; margin: 0 auto; }
 
-  .ts-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
-  .ts-brand-icon {
-    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
-    background: var(--ts-primary); color: white;
-    display: flex; align-items: center; justify-content: center;
-  }
+  .ts-brand-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 26px; }
+  .ts-brand { display: flex; align-items: center; gap: 14px; }
+  .ts-brand-icon { width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0; background: var(--ts-primary); color: white; display: flex; align-items: center; justify-content: center; }
   .ts-brand-name { font-size: 27px; font-weight: 800; letter-spacing: -0.02em; display: flex; align-items: baseline; gap: 9px; line-height: 1; }
   .ts-brand-org { font-size: 15px; font-weight: 700; color: var(--ts-primary); letter-spacing: 0.03em; }
-  .ts-version-badge {
-    display: inline-block; margin-top: 6px; font-size: 10.5px; font-weight: 700; color: var(--ts-muted);
-    background: var(--ts-surface); border: 1px solid var(--ts-border); padding: 2px 9px; border-radius: 999px;
+  .ts-version-badge { display: inline-block; margin-top: 6px; font-size: 10.5px; font-weight: 700; color: var(--ts-muted); background: var(--ts-surface); border: 1px solid var(--ts-border); padding: 2px 9px; border-radius: 999px; }
+  .ts-link-solicitar {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; color: var(--ts-primary);
+    text-decoration: none; padding: 9px 15px; border: 1px solid var(--ts-border); border-radius: 999px; background: var(--ts-surface);
   }
+  .ts-link-solicitar:hover { background: var(--ts-primary-soft); border-color: var(--ts-primary); }
+  .ts-datos-linea { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--ts-muted); margin-bottom: 22px; }
 
-  .ts-stepper { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+  .ts-stepper { display: flex; align-items: center; gap: 8px; margin-bottom: 22px; }
   .ts-step { display: flex; align-items: center; gap: 8px; }
-  .ts-step-circle {
-    width: 26px; height: 26px; border-radius: 999px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 700;
-    background: var(--ts-surface); border: 1.5px solid var(--ts-border); color: var(--ts-muted);
-  }
+  .ts-step-circle { width: 26px; height: 26px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: var(--ts-surface); border: 1.5px solid var(--ts-border); color: var(--ts-muted); }
   .ts-step-circle.is-active { background: var(--ts-primary); border-color: var(--ts-primary); color: white; }
   .ts-step-circle.is-done { background: var(--ts-primary-soft); border-color: var(--ts-primary); color: var(--ts-primary); }
   .ts-step-label { font-size: 13px; color: var(--ts-muted); font-weight: 500; }
   .ts-step-label.is-active { color: var(--ts-ink); font-weight: 700; }
-  .ts-step-line { width: 40px; height: 1.5px; background: var(--ts-border); }
+  .ts-step-line { width: 50px; height: 1.5px; background: var(--ts-border); }
   .ts-step-line.is-done { background: var(--ts-primary); }
-
-  .ts-vacante-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
-  .ts-vacante-chip {
-    font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 10px;
-    border: 1.5px solid var(--ts-border); background: var(--ts-surface); color: var(--ts-muted); cursor: pointer;
-  }
-  .ts-vacante-chip.is-active { border-color: var(--ts-primary); background: var(--ts-primary-soft); color: var(--ts-primary); }
 
   .ts-fade-in { animation: tsFadeIn 0.25s ease; }
   @keyframes tsFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes tsSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-  .ts-card {
-    background: var(--ts-surface); border: 1px solid var(--ts-border);
-    border-radius: 16px; padding: 20px 22px;
+  .ts-vacante-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .ts-vacante-chip {
+    display: inline-flex; align-items: center; font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 10px;
+    border: 1.5px solid var(--ts-border); background: var(--ts-surface); color: var(--ts-muted); cursor: pointer;
   }
+  .ts-vacante-chip.is-active { border-color: var(--ts-primary); background: var(--ts-primary-soft); color: var(--ts-primary); }
+  .ts-chip-dot { display: inline-block; width: 9px; height: 9px; border-radius: 999px; margin-right: 8px; flex-shrink: 0; }
+
+  .ts-card { background: var(--ts-surface); border: 1px solid var(--ts-border); border-radius: 16px; padding: 22px 24px; }
   .ts-card--hero { background: linear-gradient(135deg, var(--ts-primary-soft), var(--ts-surface)); }
   .ts-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 640px) { .ts-grid-2 { grid-template-columns: 1fr; } }
 
-  .ts-eyebrow {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--ts-primary); margin-bottom: 8px;
-  }
-  .ts-h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 6px; }
-  .ts-card-title {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 13px; font-weight: 700; color: var(--ts-muted);
-    text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 12px;
-  }
+  .ts-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; color: var(--ts-primary); }
+  .ts-vacante-titulo-grande { font-size: 38px; font-weight: 800; letter-spacing: -0.02em; margin: 2px 0 10px; line-height: 1.05; }
+  .ts-card-title { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--ts-muted); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 12px; }
   .ts-body { font-size: 14px; line-height: 1.55; margin: 0; }
   .ts-muted { color: var(--ts-muted); }
   .ts-muted-sm { font-size: 12px; color: var(--ts-muted); }
@@ -95,13 +80,8 @@
 
   .ts-actions-right { display: flex; justify-content: flex-end; margin-top: 22px; }
   .ts-actions-left { display: flex; justify-content: flex-start; margin-top: 22px; }
-  .ts-actions-between { display: flex; justify-content: space-between; margin-top: 22px; }
 
-  .ts-btn {
-    display: inline-flex; align-items: center; gap: 7px;
-    font-size: 13.5px; font-weight: 700; padding: 10px 18px; border-radius: 10px;
-    border: none; cursor: pointer; transition: opacity 0.15s, transform 0.1s;
-  }
+  .ts-btn { display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 700; padding: 11px 20px; border-radius: 10px; border: none; cursor: pointer; transition: opacity 0.15s, transform 0.1s; }
   .ts-btn:active { transform: scale(0.98); }
   .ts-btn:disabled { opacity: 0.45; cursor: not-allowed; }
   .ts-btn--primary { background: var(--ts-primary); color: white; }
@@ -109,10 +89,14 @@
   .ts-btn--ghost { background: transparent; color: var(--ts-ink); border: 1px solid var(--ts-border); }
   .ts-btn--ghost:hover:not(:disabled) { background: var(--ts-primary-soft); }
 
-  .ts-dropzone {
-    margin-top: 4px; border: 1.5px dashed var(--ts-border); border-radius: 14px;
-    padding: 30px 20px; text-align: center; cursor: pointer; transition: all 0.15s;
+  .ts-collapse-btn {
+    display: flex; align-items: center; justify-content: space-between; width: 100%;
+    background: var(--ts-surface); border: 1px solid var(--ts-border); border-radius: 12px;
+    padding: 13px 18px; cursor: pointer; font-weight: 700; font-size: 13px; color: var(--ts-ink); margin: 16px 0;
   }
+  .ts-collapse-btn:hover { background: var(--ts-primary-soft); }
+
+  .ts-dropzone { margin-top: 4px; border: 1.5px dashed var(--ts-border); border-radius: 14px; padding: 34px 20px; text-align: center; cursor: pointer; transition: all 0.15s; }
   .ts-dropzone:hover, .ts-dropzone.is-dragging { border-color: var(--ts-primary); background: var(--ts-primary-soft); }
   .ts-file-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
   .ts-file-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--ts-bg); border-radius: 8px; font-size: 13px; }
@@ -123,12 +107,13 @@
   .ts-icon-btn:hover { background: var(--ts-border); color: var(--ts-ink); }
 
   .ts-notice { margin-top: 14px; padding: 10px 14px; border-radius: 10px; font-size: 12.5px; line-height: 1.5; }
-  .ts-notice--warn { background: #FCF1DD; color: #7A5209; }
+  .ts-notice--warn { background: #FFEDE0; color: #9A3412; }
 
   .ts-progress-track { height: 6px; border-radius: 999px; background: var(--ts-border); overflow: hidden; }
   .ts-progress-fill { height: 100%; background: var(--ts-primary); transition: width 0.25s ease; }
 
   .ts-resultados-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+  .ts-resultados-titulo { display: flex; align-items: center; gap: 10px; }
   .ts-filtros { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
   .ts-filtro-chip { font-size: 12.5px; font-weight: 600; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--ts-border); background: var(--ts-surface); color: var(--ts-muted); cursor: pointer; }
   .ts-filtro-chip.is-active { background: var(--ts-ink); border-color: var(--ts-ink); color: white; }
@@ -157,6 +142,65 @@
   .ts-criterio-label { font-size: 13.5px; font-weight: 600; }
   .ts-riesgos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
   .ts-riesgos li { display: flex; gap: 8px; font-size: 13px; line-height: 1.5; }
+
+  /* --- Resultados: layout tabla + panel de detalle --- */
+  .ts-detalle-inline { background: var(--ts-bg); border-radius: 12px; padding: 14px 16px; margin: -2px 0 10px; }
+
+  .ts-count-pill { font-size: 12px; font-weight: 700; color: var(--ts-primary); background: var(--ts-primary-soft); padding: 3px 10px; border-radius: 999px; margin-left: 8px; }
+  .ts-search-row { display: flex; gap: 8px; margin-bottom: 14px; }
+  .ts-search-input { flex: 1; position: relative; }
+  .ts-search-input input { width: 100%; box-sizing: border-box; border: 1px solid var(--ts-border); border-radius: 10px; padding: 9px 12px 9px 34px; font-size: 13.5px; background: var(--ts-surface); font-family: inherit; }
+  .ts-search-input input:focus { outline: none; border-color: var(--ts-primary); }
+  .ts-search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--ts-muted); pointer-events: none; }
+
+  .ts-tabla-header { display: grid; grid-template-columns: 30px 1.6fr 64px 1fr 56px 20px; gap: 10px; align-items: center; padding: 0 14px 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--ts-muted); }
+  @media (max-width: 560px) { .ts-tabla-header { display: none; } }
+
+  .ts-fila-candidato {
+    display: grid; grid-template-columns: 30px 1.6fr 64px 1fr 56px 20px; gap: 10px; align-items: center;
+    width: 100%; text-align: left; padding: 12px 14px; border-radius: 12px; border: 1.5px solid transparent;
+    background: var(--ts-surface); cursor: pointer; margin-bottom: 8px; font: inherit; color: inherit;
+  }
+  @media (max-width: 560px) { .ts-fila-candidato { grid-template-columns: 30px 1fr 64px 20px; } }
+  .ts-fila-candidato:hover { background: var(--ts-primary-soft); }
+  .ts-fila-candidato.is-selected { border-color: var(--ts-primary); background: var(--ts-primary-soft); }
+  .ts-fila-rank { font-size: 12.5px; font-weight: 800; color: var(--ts-muted); }
+  .ts-fila-candidato-main { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .ts-fila-nombre { font-weight: 700; font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ts-fila-sub { font-size: 11.5px; color: var(--ts-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ts-fila-estado { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
+  .ts-fila-estado-dot { width: 8px; height: 8px; border-radius: 999px; flex-shrink: 0; }
+  .ts-fila-riesgo { font-size: 11.5px; color: #FF9500; display: flex; align-items: center; gap: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  @media (max-width: 560px) { .ts-fila-estado, .ts-fila-riesgo { display: none; } }
+
+  .ts-ring-wrap { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+  .ts-ring-value { position: absolute; font-family: ui-monospace, "SF Mono", monospace; font-weight: 800; }
+
+  .ts-paginacion { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; flex-wrap: wrap; gap: 10px; }
+  .ts-paginacion-botones { display: flex; gap: 6px; }
+  .ts-pagina-btn {
+    width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--ts-border); background: var(--ts-surface);
+    color: var(--ts-muted); font-size: 12.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .ts-pagina-btn:hover:not(:disabled) { background: var(--ts-primary-soft); }
+  .ts-pagina-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .ts-pagina-btn.is-active { background: var(--ts-primary); border-color: var(--ts-primary); color: white; }
+
+  .ts-panel-detalle { position: sticky; top: 20px; }
+  .ts-detalle-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
+  .ts-detalle-persona { display: flex; align-items: center; gap: 12px; }
+  .ts-avatar-grande { width: 52px; height: 52px; border-radius: 14px; background: var(--ts-primary-soft); color: var(--ts-primary); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; flex-shrink: 0; }
+  .ts-detalle-nombre { font-size: 17px; font-weight: 800; }
+  .ts-detalle-compat-row { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+  .ts-detalle-compat-num { font-size: 32px; font-weight: 800; font-family: ui-monospace, "SF Mono", monospace; }
+  .ts-detalle-bar-track { height: 8px; border-radius: 999px; background: var(--ts-border); overflow: hidden; margin-top: 8px; }
+  .ts-detalle-bar-fill { height: 100%; border-radius: 999px; transition: width 0.6s ease; }
+  .ts-mini-card { border: 1px solid var(--ts-border); border-radius: 12px; padding: 14px 16px; margin-top: 12px; }
+  .ts-mini-card-title { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: var(--ts-muted); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 8px; }
+  .ts-eval-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; background: none; border: none; cursor: pointer; padding: 0; font: inherit; color: inherit; }
+  .ts-eval-subheading { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 8px; }
+  .ts-accion-sugerida { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
+  .ts-empty-detalle { display: flex; align-items: center; justify-content: center; height: 240px; color: var(--ts-muted); font-size: 13px; text-align: center; }
 </style>
 </head>
 <body>
@@ -167,76 +211,54 @@
  * ============================================================================
  * TALENT SCAN REFORMA — index.html (vista para RH, SOLO LECTURA)
  * ============================================================================
- * Esta versión NO tiene panel de edición. Los criterios de cada vacante se
- * cargan desde vacantes.json (mismo folder). Para editar vacantes o agregar
- * nuevas, se usa la herramienta separada `vacantes-editor.html` — esa nunca
- * se sube a producción, es de uso interno.
+ * v0.3: vacante + subida de CVs fusionados en una sola pantalla, colores
+ * distintivos por vacante (para evitar confundir a cuál se le está
+ * subiendo CVs), y detalles completos en un bloque colapsable.
  *
- * Si vacantes.json no existe o falla la carga, se usan los datos por
- * defecto (VACANTES_INICIALES) definidos abajo, para que la app nunca se
- * quede sin funcionar.
+ * Los criterios de cada vacante se cargan desde vacantes.json (mismo
+ * folder). Si falla, se usan los datos por defecto de abajo.
  *
- * VERSIONADO: v0.1, v0.2, v0.3... hasta v0.9, luego v1.0. Después de v1.9,
- * v2.0, y así. Súbelo a mano en la constante VERSION cada vez que subas un
- * cambio relevante.
+ * Para crear o editar vacantes: vacantes-editor.html (link visible en el
+ * header). Genera un vacantes.json que se le manda a quien mantiene el
+ * sitio — no se publica automáticamente desde ahí.
  * ============================================================================
  */
 
-const VERSION = "0.2";
+const VERSION = "0.7";
 
 const { useState, useCallback, useMemo, useEffect } = React;
 
 /* ----------------------------------------------------------------------- */
-/* ÍCONOS (SVG propios, sin dependencias externas)                         */
+/* ÍCONOS                                                                   */
 /* ----------------------------------------------------------------------- */
 
 function Icon({ name, size = 16, style }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", style };
   switch (name) {
-    case "scan":
-      return <svg {...common}><path d="M4 7V5a1 1 0 0 1 1-1h2" /><path d="M17 4h2a1 1 0 0 1 1 1v2" /><path d="M20 17v2a1 1 0 0 1-1 1h-2" /><path d="M7 20H5a1 1 0 0 1-1-1v-2" /><line x1="4" y1="12" x2="20" y2="12" /></svg>;
-    case "upload":
-      return <svg {...common}><path d="M12 16V4" /><path d="M6 10l6-6 6 6" /><path d="M4 20h16" /></svg>;
-    case "filetext":
-      return <svg {...common}><path d="M6 2h9l5 5v15H6z" /><path d="M9 13h6M9 17h6M9 9h2" /></svg>;
-    case "x":
-      return <svg {...common}><line x1="5" y1="5" x2="19" y2="19" /><line x1="19" y1="5" x2="5" y2="19" /></svg>;
-    case "check":
-      return <svg {...common}><circle cx="12" cy="12" r="9" /><path d="M8.5 12.5l2.5 2.5 5-5" /></svg>;
-    case "alert":
-      return <svg {...common}><path d="M12 3l10 18H2z" /><line x1="12" y1="9" x2="12" y2="14" /><circle cx="12" cy="17.3" r="0.6" fill="currentColor" stroke="none" /></svg>;
-    case "xcircle":
-      return <svg {...common}><circle cx="12" cy="12" r="9" /><line x1="9" y1="9" x2="15" y2="15" /><line x1="15" y1="9" x2="9" y2="15" /></svg>;
-    case "chevrondown":
-      return <svg {...common}><polyline points="6 9 12 15 18 9" /></svg>;
-    case "chevronright":
-      return <svg {...common}><polyline points="9 6 15 12 9 18" /></svg>;
-    case "briefcase":
-      return <svg {...common}><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>;
-    case "grad":
-      return <svg {...common}><path d="M2 9l10-5 10 5-10 5-10-5z" /><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5" /></svg>;
-    case "wallet":
-      return <svg {...common}><rect x="3" y="6" width="18" height="13" rx="2" /><path d="M3 10h18" /><circle cx="16" cy="14" r="1" fill="currentColor" stroke="none" /></svg>;
-    case "shield":
-      return <svg {...common}><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z" /><line x1="12" y1="9" x2="12" y2="13" /><circle cx="12" cy="16.3" r="0.6" fill="currentColor" stroke="none" /></svg>;
-    case "sparkles":
-      return <svg {...common}><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z" /><path d="M19 15l0.7 2 2 0.7-2 0.7-0.7 2-0.7-2-2-0.7 2-0.7z" /></svg>;
-    case "users":
-      return <svg {...common}><circle cx="9" cy="8" r="3" /><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" /><circle cx="17" cy="9" r="2.5" /><path d="M15.5 14a5 5 0 0 1 5.5 5" /></svg>;
-    case "pin":
-      return <svg {...common}><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.3" /></svg>;
-    case "ban":
-      return <svg {...common}><circle cx="12" cy="12" r="9" /><line x1="6" y1="18" x2="18" y2="6" /></svg>;
-    case "arrowleft":
-      return <svg {...common}><line x1="19" y1="12" x2="5" y2="12" /><polyline points="11 6 5 12 11 18" /></svg>;
-    case "arrowright":
-      return <svg {...common}><line x1="5" y1="12" x2="19" y2="12" /><polyline points="13 6 19 12 13 18" /></svg>;
-    case "sliders":
-      return <svg {...common}><line x1="4" y1="7" x2="20" y2="7" /><circle cx="9" cy="7" r="1.6" fill="currentColor" stroke="none" /><line x1="4" y1="17" x2="20" y2="17" /><circle cx="16" cy="17" r="1.6" fill="currentColor" stroke="none" /></svg>;
-    case "loader":
-      return <svg {...common}><path d="M12 3a9 9 0 1 0 9 9" /></svg>;
-    default:
-      return null;
+    case "scan": return <svg {...common}><path d="M4 7V5a1 1 0 0 1 1-1h2" /><path d="M17 4h2a1 1 0 0 1 1 1v2" /><path d="M20 17v2a1 1 0 0 1-1 1h-2" /><path d="M7 20H5a1 1 0 0 1-1-1v-2" /><line x1="4" y1="12" x2="20" y2="12" /></svg>;
+    case "upload": return <svg {...common}><path d="M12 16V4" /><path d="M6 10l6-6 6 6" /><path d="M4 20h16" /></svg>;
+    case "filetext": return <svg {...common}><path d="M6 2h9l5 5v15H6z" /><path d="M9 13h6M9 17h6M9 9h2" /></svg>;
+    case "x": return <svg {...common}><line x1="5" y1="5" x2="19" y2="19" /><line x1="19" y1="5" x2="5" y2="19" /></svg>;
+    case "check": return <svg {...common}><circle cx="12" cy="12" r="9" /><path d="M8.5 12.5l2.5 2.5 5-5" /></svg>;
+    case "alert": return <svg {...common}><path d="M12 3l10 18H2z" /><line x1="12" y1="9" x2="12" y2="14" /><circle cx="12" cy="17.3" r="0.6" fill="currentColor" stroke="none" /></svg>;
+    case "xcircle": return <svg {...common}><circle cx="12" cy="12" r="9" /><line x1="9" y1="9" x2="15" y2="15" /><line x1="15" y1="9" x2="9" y2="15" /></svg>;
+    case "chevrondown": return <svg {...common}><polyline points="6 9 12 15 18 9" /></svg>;
+    case "chevronright": return <svg {...common}><polyline points="9 6 15 12 9 18" /></svg>;
+    case "briefcase": return <svg {...common}><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>;
+    case "grad": return <svg {...common}><path d="M2 9l10-5 10 5-10 5-10-5z" /><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5" /></svg>;
+    case "wallet": return <svg {...common}><rect x="3" y="6" width="18" height="13" rx="2" /><path d="M3 10h18" /><circle cx="16" cy="14" r="1" fill="currentColor" stroke="none" /></svg>;
+    case "shield": return <svg {...common}><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z" /><line x1="12" y1="9" x2="12" y2="13" /><circle cx="12" cy="16.3" r="0.6" fill="currentColor" stroke="none" /></svg>;
+    case "sparkles": return <svg {...common}><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z" /><path d="M19 15l0.7 2 2 0.7-2 0.7-0.7 2-0.7-2-2-0.7 2-0.7z" /></svg>;
+    case "users": return <svg {...common}><circle cx="9" cy="8" r="3" /><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" /><circle cx="17" cy="9" r="2.5" /><path d="M15.5 14a5 5 0 0 1 5.5 5" /></svg>;
+    case "pin": return <svg {...common}><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.3" /></svg>;
+    case "ban": return <svg {...common}><circle cx="12" cy="12" r="9" /><line x1="6" y1="18" x2="18" y2="6" /></svg>;
+    case "arrowleft": return <svg {...common}><line x1="19" y1="12" x2="5" y2="12" /><polyline points="11 6 5 12 11 18" /></svg>;
+    case "arrowright": return <svg {...common}><line x1="5" y1="12" x2="19" y2="12" /><polyline points="13 6 19 12 13 18" /></svg>;
+    case "sliders": return <svg {...common}><line x1="4" y1="7" x2="20" y2="7" /><circle cx="9" cy="7" r="1.6" fill="currentColor" stroke="none" /><line x1="4" y1="17" x2="20" y2="17" /><circle cx="16" cy="17" r="1.6" fill="currentColor" stroke="none" /></svg>;
+    case "loader": return <svg {...common}><path d="M12 3a9 9 0 1 0 9 9" /></svg>;
+    case "pencil": return <svg {...common}><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" /></svg>;
+    case "search": return <svg {...common}><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>;
+    default: return null;
   }
 }
 
@@ -314,10 +336,10 @@ const VACANTES_INICIALES = {
 };
 
 const ESTADOS = {
-  muy_recomendado: { label: "Muy recomendado", color: "#1E8E5A", bg: "#E7F6EE" },
-  recomendado: { label: "Recomendado", color: "#0F6B5C", bg: "#E4F2EE" },
-  revisar: { label: "Revisar", color: "#B4740E", bg: "#FCF1DD" },
-  baja: { label: "Baja compatibilidad", color: "#B3261E", bg: "#FBE9E7" },
+  muy_recomendado: { label: "Muy recomendado", color: "#15803D", bg: "#DCFCE7" },
+  recomendado: { label: "Recomendado", color: "#16A34A", bg: "#E7F6EE" },
+  revisar: { label: "Revisar", color: "#FF9500", bg: "#FFEDE0" },
+  baja: { label: "Baja compatibilidad", color: "#DC2626", bg: "#FBE9E7" },
 };
 
 /* ----------------------------------------------------------------------- */
@@ -355,6 +377,13 @@ function comentarioGenerico(label, status) {
   if (status === "cumple") return `Se detectó "${label}" en el texto del CV.`;
   if (status === "parcial") return `Se encontró una coincidencia parcial relacionada con "${label}".`;
   return `No se detectó "${label}" en el texto del CV.`;
+}
+function fechaAmigable(fechaIso) {
+  if (!fechaIso) return "sin fecha";
+  const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  const [y, m, d] = fechaIso.split("-").map(Number);
+  if (!y || !m || !d) return fechaIso;
+  return `${d} de ${meses[m - 1]} de ${y}`;
 }
 
 /* ----------------------------------------------------------------------- */
@@ -533,7 +562,7 @@ function EstadoBadge({ estado }) {
 }
 function CriterioIcon({ status }) {
   if (status === "cumple") return <Icon name="check" size={16} style={{ color: "#1E8E5A" }} />;
-  if (status === "parcial") return <Icon name="alert" size={16} style={{ color: "#B4740E" }} />;
+  if (status === "parcial") return <Icon name="alert" size={16} style={{ color: "#FF9500" }} />;
   return <Icon name="xcircle" size={16} style={{ color: "#B3261E" }} />;
 }
 function ScanMeter({ value }) {
@@ -546,8 +575,32 @@ function ScanMeter({ value }) {
     </div>
   );
 }
+function CompatRing({ value, size = 42, stroke = 4, fontSize = 11 }) {
+  if (value === null) {
+    return <span className="ts-muted-sm" style={{ fontSize: 11 }}>—</span>;
+  }
+  const cfg = value >= 85 ? ESTADOS.muy_recomendado : value >= 70 ? ESTADOS.recomendado : value >= 50 ? ESTADOS.revisar : ESTADOS.baja;
+  const radius = (size - stroke) / 2;
+  const circumferencia = 2 * Math.PI * radius;
+  const offset = circumferencia * (1 - value / 100);
+  return (
+    <div className="ts-ring-wrap" style={{ width: size, height: size }}>
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="var(--ts-border)" strokeWidth={stroke} />
+        <circle
+          cx={size / 2} cy={size / 2} r={radius} fill="none" stroke={cfg.color} strokeWidth={stroke} strokeLinecap="round"
+          strokeDasharray={circunferenciaSegura(circumferencia)} strokeDashoffset={offset}
+          transform={`rotate(-90 ${size / 2} ${size / 2})`}
+          style={{ transition: "stroke-dashoffset 0.6s ease" }}
+        />
+      </svg>
+      <span className="ts-ring-value" style={{ color: cfg.color, fontSize }}>{value}%</span>
+    </div>
+  );
+}
+function circunferenciaSegura(c) { return c; }
 function Stepper({ step }) {
-  const steps = [{ n: 1, label: "Vacante" }, { n: 2, label: "Candidatos" }, { n: 3, label: "Resultados" }];
+  const steps = [{ n: 1, label: "Vacante y candidatos" }, { n: 2, label: "Resultados" }];
   return (
     <div className="ts-stepper">
       {steps.map((s, i) => (
@@ -566,7 +619,7 @@ function Stepper({ step }) {
 }
 
 /* ----------------------------------------------------------------------- */
-/* UI: PASO 1 — VACANTE (solo lectura)                                     */
+/* DETALLES COMPLETOS DE LA VACANTE (colapsable, solo lectura)             */
 /* ----------------------------------------------------------------------- */
 
 function ResumenCriterios({ vacante }) {
@@ -579,7 +632,7 @@ function ResumenCriterios({ vacante }) {
   const descarte = porCategoria("descarte");
 
   return (
-    <div className="ts-grid-2" style={{ marginTop: 16 }}>
+    <div className="ts-grid-2" style={{ marginBottom: 16 }}>
       <div className="ts-card">
         <div className="ts-card-title"><Icon name="grad" size={16} /> Formación</div>
         <ul className="ts-list">{formacion.map((c) => <li key={c.id}>{c.label}</li>)}</ul>
@@ -616,42 +669,21 @@ function ResumenCriterios({ vacante }) {
   );
 }
 
-function PasoVacante({ vacantes, vacanteActivaId, setVacanteActivaId, onNext }) {
+/* ----------------------------------------------------------------------- */
+/* PASO 1 — VACANTE + SUBIR CVs (fusionado)                                */
+/* ----------------------------------------------------------------------- */
+
+function PasoPrincipal({ vacantes, vacanteActivaId, setVacanteActivaId, files, setFiles, salarios, setSalarios, onAnalyze, isAnalyzing, progress, pdfStatus }) {
   const vacante = vacantes[vacanteActivaId];
-  return (
-    <div className="ts-fade-in">
-      <div className="ts-vacante-selector">
-        {Object.values(vacantes).map((v) => (
-          <button key={v.id} className={`ts-vacante-chip ${v.id === vacanteActivaId ? "is-active" : ""}`} onClick={() => setVacanteActivaId(v.id)}>
-            {v.titulo}
-          </button>
-        ))}
-      </div>
-
-      <div className="ts-card ts-card--hero">
-        <div className="ts-eyebrow"><Icon name="briefcase" size={14} /><span>Vacante activa</span></div>
-        <h2 className="ts-h2">{vacante.titulo}</h2>
-        <p className="ts-muted" style={{ maxWidth: 560, marginBottom: 12 }}>{vacante.resumenCorto}</p>
-        <p className="ts-body">Salario ofrecido: <strong>${vacante.salarioOfrecido.toLocaleString("es-MX")} MXN / mes</strong></p>
-      </div>
-
-      <ResumenCriterios vacante={vacante} />
-
-      <div className="ts-actions-right">
-        <button className="ts-btn ts-btn--primary" onClick={onNext}>
-          Continuar a subir CVs <Icon name="arrowright" size={16} />
-        </button>
-      </div>
-    </div>
-  );
-}
-
-/* ----------------------------------------------------------------------- */
-/* UI: PASO 2 — SUBIR CVs                                                  */
-/* ----------------------------------------------------------------------- */
-
-function PasoCandidatos({ vacante, files, setFiles, salarios, setSalarios, onBack, onAnalyze, isAnalyzing, progress, pdfStatus }) {
+  const [detallesAbiertos, setDetallesAbiertos] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+
+  const seleccionarVacante = (id) => {
+    if (id === vacanteActivaId) return;
+    setVacanteActivaId(id);
+    setFiles([]);
+    setSalarios({});
+  };
 
   const addFiles = useCallback((fileList) => {
     const nuevos = Array.from(fileList).filter((f) => f.type === "application/pdf" || f.name.toLowerCase().endsWith(".pdf"));
@@ -667,13 +699,39 @@ function PasoCandidatos({ vacante, files, setFiles, salarios, setSalarios, onBac
     setIsDragging(false);
     if (e.dataTransfer.files && e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
   };
-
   const removeFile = (idx) => setFiles((prev) => prev.filter((_, i) => i !== idx));
 
   return (
     <div className="ts-fade-in">
+      <div className="ts-vacante-selector">
+        {Object.values(vacantes).map((v) => (
+          <button
+            key={v.id}
+            className={`ts-vacante-chip ${v.id === vacanteActivaId ? "is-active" : ""}`}
+            onClick={() => seleccionarVacante(v.id)}
+          >
+            {v.titulo}
+          </button>
+        ))}
+      </div>
+
+      <div className="ts-card ts-card--hero">
+        <div className="ts-eyebrow">
+          <Icon name="briefcase" size={14} /><span>Vacante activa</span>
+        </div>
+        <h1 className="ts-vacante-titulo-grande">{vacante.titulo}</h1>
+        <p className="ts-muted" style={{ maxWidth: 560, marginBottom: 12 }}>{vacante.resumenCorto}</p>
+        <p className="ts-body">Salario ofrecido: <strong>${vacante.salarioOfrecido.toLocaleString("es-MX")} MXN / mes</strong></p>
+      </div>
+
+      <button className="ts-collapse-btn" onClick={() => setDetallesAbiertos((v) => !v)}>
+        <span>Ver detalles completos de la vacante</span>
+        <Icon name={detallesAbiertos ? "chevrondown" : "chevronright"} size={16} />
+      </button>
+      {detallesAbiertos && <ResumenCriterios vacante={vacante} />}
+
       <div className="ts-card">
-        <div className="ts-card-title"><Icon name="upload" size={16} /> Sube los CVs en PDF para la vacante: {vacante.titulo}</div>
+        <div className="ts-card-title"><Icon name="upload" size={16} /> Sube los CVs en PDF</div>
 
         <div
           className={`ts-dropzone ${isDragging ? "is-dragging" : ""}`}
@@ -722,8 +780,7 @@ function PasoCandidatos({ vacante, files, setFiles, salarios, setSalarios, onBac
         )}
       </div>
 
-      <div className="ts-actions-between">
-        <button className="ts-btn ts-btn--ghost" onClick={onBack} disabled={isAnalyzing}><Icon name="arrowleft" size={16} /> Volver a la vacante</button>
+      <div className="ts-actions-right">
         <button className="ts-btn ts-btn--primary" onClick={onAnalyze} disabled={files.length === 0 || isAnalyzing || pdfStatus !== "listo"}>
           {pdfStatus === "cargando" ? (
             <><Icon name="loader" size={16} style={{ animation: "tsSpin 0.9s linear infinite" }} /> Cargando lector de PDF…</>
@@ -737,81 +794,131 @@ function PasoCandidatos({ vacante, files, setFiles, salarios, setSalarios, onBac
 }
 
 /* ----------------------------------------------------------------------- */
-/* UI: PASO 3 — RESULTADOS                                                 */
+/* PASO 2 — RESULTADOS                                                     */
 /* ----------------------------------------------------------------------- */
 
-function DetalleCandidato({ candidato, vacante }) {
-  if (candidato.sinTexto) {
-    return <div className="ts-detalle"><div className="ts-detalle-col" style={{ gridColumn: "1 / -1" }}><p className="ts-body">{candidato.resumen}</p></div></div>;
-  }
+function accionSugerida(estado) {
+  if (estado === "muy_recomendado") return "Entrevistar";
+  if (estado === "recomendado") return "Considerar para entrevista";
+  if (estado === "revisar") return "Revisar manualmente";
+  return "No se recomienda continuar";
+}
+
+function EvaluacionCriterios({ candidato, vacante }) {
+  const [abierto, setAbierto] = useState(false);
   const criteriosVisibles = vacante.criterios.filter((c) => !c.soloDescarte);
+
+  const filas = criteriosVisibles
+    .map((c) => ({ c, ev: candidato.criteriosEval[c.id] }))
+    .filter((x) => x.ev);
+  const coinciden = filas.filter((x) => x.ev.status === "cumple");
+  const noCoinciden = filas.filter((x) => x.ev.status !== "cumple");
+
   return (
-    <div className="ts-detalle">
-      <div className="ts-detalle-col">
-        <div className="ts-detalle-heading">Evaluación por criterio</div>
-        <div className="ts-criterios">
-          {criteriosVisibles.map((c) => {
-            const ev = candidato.criteriosEval[c.id];
-            if (!ev) return null;
-            return (
-              <div className="ts-criterio-row" key={c.id}>
-                <CriterioIcon status={ev.status} />
-                <div><div className="ts-criterio-label">{c.label}</div><div className="ts-muted-sm">{ev.comentario}</div></div>
-              </div>
-            );
-          })}
+    <div className="ts-mini-card">
+      <button className="ts-eval-toggle" onClick={() => setAbierto((v) => !v)}>
+        <span className="ts-mini-card-title" style={{ marginBottom: 0 }}><Icon name="sliders" size={13} /> Evaluación de criterios</span>
+        <Icon name={abierto ? "chevrondown" : "chevronright"} size={15} />
+      </button>
+      {abierto && (
+        <div style={{ marginTop: 12 }}>
+          <div className="ts-eval-subheading" style={{ color: "#15803D" }}>
+            <Icon name="check" size={13} /> Coinciden ({coinciden.length})
+          </div>
+          {coinciden.length === 0 ? (
+            <p className="ts-muted-sm" style={{ marginBottom: 14 }}>Ninguno.</p>
+          ) : (
+            <div className="ts-criterios" style={{ marginBottom: 14 }}>
+              {coinciden.map(({ c, ev }) => (
+                <div className="ts-criterio-row" key={c.id}>
+                  <CriterioIcon status={ev.status} />
+                  <div><div className="ts-criterio-label">{c.label}</div><div className="ts-muted-sm">{ev.comentario}</div></div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="ts-eval-subheading" style={{ color: "#DC2626" }}>
+            <Icon name="xcircle" size={13} /> No coinciden ({noCoinciden.length})
+          </div>
+          {noCoinciden.length === 0 ? (
+            <p className="ts-muted-sm">Ninguno.</p>
+          ) : (
+            <div className="ts-criterios">
+              {noCoinciden.map(({ c, ev }) => (
+                <div className="ts-criterio-row" key={c.id}>
+                  <CriterioIcon status={ev.status} />
+                  <div><div className="ts-criterio-label">{c.label}</div><div className="ts-muted-sm">{ev.comentario}</div></div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
+      )}
+    </div>
+  );
+}
+
+function DetalleContenido({ candidato, vacante }) {
+  const cfg = candidato.compatibilidad === null
+    ? { color: "var(--ts-muted)" }
+    : candidato.compatibilidad >= 85 ? ESTADOS.muy_recomendado
+    : candidato.compatibilidad >= 70 ? ESTADOS.recomendado
+    : candidato.compatibilidad >= 50 ? ESTADOS.revisar
+    : ESTADOS.baja;
+
+  return (
+    <div className="ts-detalle-inline">
+      <div className="ts-mini-card">
+        <div className="ts-mini-card-title"><Icon name="sparkles" size={13} /> Resumen</div>
+        <p className="ts-body">{candidato.resumen}</p>
       </div>
-      <div className="ts-detalle-col">
-        <div className="ts-detalle-heading">Riesgos detectados</div>
+
+      {!candidato.sinTexto && (
+        <div className="ts-mini-card">
+          <div className="ts-mini-card-title"><Icon name="check" size={13} /> Recomendación</div>
+          <div className="ts-accion-sugerida" style={{ color: cfg.color }}>{accionSugerida(candidato.estado)}</div>
+          <p className="ts-body ts-muted">{candidato.recomendacion}</p>
+        </div>
+      )}
+
+      <div className="ts-mini-card">
+        <div className="ts-mini-card-title"><Icon name="alert" size={13} /> Riesgos detectados</div>
         {candidato.riesgos.length === 0 ? (
           <p className="ts-muted-sm">No se detectaron riesgos relevantes.</p>
         ) : (
           <ul className="ts-riesgos">
             {candidato.riesgos.map((r, i) => (
-              <li key={i}><Icon name="alert" size={14} style={{ color: "#B4740E", flexShrink: 0, marginTop: 2 }} /><span>{r}</span></li>
+              <li key={i}><Icon name="alert" size={14} style={{ color: "#FF9500", flexShrink: 0, marginTop: 2 }} /><span>{r}</span></li>
             ))}
           </ul>
         )}
-        <div className="ts-detalle-heading" style={{ marginTop: 18 }}>Recomendación final</div>
-        <p className="ts-body">{candidato.recomendacion}</p>
       </div>
+
+      {!candidato.sinTexto && <EvaluacionCriterios candidato={candidato} vacante={vacante} />}
     </div>
   );
 }
 
-function CandidatoCard({ candidato, vacante, expanded, onToggle }) {
-  return (
-    <div className="ts-card ts-candidato-card">
-      <button className="ts-candidato-header" onClick={onToggle}>
-        <div className="ts-candidato-main">
-          <div className="ts-avatar">{candidato.nombre.charAt(0)}</div>
-          <div><div className="ts-candidato-nombre">{candidato.nombre}</div><div className="ts-muted-sm">{candidato.archivo}</div></div>
-        </div>
-        <div className="ts-candidato-right">
-          <EstadoBadge estado={candidato.estado} />
-          <ScanMeter value={candidato.compatibilidad} />
-          {expanded ? <Icon name="chevrondown" size={18} /> : <Icon name="chevronright" size={18} />}
-        </div>
-      </button>
-      <p className="ts-body ts-resumen">{candidato.resumen}</p>
-      {expanded && <DetalleCandidato candidato={candidato} vacante={vacante} />}
-    </div>
-  );
-}
+const PAGE_SIZE = 8;
 
 function PasoResultados({ vacante, candidatos, onBack, onReiniciar }) {
   const [filtro, setFiltro] = useState("todos");
+  const [busqueda, setBusqueda] = useState("");
+  const [pagina, setPagina] = useState(1);
   const [expandedId, setExpandedId] = useState(null);
 
-  const filtrados = useMemo(() => {
-    const base = filtro === "todos" ? candidatos : candidatos.filter((c) => c.estado === filtro);
-    return [...base].sort((a, b) => {
+  const ordenados = useMemo(() => {
+    return [...candidatos].sort((a, b) => {
       const va = a.compatibilidad === null || a.compatibilidad === undefined ? -1 : a.compatibilidad;
       const vb = b.compatibilidad === null || b.compatibilidad === undefined ? -1 : b.compatibilidad;
       return vb - va;
     });
-  }, [candidatos, filtro]);
+  }, [candidatos]);
+
+  useEffect(() => {
+    if (ordenados.length > 0) setExpandedId(ordenados[0].id);
+  }, [vacante]);
 
   const conteos = useMemo(() => {
     const c = { muy_recomendado: 0, recomendado: 0, revisar: 0, baja: 0 };
@@ -819,38 +926,102 @@ function PasoResultados({ vacante, candidatos, onBack, onReiniciar }) {
     return c;
   }, [candidatos]);
 
+  const filtrados = useMemo(() => {
+    let base = filtro === "todos" ? ordenados : ordenados.filter((c) => c.estado === filtro);
+    if (busqueda.trim()) {
+      const q = normalizar(busqueda);
+      base = base.filter((c) => normalizar(c.nombre).includes(q) || normalizar(c.archivo).includes(q));
+    }
+    return base;
+  }, [ordenados, filtro, busqueda]);
+
+  const totalPaginas = Math.max(1, Math.ceil(filtrados.length / PAGE_SIZE));
+  const paginaSegura = Math.min(pagina, totalPaginas);
+  const visibles = filtrados.slice((paginaSegura - 1) * PAGE_SIZE, paginaSegura * PAGE_SIZE);
+
   return (
     <div className="ts-fade-in">
       <div className="ts-resultados-header">
         <div>
-          <h2 className="ts-h2" style={{ marginBottom: 2 }}>Ranking de candidatos</h2>
-          <p className="ts-muted-sm">{candidatos.length} candidato{candidatos.length === 1 ? "" : "s"} evaluado{candidatos.length === 1 ? "" : "s"} contra el perfil de {vacante.titulo}</p>
+          <div className="ts-resultados-titulo">
+            <h2 className="ts-h2" style={{ margin: 0, fontSize: 22, fontWeight: 700 }}>
+              Resultados — {vacante.titulo} <span className="ts-count-pill">{candidatos.length} analizados</span>
+            </h2>
+          </div>
         </div>
         <button className="ts-btn ts-btn--ghost" onClick={onReiniciar}>Nuevo análisis</button>
       </div>
 
       <div className="ts-filtros">
-        <Icon name="sliders" size={14} style={{ opacity: 0.5 }} />
         {[
           { id: "todos", label: `Todos (${candidatos.length})` },
-          { id: "muy_recomendado", label: `Muy recomendado (${conteos.muy_recomendado})` },
-          { id: "recomendado", label: `Recomendado (${conteos.recomendado})` },
+          { id: "muy_recomendado", label: `Muy recomendados (${conteos.muy_recomendado})` },
+          { id: "recomendado", label: `Recomendados (${conteos.recomendado})` },
           { id: "revisar", label: `Revisar (${conteos.revisar})` },
           { id: "baja", label: `Baja compatibilidad (${conteos.baja})` },
         ].map((f) => (
-          <button key={f.id} className={`ts-filtro-chip ${filtro === f.id ? "is-active" : ""}`} onClick={() => setFiltro(f.id)}>{f.label}</button>
+          <button key={f.id} className={`ts-filtro-chip ${filtro === f.id ? "is-active" : ""}`} onClick={() => { setFiltro(f.id); setPagina(1); }}>{f.label}</button>
         ))}
       </div>
 
-      <div className="ts-candidatos-list">
-        {filtrados.map((c) => (
-          <CandidatoCard key={c.id} candidato={c} vacante={vacante} expanded={expandedId === c.id} onToggle={() => setExpandedId(expandedId === c.id ? null : c.id)} />
-        ))}
-        {filtrados.length === 0 && <div className="ts-card" style={{ textAlign: "center", color: "var(--ts-muted)" }}>No hay candidatos en este filtro.</div>}
+      <div className="ts-search-row">
+        <div className="ts-search-input">
+          <span className="ts-search-icon"><Icon name="search" size={14} /></span>
+          <input placeholder="Buscar candidato…" value={busqueda} onChange={(e) => { setBusqueda(e.target.value); setPagina(1); }} />
+        </div>
       </div>
+
+      <div className="ts-tabla-header">
+        <span>#</span><span>Candidato</span><span>Compat.</span><span>Estado</span><span>Exp.</span><span></span>
+      </div>
+
+      {visibles.map((c, i) => {
+        const cfg = c.estado ? ESTADOS[c.estado] : null;
+        const rank = (paginaSegura - 1) * PAGE_SIZE + i + 1;
+        const abierto = expandedId === c.id;
+        return (
+          <React.Fragment key={c.id}>
+            <button className={`ts-fila-candidato ${abierto ? "is-selected" : ""}`} onClick={() => setExpandedId(abierto ? null : c.id)}>
+              <span className="ts-fila-rank">{rank}</span>
+              <div className="ts-fila-candidato-main">
+                <div className="ts-avatar">{c.nombre.charAt(0)}</div>
+                <div style={{ minWidth: 0 }}>
+                  <div className="ts-fila-nombre">{c.nombre}</div>
+                  <div className="ts-fila-sub">{c.archivo}</div>
+                </div>
+              </div>
+              <CompatRing value={c.compatibilidad} />
+              <div className="ts-fila-estado">
+                {cfg && <span className="ts-fila-estado-dot" style={{ backgroundColor: cfg.color }} />}
+                <span style={{ color: cfg ? cfg.color : "inherit" }}>{cfg ? cfg.label : "—"}</span>
+              </div>
+              <span className="ts-muted-sm">{c.experienciaAnios !== null && c.experienciaAnios !== undefined ? `${c.experienciaAnios}a` : "—"}</span>
+              <Icon name={abierto ? "chevrondown" : "chevronright"} size={16} style={{ color: "var(--ts-muted)", justifySelf: "end" }} />
+            </button>
+            {abierto && <DetalleContenido candidato={c} vacante={vacante} />}
+          </React.Fragment>
+        );
+      })}
+
+      {visibles.length === 0 && (
+        <div className="ts-card" style={{ textAlign: "center", color: "var(--ts-muted)" }}>No hay candidatos que coincidan.</div>
+      )}
+
+      {totalPaginas > 1 && (
+        <div className="ts-paginacion">
+          <span className="ts-muted-sm">Mostrando {(paginaSegura - 1) * PAGE_SIZE + 1}–{Math.min(paginaSegura * PAGE_SIZE, filtrados.length)} de {filtrados.length}</span>
+          <div className="ts-paginacion-botones">
+            <button className="ts-pagina-btn" onClick={() => setPagina((p) => Math.max(1, p - 1))} disabled={paginaSegura === 1}><Icon name="arrowleft" size={13} /></button>
+            {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((p) => (
+              <button key={p} className={`ts-pagina-btn ${p === paginaSegura ? "is-active" : ""}`} onClick={() => setPagina(p)}>{p}</button>
+            ))}
+            <button className="ts-pagina-btn" onClick={() => setPagina((p) => Math.min(totalPaginas, p + 1))} disabled={paginaSegura === totalPaginas}><Icon name="arrowright" size={13} /></button>
+          </div>
+        </div>
+      )}
 
       <div className="ts-actions-left">
-        <button className="ts-btn ts-btn--ghost" onClick={onBack}><Icon name="arrowleft" size={16} /> Volver a candidatos</button>
+        <button className="ts-btn ts-btn--ghost" onClick={onBack}><Icon name="arrowleft" size={16} /> Volver</button>
       </div>
     </div>
   );
@@ -864,6 +1035,8 @@ function TalentScan() {
   const [step, setStep] = useState(1);
   const [vacantes, setVacantes] = useState(VACANTES_INICIALES);
   const [vacanteActivaId, setVacanteActivaId] = useState("editor_web");
+  const [datosEstado, setDatosEstado] = useState("cargando");
+  const [metaDatos, setMetaDatos] = useState(null);
   const [files, setFiles] = useState([]);
   const [salarios, setSalarios] = useState({});
   const [candidatos, setCandidatos] = useState([]);
@@ -876,12 +1049,19 @@ function TalentScan() {
     fetch("./vacantes.json")
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then((data) => {
-        if (data && Object.keys(data).length) {
-          setVacantes(data);
-          setVacanteActivaId(Object.keys(data)[0]);
+        const { _meta, ...soloVacantes } = data || {};
+        if (soloVacantes && Object.keys(soloVacantes).length) {
+          setVacantes(soloVacantes);
+          setVacanteActivaId(Object.keys(soloVacantes)[0]);
+        }
+        if (_meta) {
+          setMetaDatos(_meta);
+          setDatosEstado("listo");
+        } else {
+          setDatosEstado("sin_meta");
         }
       })
-      .catch(() => {});
+      .catch(() => setDatosEstado("error"));
   }, []);
 
   const vacanteActiva = vacantes[vacanteActivaId];
@@ -907,34 +1087,57 @@ function TalentScan() {
     setCandidatos(resultados);
     setVacanteEvaluada(vacanteUsada);
     setIsAnalyzing(false);
-    setStep(3);
+    setStep(2);
   };
 
   const reiniciar = () => {
     setFiles([]);
     setSalarios({});
     setCandidatos([]);
-    setStep(2);
+    setStep(1);
   };
 
   return (
     <div className="ts-root">
       <div className="ts-shell">
-        <div className="ts-brand">
-          <div className="ts-brand-icon"><Icon name="scan" size={24} /></div>
-          <div>
-            <div className="ts-brand-name">Talent Scan <span className="ts-brand-org">REFORMA</span></div>
-            <span className="ts-version-badge">v{VERSION}</span>
+        <div className="ts-brand-row">
+          <div className="ts-brand">
+            <div className="ts-brand-icon"><Icon name="scan" size={24} /></div>
+            <div>
+              <div className="ts-brand-name">Talent Scan <span className="ts-brand-org">REFORMA</span></div>
+              <span className="ts-version-badge">v{VERSION}</span>
+            </div>
           </div>
+          <a className="ts-link-solicitar" href="./vacantes-editor.html" target="_blank" rel="noopener">
+            <Icon name="pencil" size={14} /> Solicitar vacante nueva o cambios
+          </a>
+        </div>
+
+        <div className="ts-datos-linea">
+          {datosEstado === "cargando" && (
+            <><Icon name="loader" size={13} style={{ animation: "tsSpin 0.9s linear infinite" }} /> Cargando datos de vacantes…</>
+          )}
+          {datosEstado === "listo" && (
+            <><Icon name="check" size={13} style={{ color: "#15803D" }} /> Datos v{metaDatos.version || "?"} · actualizados el {fechaAmigable(metaDatos.actualizado)}</>
+          )}
+          {datosEstado === "sin_meta" && (
+            <><Icon name="alert" size={13} style={{ color: "#FF9500" }} /> vacantes.json cargó, pero no trae fecha de actualización registrada.</>
+          )}
+          {datosEstado === "error" && (
+            <><Icon name="alert" size={13} style={{ color: "#FF9500" }} /> No se pudo cargar vacantes.json; usando los valores integrados en la página.</>
+          )}
         </div>
 
         <Stepper step={step} />
 
-        {step === 1 && <PasoVacante vacantes={vacantes} vacanteActivaId={vacanteActivaId} setVacanteActivaId={setVacanteActivaId} onNext={() => setStep(2)} />}
-        {step === 2 && (
-          <PasoCandidatos vacante={vacanteActiva} files={files} setFiles={setFiles} salarios={salarios} setSalarios={setSalarios} onBack={() => setStep(1)} onAnalyze={analizar} isAnalyzing={isAnalyzing} progress={progress} pdfStatus={pdfStatus} />
+        {step === 1 && (
+          <PasoPrincipal
+            vacantes={vacantes} vacanteActivaId={vacanteActivaId} setVacanteActivaId={setVacanteActivaId}
+            files={files} setFiles={setFiles} salarios={salarios} setSalarios={setSalarios}
+            onAnalyze={analizar} isAnalyzing={isAnalyzing} progress={progress} pdfStatus={pdfStatus}
+          />
         )}
-        {step === 3 && <PasoResultados vacante={vacanteEvaluada} candidatos={candidatos} onBack={() => setStep(2)} onReiniciar={reiniciar} />}
+        {step === 2 && <PasoResultados vacante={vacanteEvaluada} candidatos={candidatos} onBack={() => setStep(1)} onReiniciar={reiniciar} />}
       </div>
     </div>
   );

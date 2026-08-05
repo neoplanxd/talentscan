@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Talent Scan — Crear o editar vacante</title>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #F5F7F8; }
+  #root { min-height: 100vh; }
+
+  .ts-root {
+    --ts-bg: #F5F7F8; --ts-surface: #FFFFFF; --ts-ink: #14231F; --ts-muted: #5B6B67;
+    --ts-border: #E7E3F0; --ts-primary: #6D28D9; --ts-primary-soft: #F0EBFC;
+    background: var(--ts-bg); color: var(--ts-ink); min-height: 100%;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    padding: 32px 24px 80px;
+  }
+  .ts-shell { max-width: 960px; margin: 0 auto; }
+
+  .ts-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+  .ts-brand-icon { width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0; background: var(--ts-primary); color: white; display: flex; align-items: center; justify-content: center; }
+  .ts-brand-name { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+  .ts-brand-tag { font-size: 12.5px; color: var(--ts-muted); }
+  .ts-warning-banner {
+    margin: 16px 0 24px; padding: 12px 16px; border-radius: 10px; font-size: 12.5px;
+    background: #FFEDE0; color: #9A3412; line-height: 1.5;
+  }
+
+  .ts-toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; align-items: center; }
+  .ts-btn {
+    display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 700;
+    padding: 10px 16px; border-radius: 10px; border: none; cursor: pointer;
+  }
+  .ts-btn--primary { background: var(--ts-primary); color: white; }
+  .ts-btn--primary:hover { opacity: 0.9; }
+  .ts-btn--ghost { background: var(--ts-surface); color: var(--ts-ink); border: 1px solid var(--ts-border); }
+  .ts-btn--ghost:hover { background: var(--ts-primary-soft); }
+  .ts-btn--danger { background: #FBE9E7; color: #B3261E; }
+  .ts-btn--danger:hover { opacity: 0.85; }
+  .ts-file-label { display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 700; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--ts-border); background: var(--ts-surface); cursor: pointer; }
+  .ts-file-label:hover { background: var(--ts-primary-soft); }
+
+  .ts-vacante-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; align-items: center; }
+  .ts-vacante-chip { font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 10px; border: 1.5px solid var(--ts-border); background: var(--ts-surface); color: var(--ts-muted); cursor: pointer; }
+  .ts-vacante-chip.is-active { border-color: var(--ts-primary); background: var(--ts-primary-soft); color: var(--ts-primary); }
+  .ts-add-vacante-chip { font-size: 13px; font-weight: 700; padding: 9px 14px; border-radius: 10px; border: 1.5px dashed var(--ts-border); background: transparent; color: var(--ts-muted); cursor: pointer; }
+  .ts-add-vacante-chip:hover { border-color: var(--ts-primary); color: var(--ts-primary); }
+
+  .ts-card { background: var(--ts-surface); border: 1px solid var(--ts-border); border-radius: 16px; padding: 20px 22px; }
+  .ts-top-fields { display: grid; grid-template-columns: 2fr 3fr 1fr; gap: 14px; margin-bottom: 8px; }
+  @media (max-width: 720px) { .ts-top-fields { grid-template-columns: 1fr; } }
+  .ts-field-group { display: flex; flex-direction: column; gap: 4px; }
+  .ts-field-label-sm { font-size: 10.5px; color: var(--ts-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+  .ts-field-input { border: 1px solid var(--ts-border); border-radius: 8px; padding: 8px 10px; font-size: 13.5px; font-family: inherit; width: 100%; background: var(--ts-surface); color: var(--ts-ink); }
+  .ts-field-input:focus { outline: none; border-color: var(--ts-primary); }
+
+  .ts-editor-panel { margin-top: 18px; display: flex; flex-direction: column; gap: 14px; }
+  .ts-editor-section { background: var(--ts-surface); border: 1px solid var(--ts-border); border-radius: 14px; padding: 16px 20px; }
+  .ts-editor-section--descarte { border-color: #F0D9D6; }
+  .ts-editor-section-title { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ts-muted); margin-bottom: 12px; }
+  .ts-row-flex { display: flex; gap: 10px; align-items: flex-end; padding: 10px 0; border-bottom: 1px solid var(--ts-border); flex-wrap: wrap; }
+  .ts-row-flex:last-of-type { border-bottom: none; }
+  .ts-checkbox-row { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ts-muted); white-space: nowrap; padding-bottom: 8px; }
+  .ts-add-btn { font-size: 12.5px; font-weight: 700; color: var(--ts-primary); background: var(--ts-primary-soft); border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; margin-top: 10px; }
+  .ts-add-btn:hover { opacity: 0.85; }
+  .ts-remove-btn-row { border: none; background: transparent; color: #B3261E; cursor: pointer; padding: 7px; border-radius: 6px; flex-shrink: 0; }
+  .ts-remove-btn-row:hover { background: #FBE9E7; }
+  .ts-muted-sm { font-size: 12px; color: var(--ts-muted); }
+
+  .ts-json-toggle { margin-top: 22px; font-size: 12.5px; font-weight: 700; color: var(--ts-muted); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
+  .ts-json-preview { margin-top: 10px; background: #0F1A17; color: #B9E8D6; border-radius: 12px; padding: 16px; font-size: 11.5px; font-family: ui-monospace, "SF Mono", monospace; overflow: auto; max-height: 360px; white-space: pre; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+/**
+ * ============================================================================
+ * TALENT SCAN — EDITOR DE VACANTES (uso interno, NO subir a producción)
+ * ============================================================================
+ * Esta herramienta es solo para editar los datos de las vacantes. Flujo:
+ *   1. "Cargar vacantes.json actual" (el que está subido junto al index.html)
+ *   2. Edita/agrega/quita vacantes y criterios aquí
+ *   3. "Descargar vacantes.json" y sube ese archivo a tu repo, reemplazando
+ *      el anterior — el index.html lo recoge solo, sin tocar su código.
+ *
+ * Si no cargas ningún archivo, arranca con los mismos datos por defecto que
+ * trae el index.html, para que puedas partir de ahí.
+ * ============================================================================
+ */
+
+const { useState, useEffect } = React;
+
+function Icon({ name, size = 16, style }) {
+  const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", style };
+  switch (name) {
+    case "scan": return <svg {...common}><path d="M4 7V5a1 1 0 0 1 1-1h2" /><path d="M17 4h2a1 1 0 0 1 1 1v2" /><path d="M20 17v2a1 1 0 0 1-1 1h-2" /><path d="M7 20H5a1 1 0 0 1-1-1v-2" /><line x1="4" y1="12" x2="20" y2="12" /></svg>;
+    case "x": return <svg {...common}><line x1="5" y1="5" x2="19" y2="19" /><line x1="19" y1="5" x2="5" y2="19" /></svg>;
+    case "grad": return <svg {...common}><path d="M2 9l10-5 10 5-10 5-10-5z" /><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5" /></svg>;
+    case "pin": return <svg {...common}><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.3" /></svg>;
+    case "users": return <svg {...common}><circle cx="9" cy="8" r="3" /><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" /><circle cx="17" cy="9" r="2.5" /><path d="M15.5 14a5 5 0 0 1 5.5 5" /></svg>;
+    case "wallet": return <svg {...common}><rect x="3" y="6" width="18" height="13" rx="2" /><path d="M3 10h18" /><circle cx="16" cy="14" r="1" fill="currentColor" stroke="none" /></svg>;
+    case "sparkles": return <svg {...common}><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z" /><path d="M19 15l0.7 2 2 0.7-2 0.7-0.7 2-0.7-2-2-0.7 2-0.7z" /></svg>;
+    case "shield": return <svg {...common}><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z" /><line x1="12" y1="9" x2="12" y2="13" /><circle cx="12" cy="16.3" r="0.6" fill="currentColor" stroke="none" /></svg>;
+    case "ban": return <svg {...common}><circle cx="12" cy="12" r="9" /><line x1="6" y1="18" x2="18" y2="6" /></svg>;
+    case "download": return <svg {...common}><path d="M12 4v12" /><path d="M6 12l6 6 6-6" /><path d="M4 20h16" /></svg>;
+    case "upload": return <svg {...common}><path d="M12 16V4" /><path d="M6 10l6-6 6 6" /><path d="M4 20h16" /></svg>;
+    case "plus": return <svg {...common}><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>;
+    default: return null;
+  }
+}
+
+const ICONOS_CATEGORIA = { formacion: "grad", ubicacion: "pin", experiencia: "users", salario: "wallet", habilidad_indispensable: "sparkles", habilidad_deseable: "sparkles", descarte: "ban" };
+
+const UBICACION_KEYWORDS = ["ciudad de mexico", "cdmx", "estado de mexico", "edomex", "zona metropolitana", "zona conurbada", "naucalpan", "ecatepec", "nezahualcoyotl", "tlalnepantla", "atizapan", "cuautitlan", "huixquilucan", "chalco", "chimalhuacan", "coacalco", "tultitlan", "los reyes la paz"];
+
+const VACANTES_POR_DEFECTO = {
+  editor_web: {
+    id: "editor_web", titulo: "Editor Web", resumenCorto: "Redacción y edición para medios digitales de alcance nacional.", salarioOfrecido: 20000,
+    perfil: { requisitosAdicionales: [] },
+    criterios: [
+      { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "formacion", peso: 25, pesoParcial: 12, pesoNoCumple: 4, keywords: ["periodismo", "ciencias de la comunicacion"], keywordsParcial: ["comunicacion"] },
+      { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "ubicacion", peso: 15, pesoNoCumple: 0, keywords: UBICACION_KEYWORDS },
+      { id: "medios", label: "Medios de alcance nacional", tipo: "keyword", categoria: "habilidad_indispensable", peso: 15, pesoNoCumple: 3, keywords: ["el universal", "excelsior", "milenio", "n+", "nmas", "infobae", "animal politico", "medio nacional", "alcance nacional"] },
+      { id: "experiencia", label: "Experiencia como Editor Web", tipo: "anios", categoria: "experiencia", peso: 15, anioMin: 1, anioMax: 3 },
+      { id: "redaccion", label: "Redacción", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["redaccion"] },
+      { id: "edicion", label: "Edición", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["edicion"] },
+      { id: "breaking", label: "Breaking News", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["breaking news", "ultima hora", "noticia de ultimo momento", "noticias de ultimo momento"] },
+      { id: "monitoreo", label: "Monitoreo de información", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["monitoreo de informacion", "monitoreo de medios", "monitoreo"] },
+      { id: "equipo", label: "Trabajo en equipo", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["trabajo en equipo", "trabajo colaborativo"] },
+      { id: "ingles", label: "Inglés", tipo: "keyword", categoria: "habilidad_deseable", peso: 5, keywords: ["ingles"] },
+      { id: "salario", label: "Compatibilidad salarial", tipo: "salario", categoria: "salario", peso: 5 },
+      { id: "becario", label: "Becario/practicante", tipo: "keyword", categoria: "descarte", soloDescarte: true, keywords: ["becario", "becaria", "practicante", "practicas profesionales", "servicio social"], descarteSi: "cumple", descarteMensaje: "Criterio de descarte: se detectó perfil de becario/practicante." },
+      { id: "creadorRedes", label: "Creador de contenido para redes", tipo: "keyword", categoria: "descarte", soloDescarte: true, keywords: ["tiktoker", "tik toker", "youtuber", "content creator", "creador de contenido", "influencer"], descarteSi: "cumple", descarteMensaje: "Criterio de descarte: perfil orientado a creación de contenido para redes (TikTok/YouTube)." },
+      { id: "brandedContent", label: "Branded content", tipo: "keyword", categoria: "descarte", soloDescarte: true, keywords: ["branded content", "contenido patrocinado", "publirreportaje", "contenido publicitario"], descarteSi: "cumple", descarteMensaje: "Criterio de descarte: experiencia en branded content / contenido publicitario." },
+      { id: "medioPequeno", label: "Medio sin alcance nacional", tipo: "keyword", categoria: "descarte", soloDescarte: true, keywords: ["pagina de facebook", "canal de youtube", "periodico local", "periodico estatal", "medio estatal"], descarteSi: "cumple", anularSiCumpleId: "medios", descarteMensaje: "Criterio de descarte: experiencia limitada a medios estatales pequeños, Facebook o YouTube sin alcance nacional." },
+    ],
+  },
+  disenador_digital: {
+    id: "disenador_digital", titulo: "Diseñador Digital", resumenCorto: "Diseño gráfico y digital para plataformas y contenido de marca.", salarioOfrecido: 18000,
+    perfil: { requisitosAdicionales: ["Disponibilidad para laborar de 16:00 horas al cierre (promedio 1:30 a.m.)", "Descansos entre semana"] },
+    criterios: [
+      { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "formacion", peso: 20, pesoParcial: 10, pesoNoCumple: 4, keywords: ["diseno grafico", "diseno digital", "diseno multimedia"], keywordsParcial: ["diseno"] },
+      { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "ubicacion", peso: 10, pesoNoCumple: 0, keywords: UBICACION_KEYWORDS, descarteSi: "no_cumple", descarteMensaje: "Criterio de descarte: no se identificó residencia en CDMX o zona conurbada." },
+      { id: "portafolio", label: "Liga a portafolio", tipo: "url", categoria: "habilidad_indispensable", peso: 10, pesoNoCumple: 0, keywords: ["portafolio", "portfolio", "behance", "dribbble"], descarteSi: "no_cumple", descarteMensaje: "Criterio de descarte: no se encontró liga a portafolio en el CV." },
+      { id: "experiencia", label: "Experiencia en diseño digital", tipo: "anios", categoria: "experiencia", peso: 15, anioMin: 1, anioMax: 3 },
+      { id: "illustrator", label: "Adobe Illustrator", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["illustrator"] },
+      { id: "photoshop", label: "Adobe Photoshop", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["photoshop"] },
+      { id: "figma", label: "Figma", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["figma"] },
+      { id: "disenoRedes", label: "Diseño para redes sociales", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["diseno para redes sociales", "contenido para redes sociales"] },
+      { id: "trabajoEquipo", label: "Trabajo en equipo", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["trabajo en equipo", "trabajo colaborativo"] },
+      { id: "organizacion", label: "Organización", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["organizacion", "organizado"] },
+      { id: "creatividad", label: "Creatividad", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["creatividad", "creativo"] },
+      { id: "atencionDetalle", label: "Atención al detalle", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["atencion al detalle", "atencion a detalle"] },
+      { id: "comunicacionEfectiva", label: "Comunicación efectiva", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["comunicacion efectiva", "buena comunicacion"] },
+      { id: "html", label: "HTML", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["html"] },
+      { id: "css", label: "CSS", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["css"] },
+      { id: "disenoWeb", label: "Diseño web", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["diseno web"] },
+      { id: "disenoResponsivo", label: "Diseño responsivo", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["diseno responsivo", "responsive"] },
+      { id: "uxui", label: "UX/UI", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["ux/ui", "ux ui", "experiencia de usuario", "interfaz de usuario"] },
+      { id: "cms", label: "CMS", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["cms", "wordpress"] },
+      { id: "indesign", label: "Adobe InDesign", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["indesign"] },
+      { id: "edicionVideo", label: "Edición de video", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["edicion de video", "edicion de videos"] },
+      { id: "motionGraphics", label: "Motion Graphics", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["motion graphics", "motion graphic"] },
+      { id: "areaNoRelacionada", label: "Área no relacionada con diseño", tipo: "areaNoRelacionada", categoria: "descarte", soloDescarte: true, keywords: ["administracion", "ventas", "logistica", "atencion a clientes", "call center", "recursos humanos", "contabilidad"], keywordsExcluyentes: ["diseno grafico", "diseno digital", "illustrator", "photoshop", "figma", "diseno web", "ux/ui", "ui/ux"], descarteMensaje: "Criterio de descarte: la experiencia detectada parece estar exclusivamente en áreas no relacionadas con diseño (administración, ventas, logística, etc.)." },
+    ],
+  },
+};
+
+/* ----------------------------------------------------------------------- */
+/* FILAS DE EDICIÓN                                                        */
+/* ----------------------------------------------------------------------- */
+
+function FilaCriterio({ criterio, onUpdate, onRemove }) {
+  const [label, setLabel] = useState(criterio.label);
+  const [keywords, setKeywords] = useState((criterio.keywords || []).join(", "));
+  const [peso, setPeso] = useState(criterio.peso);
+  const [descarte, setDescarte] = useState(criterio.descarteSi === "no_cumple");
+
+  return (
+    <div className="ts-row-flex">
+      <div className="ts-field-group" style={{ flex: "1 1 160px" }}>
+        <span className="ts-field-label-sm">Nombre</span>
+        <input className="ts-field-input" value={label} onChange={(e) => { setLabel(e.target.value); onUpdate({ label: e.target.value }); }} />
+      </div>
+      <div className="ts-field-group" style={{ flex: "2 1 220px" }}>
+        <span className="ts-field-label-sm">Palabras clave (separadas por coma)</span>
+        <input className="ts-field-input" value={keywords} onChange={(e) => { setKeywords(e.target.value); onUpdate({ keywords: e.target.value.split(",").map((s) => s.trim().toLowerCase()).filter(Boolean) }); }} />
+      </div>
+      <div className="ts-field-group" style={{ width: 64 }}>
+        <span className="ts-field-label-sm">Peso</span>
+        <input className="ts-field-input" type="number" value={peso} onChange={(e) => { setPeso(e.target.value); onUpdate({ peso: Number(e.target.value) || 0 }); }} />
+      </div>
+      <label className="ts-checkbox-row">
+        <input type="checkbox" checked={descarte} onChange={(e) => { setDescarte(e.target.checked); onUpdate({ descarteSi: e.target.checked ? "no_cumple" : undefined }); }} />
+        Descartar si falta
+      </label>
+      <button className="ts-remove-btn-row" onClick={onRemove} aria-label="Eliminar criterio"><Icon name="x" size={14} /></button>
+    </div>
+  );
+}
+
+function FilaDescarte({ criterio, onUpdate, onRemove }) {
+  const [label, setLabel] = useState(criterio.label);
+  const [keywords, setKeywords] = useState((criterio.keywords || []).join(", "));
+  const [mensaje, setMensaje] = useState(criterio.descarteMensaje || "");
+  const tieneExcepciones = criterio.keywordsExcluyentes !== undefined;
+  const [excepciones, setExcepciones] = useState((criterio.keywordsExcluyentes || []).join(", "));
+
+  return (
+    <div style={{ paddingBottom: 14, marginBottom: 14, borderBottom: "1px solid var(--ts-border)" }}>
+      <div className="ts-row-flex" style={{ borderBottom: "none", padding: 0 }}>
+        <div className="ts-field-group" style={{ flex: "1 1 200px" }}>
+          <span className="ts-field-label-sm">Nombre del criterio</span>
+          <input className="ts-field-input" value={label} onChange={(e) => { setLabel(e.target.value); onUpdate({ label: e.target.value }); }} />
+        </div>
+        <div className="ts-field-group" style={{ flex: "2 1 220px" }}>
+          <span className="ts-field-label-sm">Palabras clave que disparan el descarte</span>
+          <input className="ts-field-input" value={keywords} onChange={(e) => { setKeywords(e.target.value); onUpdate({ keywords: e.target.value.split(",").map((s) => s.trim().toLowerCase()).filter(Boolean) }); }} />
+        </div>
+        <button className="ts-remove-btn-row" onClick={onRemove} aria-label="Eliminar criterio"><Icon name="x" size={14} /></button>
+      </div>
+      <div className="ts-field-group" style={{ marginTop: 8 }}>
+        <span className="ts-field-label-sm">Mensaje que se muestra como riesgo</span>
+        <input className="ts-field-input" value={mensaje} onChange={(e) => { setMensaje(e.target.value); onUpdate({ descarteMensaje: e.target.value }); }} />
+      </div>
+      {tieneExcepciones && (
+        <div className="ts-field-group" style={{ marginTop: 8 }}>
+          <span className="ts-field-label-sm">No descartar si también menciona (excepciones)</span>
+          <input className="ts-field-input" value={excepciones} onChange={(e) => { setExcepciones(e.target.value); onUpdate({ keywordsExcluyentes: e.target.value.split(",").map((s) => s.trim().toLowerCase()).filter(Boolean) }); }} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FilaExperiencia({ criterio, onUpdate }) {
+  const [anioMin, setAnioMin] = useState(criterio.anioMin);
+  const [anioMax, setAnioMax] = useState(criterio.anioMax);
+  const [peso, setPeso] = useState(criterio.peso);
+  return (
+    <div className="ts-row-flex">
+      <div className="ts-field-group" style={{ width: 100 }}>
+        <span className="ts-field-label-sm">Años mínimo</span>
+        <input className="ts-field-input" type="number" value={anioMin} onChange={(e) => { setAnioMin(e.target.value); onUpdate({ anioMin: Number(e.target.value) || 0 }); }} />
+      </div>
+      <div className="ts-field-group" style={{ width: 120 }}>
+        <span className="ts-field-label-sm">Años máximo (ideal)</span>
+        <input className="ts-field-input" type="number" value={anioMax} onChange={(e) => { setAnioMax(e.target.value); onUpdate({ anioMax: Number(e.target.value) || 0 }); }} />
+      </div>
+      <div className="ts-field-group" style={{ width: 70 }}>
+        <span className="ts-field-label-sm">Peso</span>
+        <input className="ts-field-input" type="number" value={peso} onChange={(e) => { setPeso(e.target.value); onUpdate({ peso: Number(e.target.value) || 0 }); }} />
+      </div>
+    </div>
+  );
+}
+
+function FilaSalario({ criterio, onUpdate }) {
+  const [peso, setPeso] = useState(criterio.peso);
+  return (
+    <div className="ts-row-flex">
+      <div className="ts-field-group" style={{ width: 90 }}>
+        <span className="ts-field-label-sm">Peso en el puntaje</span>
+        <input className="ts-field-input" type="number" value={peso} onChange={(e) => { setPeso(e.target.value); onUpdate({ peso: Number(e.target.value) || 0 }); }} />
+      </div>
+      <p className="ts-muted-sm" style={{ alignSelf: "center", margin: 0 }}>El salario ofrecido se edita arriba, junto al nombre de la vacante.</p>
+    </div>
+  );
+}
+
+function SeccionCriterios({ titulo, categoria, criterios, onUpdate, onRemove, onAdd }) {
+  return (
+    <div className="ts-editor-section">
+      <div className="ts-editor-section-title"><Icon name={ICONOS_CATEGORIA[categoria]} size={14} /> {titulo}</div>
+      {criterios.length === 0 && <p className="ts-muted-sm">Sin criterios en esta sección.</p>}
+      {criterios.map((c) => <FilaCriterio key={c.id} criterio={c} onUpdate={(patch) => onUpdate(c.id, patch)} onRemove={() => onRemove(c.id)} />)}
+      <button className="ts-add-btn" onClick={onAdd}>+ Agregar</button>
+    </div>
+  );
+}
+
+function SeccionDescarte({ criterios, onUpdate, onRemove, onAdd }) {
+  return (
+    <div className="ts-editor-section ts-editor-section--descarte">
+      <div className="ts-editor-section-title" style={{ color: "#B3261E" }}><Icon name="ban" size={14} /> Criterios de descarte</div>
+      {criterios.length === 0 && <p className="ts-muted-sm">Sin criterios de descarte configurados.</p>}
+      {criterios.map((c) => <FilaDescarte key={c.id} criterio={c} onUpdate={(patch) => onUpdate(c.id, patch)} onRemove={() => onRemove(c.id)} />)}
+      <button className="ts-add-btn" onClick={onAdd}>+ Agregar criterio de descarte</button>
+    </div>
+  );
+}
+
+function SeccionRequisitos({ items, onChange }) {
+  const agregar = () => onChange([...items, ""]);
+  const actualizar = (idx, val) => { const nueva = [...items]; nueva[idx] = val; onChange(nueva); };
+  const eliminar = (idx) => onChange(items.filter((_, i) => i !== idx));
+  return (
+    <div className="ts-editor-section">
+      <div className="ts-editor-section-title"><Icon name="shield" size={14} /> Requisitos adicionales (informativos)</div>
+      {items.length === 0 && <p className="ts-muted-sm">Sin requisitos adicionales.</p>}
+      {items.map((item, i) => (
+        <div className="ts-row-flex" key={i}>
+          <input className="ts-field-input" value={item} onChange={(e) => actualizar(i, e.target.value)} style={{ flex: 1 }} />
+          <button className="ts-remove-btn-row" onClick={() => eliminar(i)} aria-label="Eliminar requisito"><Icon name="x" size={14} /></button>
+        </div>
+      ))}
+      <button className="ts-add-btn" onClick={agregar}>+ Agregar requisito</button>
+    </div>
+  );
+}
+
+/* ----------------------------------------------------------------------- */
+/* APP                                                                     */
+/* ----------------------------------------------------------------------- */
+
+function slugify(texto) {
+  return (texto || "")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "") || "vacante";
+}
+
+function fechaAmigable(fechaIso) {
+  if (!fechaIso) return "sin fecha";
+  const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  const [y, m, d] = fechaIso.split("-").map(Number);
+  if (!y || !m || !d) return fechaIso;
+  return `${d} de ${meses[m - 1]} de ${y}`;
+}
+
+function EditorVacantes() {
+  const [vacantes, setVacantes] = useState(VACANTES_POR_DEFECTO);
+  const [vacanteActivaId, setVacanteActivaId] = useState("editor_web");
+  const [mostrarJson, setMostrarJson] = useState(false);
+  const [meta, setMeta] = useState({ version: 0, actualizado: null });
+  const [cargado, setCargado] = useState(false);
+
+  const vacante = vacantes[vacanteActivaId];
+  const porCategoria = (cat) => (vacante ? vacante.criterios.filter((c) => c.categoria === cat) : []);
+
+  const cargarArchivo = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(reader.result);
+        const { _meta, ...soloVacantes } = data;
+        if (!soloVacantes || !Object.keys(soloVacantes).length) throw new Error("vacio");
+        setVacantes(soloVacantes);
+        setVacanteActivaId(Object.keys(soloVacantes)[0]);
+        setMeta(_meta || { version: 0, actualizado: null });
+        setCargado(true);
+      } catch (err) {
+        alert("No se pudo leer el archivo. Verifica que sea un vacantes.json válido.");
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = "";
+  };
+
+  const empezarDesdeCero = () => {
+    setCargado(true);
+  };
+
+  const descargar = () => {
+    const hoy = new Date().toISOString().slice(0, 10);
+    const nuevoMeta = { version: (meta.version || 0) + 1, actualizado: hoy };
+    setMeta(nuevoMeta);
+    const salida = { _meta: nuevoMeta, ...vacantes };
+    const blob = new Blob([JSON.stringify(salida, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "vacantes.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const actualizarVacante = (patch) => {
+    setVacantes((prev) => ({ ...prev, [vacanteActivaId]: { ...prev[vacanteActivaId], ...patch } }));
+  };
+
+  const actualizarCriterio = (criterioId, patch) => {
+    setVacantes((prev) => ({
+      ...prev,
+      [vacanteActivaId]: { ...prev[vacanteActivaId], criterios: prev[vacanteActivaId].criterios.map((c) => (c.id === criterioId ? { ...c, ...patch } : c)) },
+    }));
+  };
+
+  const agregarCriterio = (categoria) => {
+    setVacantes((prev) => {
+      const v = prev[vacanteActivaId];
+      const nuevoId = `custom_${categoria}_${Date.now()}`;
+      const nuevo = categoria === "descarte"
+        ? { id: nuevoId, label: "Nuevo criterio de descarte", tipo: "keyword", categoria, soloDescarte: true, keywords: [], descarteSi: "cumple", descarteMensaje: "Criterio de descarte." }
+        : { id: nuevoId, label: "Nuevo criterio", tipo: "keyword", categoria, keywords: [], peso: 3 };
+      return { ...prev, [vacanteActivaId]: { ...v, criterios: [...v.criterios, nuevo] } };
+    });
+  };
+
+  const eliminarCriterio = (criterioId) => {
+    setVacantes((prev) => ({ ...prev, [vacanteActivaId]: { ...prev[vacanteActivaId], criterios: prev[vacanteActivaId].criterios.filter((c) => c.id !== criterioId) } }));
+  };
+
+  const actualizarRequisitos = (lista) => {
+    setVacantes((prev) => ({ ...prev, [vacanteActivaId]: { ...prev[vacanteActivaId], perfil: { ...prev[vacanteActivaId].perfil, requisitosAdicionales: lista } } }));
+  };
+
+  const nuevaVacante = () => {
+    const titulo = prompt("Nombre de la nueva vacante:");
+    if (!titulo) return;
+    let id = slugify(titulo);
+    let sufijo = 2;
+    while (vacantes[id]) { id = `${slugify(titulo)}_${sufijo}`; sufijo++; }
+    const nueva = {
+      id, titulo, resumenCorto: "", salarioOfrecido: 0,
+      perfil: { requisitosAdicionales: [] },
+      criterios: [
+        { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "formacion", peso: 20, keywords: [] },
+        { id: "ubicacion", label: "Ubicación", tipo: "keyword", categoria: "ubicacion", peso: 10, keywords: [] },
+        { id: "experiencia", label: "Experiencia", tipo: "anios", categoria: "experiencia", peso: 15, anioMin: 1, anioMax: 3 },
+        { id: "salario", label: "Compatibilidad salarial", tipo: "salario", categoria: "salario", peso: 5 },
+      ],
+    };
+    setVacantes((prev) => ({ ...prev, [id]: nueva }));
+    setVacanteActivaId(id);
+  };
+
+  const eliminarVacante = () => {
+    if (!confirm(`¿Eliminar la vacante "${vacante.titulo}"? Esta acción no se puede deshacer (hasta que descargues de nuevo el JSON anterior).`)) return;
+    setVacantes((prev) => {
+      const nuevo = { ...prev };
+      delete nuevo[vacanteActivaId];
+      return nuevo;
+    });
+    const restantes = Object.keys(vacantes).filter((id) => id !== vacanteActivaId);
+    setVacanteActivaId(restantes[0] || "");
+  };
+
+  if (!cargado) {
+    return (
+      <div className="ts-root">
+        <div className="ts-shell" style={{ maxWidth: 620 }}>
+          <div className="ts-brand">
+            <div className="ts-brand-icon"><Icon name="scan" size={20} /></div>
+            <div>
+              <div className="ts-brand-name">Talent Scan — Crear o editar vacante</div>
+              <div className="ts-brand-tag">Aquí armas la vacante; el cambio se sube por separado.</div>
+            </div>
+          </div>
+
+          <div className="ts-card" style={{ marginTop: 22 }}>
+            <div className="ts-card-title" style={{ marginBottom: 6 }}>Antes de editar</div>
+            <p className="ts-body">
+              Carga el <strong>vacantes.json</strong> que está subido actualmente en el sitio. Así editas sobre la
+              versión más reciente y no corres el riesgo de sobreescribir cambios que alguien más ya haya hecho.
+            </p>
+            <label className="ts-file-label" style={{ marginTop: 16 }}>
+              <Icon name="upload" size={15} /> Cargar vacantes.json actual
+              <input type="file" accept="application/json" style={{ display: "none" }} onChange={cargarArchivo} />
+            </label>
+            <p className="ts-muted-sm" style={{ marginTop: 20 }}>
+              ¿Primera vez y todavía no existe el archivo?{" "}
+              <button className="ts-json-toggle" onClick={empezarDesdeCero}>Empezar desde cero</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!vacante) {
+    return (
+      <div className="ts-root">
+        <div className="ts-shell">
+          <p className="ts-body">No hay vacantes. <button className="ts-add-btn" onClick={nuevaVacante}>+ Crear una</button></p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="ts-root">
+      <div className="ts-shell">
+        <div className="ts-brand">
+          <div className="ts-brand-icon"><Icon name="scan" size={20} /></div>
+          <div>
+            <div className="ts-brand-name">Talent Scan — Crear o editar vacante</div>
+            <div className="ts-brand-tag">Aquí armas la vacante; el cambio se sube por separado.</div>
+          </div>
+        </div>
+
+        <div className="ts-warning-banner">
+          Estás editando sobre <strong>datos v{meta.version || 0}</strong> ({fechaAmigable(meta.actualizado)}). Al descargar,
+          se guarda como <strong>v{(meta.version || 0) + 1}</strong> con la fecha de hoy. Comparte el archivo (Slack o
+          correo) con la persona encargada de actualizar el sitio — esta página no publica nada directo a producción.
+        </div>
+
+        <div className="ts-toolbar">
+          <label className="ts-file-label">
+            <Icon name="upload" size={15} /> Cargar otro vacantes.json
+            <input type="file" accept="application/json" style={{ display: "none" }} onChange={cargarArchivo} />
+          </label>
+          <button className="ts-btn ts-btn--primary" onClick={descargar}><Icon name="download" size={15} /> Descargar vacantes.json</button>
+          <button className="ts-btn ts-btn--ghost" onClick={nuevaVacante}><Icon name="plus" size={15} /> Nueva vacante</button>
+          <button className="ts-btn ts-btn--danger" onClick={eliminarVacante}><Icon name="x" size={15} /> Eliminar vacante actual</button>
+        </div>
+
+        <div className="ts-vacante-selector">
+          {Object.values(vacantes).map((v) => (
+            <button key={v.id} className={`ts-vacante-chip ${v.id === vacanteActivaId ? "is-active" : ""}`} onClick={() => setVacanteActivaId(v.id)}>{v.titulo}</button>
+          ))}
+        </div>
+
+        <div className="ts-card">
+          <div className="ts-top-fields">
+            <div className="ts-field-group">
+              <span className="ts-field-label-sm">Título de la vacante</span>
+              <input className="ts-field-input" value={vacante.titulo} onChange={(e) => actualizarVacante({ titulo: e.target.value })} />
+            </div>
+            <div className="ts-field-group">
+              <span className="ts-field-label-sm">Descripción corta</span>
+              <input className="ts-field-input" value={vacante.resumenCorto} onChange={(e) => actualizarVacante({ resumenCorto: e.target.value })} />
+            </div>
+            <div className="ts-field-group">
+              <span className="ts-field-label-sm">Salario ofrecido (MXN/mes)</span>
+              <input className="ts-field-input" type="number" value={vacante.salarioOfrecido} onChange={(e) => actualizarVacante({ salarioOfrecido: Number(e.target.value) || 0 })} />
+            </div>
+          </div>
+          <p className="ts-muted-sm">id interno: {vacante.id}</p>
+        </div>
+
+        <div className="ts-editor-panel" key={vacanteActivaId}>
+          <SeccionCriterios titulo="Formación" categoria="formacion" criterios={porCategoria("formacion")} onUpdate={actualizarCriterio} onRemove={eliminarCriterio} onAdd={() => agregarCriterio("formacion")} />
+          <SeccionCriterios titulo="Ubicación" categoria="ubicacion" criterios={porCategoria("ubicacion")} onUpdate={actualizarCriterio} onRemove={eliminarCriterio} onAdd={() => agregarCriterio("ubicacion")} />
+
+          <div className="ts-editor-section">
+            <div className="ts-editor-section-title"><Icon name="users" size={14} /> Experiencia</div>
+            {porCategoria("experiencia").map((c) => <FilaExperiencia key={c.id} criterio={c} onUpdate={(patch) => actualizarCriterio(c.id, patch)} />)}
+          </div>
+
+          <div className="ts-editor-section">
+            <div className="ts-editor-section-title"><Icon name="wallet" size={14} /> Salario</div>
+            {porCategoria("salario").map((c) => <FilaSalario key={c.id} criterio={c} onUpdate={(patch) => actualizarCriterio(c.id, patch)} />)}
+          </div>
+
+          <SeccionCriterios titulo="Habilidades indispensables" categoria="habilidad_indispensable" criterios={porCategoria("habilidad_indispensable")} onUpdate={actualizarCriterio} onRemove={eliminarCriterio} onAdd={() => agregarCriterio("habilidad_indispensable")} />
+          <SeccionCriterios titulo="Habilidades deseables" categoria="habilidad_deseable" criterios={porCategoria("habilidad_deseable")} onUpdate={actualizarCriterio} onRemove={eliminarCriterio} onAdd={() => agregarCriterio("habilidad_deseable")} />
+
+          <SeccionRequisitos items={vacante.perfil.requisitosAdicionales} onChange={actualizarRequisitos} />
+
+          <SeccionDescarte criterios={porCategoria("descarte")} onUpdate={actualizarCriterio} onRemove={eliminarCriterio} onAdd={() => agregarCriterio("descarte")} />
+        </div>
+
+        <button className="ts-json-toggle" onClick={() => setMostrarJson((v) => !v)}>
+          {mostrarJson ? "Ocultar" : "Ver"} JSON completo
+        </button>
+        {mostrarJson && <pre className="ts-json-preview">{JSON.stringify({ _meta: meta, ...vacantes }, null, 2)}</pre>}
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<EditorVacantes />);
+</script>
+</body>
+</html>
