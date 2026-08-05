@@ -3,7 +3,7 @@
     "id": "editor_web",
     "titulo": "Editor Web",
     "resumenCorto": "Redacción y edición para medios digitales de alcance nacional.",
-    "salarioOfrecido": 20000,
+    "salarioOfrecido": 14000,
     "perfil": {
       "requisitosAdicionales": []
     },
@@ -22,7 +22,8 @@
         ],
         "keywordsParcial": [
           "comunicacion"
-        ]
+        ],
+        "descarteSi": "no_cumple"
       },
       {
         "id": "ubicacion",
@@ -223,7 +224,7 @@
   "disenador_digital": {
     "id": "disenador_digital",
     "titulo": "Diseñador Digital",
-    "resumenCorto": "Diseño gráfico y digital para plataformas y contenido de marca.",
+    "resumenCorto": "Diseño gráfico y digital, diseño respondido, diseñador UX/UI",
     "salarioOfrecido": 15000,
     "perfil": {
       "requisitosAdicionales": [
@@ -247,7 +248,8 @@
         ],
         "keywordsParcial": [
           "diseno"
-        ]
+        ],
+        "descarteSi": "no_cumple"
       },
       {
         "id": "ubicacion",
@@ -258,23 +260,7 @@
         "pesoNoCumple": 0,
         "keywords": [
           "ciudad de mexico",
-          "cdmx",
-          "estado de mexico",
-          "edomex",
-          "zona metropolitana",
-          "zona conurbada",
-          "naucalpan",
-          "ecatepec",
-          "nezahualcoyotl",
-          "tlalnepantla",
-          "atizapan",
-          "cuautitlan",
-          "huixquilucan",
-          "chalco",
-          "chimalhuacan",
-          "coacalco",
-          "tultitlan",
-          "los reyes la paz"
+          "cdmx"
         ],
         "descarteSi": "no_cumple",
         "descarteMensaje": "Criterio de descarte: no se identificó residencia en CDMX o zona conurbada."
@@ -309,27 +295,29 @@
         "label": "Adobe Illustrator",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "peso": 3,
+        "peso": 10,
         "keywords": [
           "illustrator"
-        ]
+        ],
+        "descarteSi": "no_cumple"
       },
       {
         "id": "photoshop",
         "label": "Adobe Photoshop",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "peso": 3,
+        "peso": 10,
         "keywords": [
           "photoshop"
-        ]
+        ],
+        "descarteSi": "no_cumple"
       },
       {
         "id": "figma",
         "label": "Figma",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "peso": 3,
+        "peso": 10,
         "keywords": [
           "figma"
         ]
@@ -341,8 +329,7 @@
         "categoria": "habilidad_indispensable",
         "peso": 3,
         "keywords": [
-          "diseno para redes sociales",
-          "contenido para redes sociales"
+          "diseno para redes sociales"
         ]
       },
       {
@@ -385,8 +372,7 @@
         "categoria": "habilidad_indispensable",
         "peso": 3,
         "keywords": [
-          "atencion al detalle",
-          "atencion a detalle"
+          "atencion al detalle"
         ]
       },
       {
@@ -396,8 +382,7 @@
         "categoria": "habilidad_indispensable",
         "peso": 3,
         "keywords": [
-          "comunicacion efectiva",
-          "buena comunicacion"
+          "comunicacion efectiva"
         ]
       },
       {
@@ -405,7 +390,7 @@
         "label": "HTML",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "peso": 2,
+        "peso": 20,
         "keywords": [
           "html"
         ]
@@ -415,7 +400,7 @@
         "label": "CSS",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "peso": 2,
+        "peso": 20,
         "keywords": [
           "css"
         ]
@@ -425,7 +410,7 @@
         "label": "Diseño web",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "peso": 2,
+        "peso": 25,
         "keywords": [
           "diseno web"
         ]
@@ -435,7 +420,7 @@
         "label": "Diseño responsivo",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "peso": 2,
+        "peso": 15,
         "keywords": [
           "diseno responsivo",
           "responsive"
@@ -452,27 +437,6 @@
           "ux ui",
           "experiencia de usuario",
           "interfaz de usuario"
-        ]
-      },
-      {
-        "id": "cms",
-        "label": "CMS",
-        "tipo": "keyword",
-        "categoria": "habilidad_deseable",
-        "peso": 2,
-        "keywords": [
-          "cms",
-          "wordpress"
-        ]
-      },
-      {
-        "id": "indesign",
-        "label": "Adobe InDesign",
-        "tipo": "keyword",
-        "categoria": "habilidad_deseable",
-        "peso": 2,
-        "keywords": [
-          "indesign"
         ]
       },
       {
