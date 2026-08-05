@@ -1,13 +1,13 @@
 {
   "_meta": {
-    "version": 1,
+    "version": 2,
     "actualizado": "2026-08-05"
   },
   "editor_web": {
     "id": "editor_web",
     "titulo": "Editor Web",
     "resumenCorto": "Redacción y edición para medios digitales de alcance nacional.",
-    "salarioOfrecido": 20000,
+    "salarioOfrecido": 15000,
     "perfil": {
       "requisitosAdicionales": []
     },
@@ -26,7 +26,8 @@
         ],
         "keywordsParcial": [
           "comunicacion"
-        ]
+        ],
+        "descarteSi": "no_cumple"
       },
       {
         "id": "ubicacion",
@@ -228,7 +229,7 @@
     "id": "disenador_digital",
     "titulo": "Diseñador Digital",
     "resumenCorto": "Diseño gráfico y digital para plataformas y contenido de marca.",
-    "salarioOfrecido": 18000,
+    "salarioOfrecido": 15000,
     "perfil": {
       "requisitosAdicionales": [
         "Disponibilidad para laborar de 16:00 horas al cierre (promedio 1:30 a.m.)",
@@ -247,11 +248,14 @@
         "keywords": [
           "diseno grafico",
           "diseno digital",
-          "diseno multimedia"
+          "diseno multimedia",
+          "diseno ux/ui",
+          "diseno comunicacion grafica"
         ],
         "keywordsParcial": [
           "diseno"
-        ]
+        ],
+        "descarteSi": "no_cumple"
       },
       {
         "id": "ubicacion",
@@ -262,23 +266,7 @@
         "pesoNoCumple": 0,
         "keywords": [
           "ciudad de mexico",
-          "cdmx",
-          "estado de mexico",
-          "edomex",
-          "zona metropolitana",
-          "zona conurbada",
-          "naucalpan",
-          "ecatepec",
-          "nezahualcoyotl",
-          "tlalnepantla",
-          "atizapan",
-          "cuautitlan",
-          "huixquilucan",
-          "chalco",
-          "chimalhuacan",
-          "coacalco",
-          "tultitlan",
-          "los reyes la paz"
+          "cdmx"
         ],
         "descarteSi": "no_cumple",
         "descarteMensaje": "Criterio de descarte: no se identificó residencia en CDMX o zona conurbada."
@@ -313,7 +301,7 @@
         "label": "Adobe Illustrator",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "peso": 3,
+        "peso": 20,
         "keywords": [
           "illustrator"
         ]
@@ -323,7 +311,7 @@
         "label": "Adobe Photoshop",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "peso": 3,
+        "peso": 20,
         "keywords": [
           "photoshop"
         ]
@@ -333,7 +321,7 @@
         "label": "Figma",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "peso": 3,
+        "peso": 25,
         "keywords": [
           "figma"
         ]
@@ -409,7 +397,7 @@
         "label": "HTML",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "peso": 2,
+        "peso": 20,
         "keywords": [
           "html"
         ]
@@ -419,7 +407,7 @@
         "label": "CSS",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "peso": 2,
+        "peso": 20,
         "keywords": [
           "css"
         ]
@@ -429,7 +417,7 @@
         "label": "Diseño web",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "peso": 2,
+        "peso": 25,
         "keywords": [
           "diseno web"
         ]
@@ -439,7 +427,7 @@
         "label": "Diseño responsivo",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "peso": 2,
+        "peso": 15,
         "keywords": [
           "diseno responsivo",
           "responsive"
@@ -456,27 +444,6 @@
           "ux ui",
           "experiencia de usuario",
           "interfaz de usuario"
-        ]
-      },
-      {
-        "id": "cms",
-        "label": "CMS",
-        "tipo": "keyword",
-        "categoria": "habilidad_deseable",
-        "peso": 2,
-        "keywords": [
-          "cms",
-          "wordpress"
-        ]
-      },
-      {
-        "id": "indesign",
-        "label": "Adobe InDesign",
-        "tipo": "keyword",
-        "categoria": "habilidad_deseable",
-        "peso": 2,
-        "keywords": [
-          "indesign"
         ]
       },
       {
