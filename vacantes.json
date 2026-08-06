@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": 5,
+    "version": 7,
     "actualizado": "2026-08-06"
   },
   "editor_web": {
@@ -18,15 +18,39 @@
         "label": "Formación académica",
         "tipo": "keyword",
         "categoria": "requisito",
-        "keywords": ["periodismo", "ciencias de la comunicacion"],
-        "keywordsParcial": ["comunicacion"]
+        "keywords": [
+          "periodismo",
+          "ciencias de la comunicacion"
+        ],
+        "keywordsParcial": [
+          "comunicacion"
+        ]
       },
       {
         "id": "ubicacion",
         "label": "Ubicación (CDMX / zona conurbada)",
         "tipo": "keyword",
         "categoria": "requisito",
-        "keywords": ["ciudad de mexico", "cdmx", "estado de mexico", "edomex", "zona metropolitana", "zona conurbada", "naucalpan", "ecatepec", "nezahualcoyotl", "tlalnepantla", "atizapan", "cuautitlan", "huixquilucan", "chalco", "chimalhuacan", "coacalco", "tultitlan", "los reyes la paz"]
+        "keywords": [
+          "ciudad de mexico",
+          "cdmx",
+          "estado de mexico",
+          "edomex",
+          "zona metropolitana",
+          "zona conurbada",
+          "naucalpan",
+          "ecatepec",
+          "nezahualcoyotl",
+          "tlalnepantla",
+          "atizapan",
+          "cuautitlan",
+          "huixquilucan",
+          "chalco",
+          "chimalhuacan",
+          "coacalco",
+          "tultitlan",
+          "los reyes la paz"
+        ]
       },
       {
         "id": "experiencia",
@@ -41,49 +65,77 @@
         "label": "Medios de alcance nacional",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "keywords": ["el universal", "excelsior", "milenio", "n+", "nmas", "infobae", "animal politico", "medio nacional", "alcance nacional"]
+        "keywords": [
+          "el universal",
+          "excelsior",
+          "milenio",
+          "n+",
+          "nmas",
+          "infobae",
+          "animal politico",
+          "medio nacional",
+          "alcance nacional"
+        ]
       },
       {
         "id": "redaccion",
         "label": "Redacción",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "keywords": ["redaccion"]
+        "keywords": [
+          "redaccion"
+        ]
       },
       {
         "id": "edicion",
         "label": "Edición",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "keywords": ["edicion"]
+        "keywords": [
+          "edicion"
+        ]
       },
       {
         "id": "breaking",
         "label": "Breaking News",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "keywords": ["breaking news", "ultima hora", "noticia de ultimo momento", "noticias de ultimo momento"]
+        "keywords": [
+          "breaking news",
+          "ultima hora",
+          "noticia de ultimo momento",
+          "noticias de ultimo momento"
+        ]
       },
       {
         "id": "monitoreo",
         "label": "Monitoreo de información",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "keywords": ["monitoreo de informacion", "monitoreo de medios", "monitoreo"]
+        "keywords": [
+          "monitoreo de informacion",
+          "monitoreo de medios",
+          "monitoreo"
+        ]
       },
       {
         "id": "equipo",
         "label": "Trabajo en equipo",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "keywords": ["trabajo en equipo", "trabajo colaborativo"]
+        "keywords": [
+          "trabajo en equipo",
+          "trabajo colaborativo"
+        ]
       },
       {
         "id": "ingles",
         "label": "Inglés",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "keywords": ["ingles"]
+        "keywords": [
+          "ingles"
+        ]
       },
       {
         "id": "becario",
@@ -91,7 +143,13 @@
         "tipo": "keyword",
         "categoria": "descarte",
         "soloDescarte": true,
-        "keywords": ["becario", "becaria", "practicante", "practicas profesionales", "servicio social"],
+        "keywords": [
+          "becario",
+          "becaria",
+          "practicante",
+          "practicas profesionales",
+          "servicio social"
+        ],
         "descarteSi": "cumple",
         "descarteMensaje": "Criterio de descarte: se detectó perfil de becario/practicante."
       },
@@ -101,7 +159,14 @@
         "tipo": "keyword",
         "categoria": "descarte",
         "soloDescarte": true,
-        "keywords": ["tiktoker", "tik toker", "youtuber", "content creator", "creador de contenido", "influencer"],
+        "keywords": [
+          "tiktoker",
+          "tik toker",
+          "youtuber",
+          "content creator",
+          "creador de contenido",
+          "influencer"
+        ],
         "descarteSi": "cumple",
         "descarteMensaje": "Criterio de descarte: perfil orientado a creación de contenido para redes (TikTok/YouTube)."
       },
@@ -111,7 +176,12 @@
         "tipo": "keyword",
         "categoria": "descarte",
         "soloDescarte": true,
-        "keywords": ["branded content", "contenido patrocinado", "publirreportaje", "contenido publicitario"],
+        "keywords": [
+          "branded content",
+          "contenido patrocinado",
+          "publirreportaje",
+          "contenido publicitario"
+        ],
         "descarteSi": "cumple",
         "descarteMensaje": "Criterio de descarte: experiencia en branded content / contenido publicitario."
       },
@@ -121,7 +191,13 @@
         "tipo": "keyword",
         "categoria": "descarte",
         "soloDescarte": true,
-        "keywords": ["pagina de facebook", "canal de youtube", "periodico local", "periodico estatal", "medio estatal"],
+        "keywords": [
+          "pagina de facebook",
+          "canal de youtube",
+          "periodico local",
+          "periodico estatal",
+          "medio estatal"
+        ],
         "descarteSi": "cumple",
         "anularSiCumpleId": "medios",
         "descarteMensaje": "Criterio de descarte: experiencia limitada a medios estatales pequeños, Facebook o YouTube sin alcance nacional."
@@ -135,7 +211,10 @@
     "presupuestoIndispensables": 100,
     "presupuestoDeseables": 20,
     "perfil": {
-      "requisitosAdicionales": ["Disponibilidad para laborar de 16:00 horas al cierre (promedio 1:30 a.m.)", "Descansos entre semana"]
+      "requisitosAdicionales": [
+        "Disponibilidad para laborar de 16:00 horas al cierre (promedio 1:30 a.m.)",
+        "Descansos entre semana"
+      ]
     },
     "criterios": [
       {
@@ -143,22 +222,38 @@
         "label": "Formación académica",
         "tipo": "keyword",
         "categoria": "requisito",
-        "keywords": ["diseno grafico", "diseno digital", "diseno multimedia", "diseno ux/ui", "diseno comunicacion grafica"],
-        "keywordsParcial": ["diseno"]
+        "keywords": [
+          "diseno grafico",
+          "diseno digital",
+          "diseno multimedia",
+          "diseno ux/ui",
+          "diseno comunicacion grafica"
+        ],
+        "keywordsParcial": [
+          "diseno"
+        ]
       },
       {
         "id": "ubicacion",
         "label": "Ubicación (CDMX / zona conurbada)",
         "tipo": "keyword",
         "categoria": "requisito",
-        "keywords": ["ciudad de mexico", "cdmx"]
+        "keywords": [
+          "ciudad de mexico",
+          "cdmx"
+        ]
       },
       {
         "id": "portafolio",
         "label": "Liga a portafolio",
         "tipo": "url",
         "categoria": "requisito",
-        "keywords": ["portafolio", "portfolio", "behance", "dribbble"]
+        "keywords": [
+          "portafolio",
+          "portfolio",
+          "behance",
+          "dribbble"
+        ]
       },
       {
         "id": "experiencia",
@@ -173,112 +268,117 @@
         "label": "Adobe Illustrator",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "keywords": ["illustrator"]
+        "keywords": [
+          "illustrator"
+        ]
       },
       {
         "id": "photoshop",
         "label": "Adobe Photoshop",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "keywords": ["photoshop"]
+        "keywords": [
+          "photoshop"
+        ]
       },
       {
         "id": "figma",
         "label": "Figma",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "keywords": ["figma"]
+        "keywords": [
+          "figma"
+        ]
       },
       {
         "id": "disenoRedes",
         "label": "Diseño para redes sociales",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "keywords": ["diseno para redes sociales", "contenido para redes sociales"]
-      },
-      {
-        "id": "creatividad",
-        "label": "Creatividad",
-        "tipo": "keyword",
-        "categoria": "habilidad_indispensable",
-        "keywords": ["creatividad", "creativo"]
-      },
-      {
-        "id": "atencionDetalle",
-        "label": "Atención al detalle",
-        "tipo": "keyword",
-        "categoria": "habilidad_indispensable",
-        "keywords": ["atencion al detalle", "atencion a detalle"]
+        "keywords": [
+          "diseno para redes sociales",
+          "contenido para redes sociales"
+        ]
       },
       {
         "id": "trabajoEquipo",
         "label": "Trabajo en equipo",
         "tipo": "keyword",
         "categoria": "feature",
-        "keywords": ["trabajo en equipo", "trabajo colaborativo"]
+        "keywords": [
+          "trabajo en equipo",
+          "trabajo colaborativo"
+        ]
       },
       {
         "id": "organizacion",
         "label": "Organización",
         "tipo": "keyword",
         "categoria": "feature",
-        "keywords": ["organizacion", "organizado"]
+        "keywords": [
+          "organizacion",
+          "organizado"
+        ]
       },
       {
         "id": "comunicacionEfectiva",
         "label": "Comunicación efectiva",
         "tipo": "keyword",
         "categoria": "feature",
-        "keywords": ["comunicacion efectiva", "buena comunicacion"]
+        "keywords": [
+          "comunicacion efectiva",
+          "buena comunicacion"
+        ]
       },
       {
         "id": "html",
         "label": "HTML",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "keywords": ["html"]
+        "keywords": [
+          "html"
+        ]
       },
       {
         "id": "css",
         "label": "CSS",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "keywords": ["css"]
+        "keywords": [
+          "css"
+        ]
       },
       {
         "id": "disenoWeb",
         "label": "Diseño web",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "keywords": ["diseno web"]
+        "keywords": [
+          "diseno web",
+          "landings"
+        ]
       },
       {
         "id": "disenoResponsivo",
         "label": "Diseño responsivo",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "keywords": ["diseno responsivo", "responsive"]
+        "keywords": [
+          "diseno responsivo",
+          "responsive"
+        ]
       },
       {
         "id": "uxui",
         "label": "UX/UI",
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
-        "keywords": ["ux/ui", "ux ui", "experiencia de usuario", "interfaz de usuario"]
-      },
-      {
-        "id": "edicionVideo",
-        "label": "Edición de video",
-        "tipo": "keyword",
-        "categoria": "habilidad_deseable",
-        "keywords": ["edicion de video", "edicion de videos"]
-      },
-      {
-        "id": "motionGraphics",
-        "label": "Motion Graphics",
-        "tipo": "keyword",
-        "categoria": "habilidad_deseable",
-        "keywords": ["motion graphics", "motion graphic"]
+        "keywords": [
+          "ux/ui",
+          "ux ui",
+          "experiencia de usuario",
+          "interfaz de usuario"
+        ]
       },
       {
         "id": "areaNoRelacionada",
@@ -286,9 +386,36 @@
         "tipo": "areaNoRelacionada",
         "categoria": "descarte",
         "soloDescarte": true,
-        "keywords": ["administracion", "ventas", "logistica", "atencion a clientes", "call center", "recursos humanos", "contabilidad"],
-        "keywordsExcluyentes": ["diseno grafico", "diseno digital", "illustrator", "photoshop", "figma", "diseno web", "ux/ui", "ui/ux"],
+        "keywords": [
+          "administracion",
+          "ventas",
+          "logistica",
+          "atencion a clientes",
+          "call center",
+          "recursos humanos",
+          "contabilidad"
+        ],
+        "keywordsExcluyentes": [
+          "diseno grafico",
+          "diseno digital",
+          "illustrator",
+          "photoshop",
+          "figma",
+          "diseno web",
+          "ux/ui",
+          "ui/ux"
+        ],
         "descarteMensaje": "Criterio de descarte: la experiencia detectada parece estar exclusivamente en áreas no relacionadas con diseño (administración, ventas, logística, etc.)."
+      },
+      {
+        "id": "custom_habilidad_indispensable_1786045873815",
+        "label": "Diseño de marca",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "diseño para agencias",
+          "diseño de marca"
+        ]
       }
     ]
   }
