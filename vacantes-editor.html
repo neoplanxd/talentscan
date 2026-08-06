@@ -122,7 +122,7 @@ const VACANTES_POR_DEFECTO = {
     criterios: [
       { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "requisito", keywords: ["periodismo", "ciencias de la comunicacion"], keywordsParcial: ["comunicacion"] },
       { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "requisito", keywords: UBICACION_KEYWORDS },
-      { id: "experiencia", label: "Experiencia como Editor Web", tipo: "anios", categoria: "habilidad_indispensable", anioMin: 1, anioMax: 3 },
+      { id: "experiencia", label: "Experiencia como Editor Web", tipo: "anios", categoria: "requisito", anioMin: 1, anioMax: 3 },
       { id: "medios", label: "Medios de alcance nacional", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["el universal", "excelsior", "milenio", "n+", "nmas", "infobae", "animal politico", "medio nacional", "alcance nacional"] },
       { id: "redaccion", label: "Redacción", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["redaccion"] },
       { id: "edicion", label: "Edición", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["edicion"] },
@@ -144,7 +144,7 @@ const VACANTES_POR_DEFECTO = {
       { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "requisito", keywords: ["diseno grafico", "diseno digital", "diseno multimedia"], keywordsParcial: ["diseno"] },
       { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "requisito", keywords: UBICACION_KEYWORDS },
       { id: "portafolio", label: "Liga a portafolio", tipo: "url", categoria: "requisito", keywords: ["portafolio", "portfolio", "behance", "dribbble"] },
-      { id: "experiencia", label: "Experiencia en diseño digital", tipo: "anios", categoria: "habilidad_indispensable", anioMin: 1, anioMax: 3 },
+      { id: "experiencia", label: "Experiencia en diseño digital", tipo: "anios", categoria: "requisito", anioMin: 1, anioMax: 3 },
       { id: "illustrator", label: "Adobe Illustrator", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["illustrator"] },
       { id: "photoshop", label: "Adobe Photoshop", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["photoshop"] },
       { id: "figma", label: "Figma", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["figma"] },
@@ -334,10 +334,11 @@ function slugify(texto) {
 }
 function fechaAmigable(fechaIso) {
   if (!fechaIso) return "sin fecha";
-  const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
-  const [y, m, d] = fechaIso.split("-").map(Number);
-  if (!y || !m || !d) return fechaIso;
-  return `${d} de ${meses[m - 1]} de ${y}`;
+  const d = new Date(fechaIso);
+  if (isNaN(d.getTime())) return fechaIso;
+  const fecha = d.toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" });
+  const hora = d.toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" });
+  return `${fecha}, ${hora}`;
 }
 
 function EditorVacantes() {
@@ -374,8 +375,8 @@ function EditorVacantes() {
   const empezarDesdeCero = () => setCargado(true);
 
   const descargar = () => {
-    const hoy = new Date().toISOString().slice(0, 10);
-    const nuevoMeta = { version: (meta.version || 0) + 1, actualizado: hoy };
+    const ahora = new Date().toISOString();
+    const nuevoMeta = { version: (meta.version || 0) + 1, actualizado: ahora };
     setMeta(nuevoMeta);
     const salida = { _meta: nuevoMeta, ...vacantes };
     const blob = new Blob([JSON.stringify(salida, null, 2)], { type: "application/json" });

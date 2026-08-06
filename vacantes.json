@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "version": 7,
-    "actualizado": "2026-08-06"
+    "version": 6,
+    "actualizado": "2026-08-06T20:25:09.542932"
   },
   "editor_web": {
     "id": "editor_web",
@@ -56,7 +56,7 @@
         "id": "experiencia",
         "label": "Experiencia como Editor Web",
         "tipo": "anios",
-        "categoria": "habilidad_indispensable",
+        "categoria": "requisito",
         "anioMin": 1,
         "anioMax": 3
       },
@@ -259,7 +259,7 @@
         "id": "experiencia",
         "label": "Experiencia en diseño digital",
         "tipo": "anios",
-        "categoria": "habilidad_indispensable",
+        "categoria": "requisito",
         "anioMin": 1,
         "anioMax": 3
       },
@@ -298,6 +298,26 @@
         "keywords": [
           "diseno para redes sociales",
           "contenido para redes sociales"
+        ]
+      },
+      {
+        "id": "creatividad",
+        "label": "Creatividad",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "creatividad",
+          "creativo"
+        ]
+      },
+      {
+        "id": "atencionDetalle",
+        "label": "Atención al detalle",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "atencion al detalle",
+          "atencion a detalle"
         ]
       },
       {
@@ -354,8 +374,7 @@
         "tipo": "keyword",
         "categoria": "habilidad_deseable",
         "keywords": [
-          "diseno web",
-          "landings"
+          "diseno web"
         ]
       },
       {
@@ -378,6 +397,26 @@
           "ux ui",
           "experiencia de usuario",
           "interfaz de usuario"
+        ]
+      },
+      {
+        "id": "edicionVideo",
+        "label": "Edición de video",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "edicion de video",
+          "edicion de videos"
+        ]
+      },
+      {
+        "id": "motionGraphics",
+        "label": "Motion Graphics",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "motion graphics",
+          "motion graphic"
         ]
       },
       {
@@ -406,16 +445,6 @@
           "ui/ux"
         ],
         "descarteMensaje": "Criterio de descarte: la experiencia detectada parece estar exclusivamente en áreas no relacionadas con diseño (administración, ventas, logística, etc.)."
-      },
-      {
-        "id": "custom_habilidad_indispensable_1786045873815",
-        "label": "Diseño de marca",
-        "tipo": "keyword",
-        "categoria": "habilidad_indispensable",
-        "keywords": [
-          "diseño para agencias",
-          "diseño de marca"
-        ]
       }
     ]
   }
