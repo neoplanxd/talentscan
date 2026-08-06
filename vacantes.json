@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "version": 6,
-    "actualizado": "2026-08-06T20:25:09.542932"
+    "version": 7,
+    "actualizado": "2026-08-06T21:53:34.512Z"
   },
   "editor_web": {
     "id": "editor_web",
@@ -209,7 +209,7 @@
     "titulo": "Diseñador Digital",
     "resumenCorto": "Diseño gráfico y digital para plataformas y contenido de marca.",
     "presupuestoIndispensables": 100,
-    "presupuestoDeseables": 20,
+    "presupuestoDeseables": 40,
     "perfil": {
       "requisitosAdicionales": [
         "Disponibilidad para laborar de 16:00 horas al cierre (promedio 1:30 a.m.)",
@@ -301,26 +301,6 @@
         ]
       },
       {
-        "id": "creatividad",
-        "label": "Creatividad",
-        "tipo": "keyword",
-        "categoria": "habilidad_indispensable",
-        "keywords": [
-          "creatividad",
-          "creativo"
-        ]
-      },
-      {
-        "id": "atencionDetalle",
-        "label": "Atención al detalle",
-        "tipo": "keyword",
-        "categoria": "habilidad_indispensable",
-        "keywords": [
-          "atencion al detalle",
-          "atencion a detalle"
-        ]
-      },
-      {
         "id": "trabajoEquipo",
         "label": "Trabajo en equipo",
         "tipo": "keyword",
@@ -397,26 +377,6 @@
           "ux ui",
           "experiencia de usuario",
           "interfaz de usuario"
-        ]
-      },
-      {
-        "id": "edicionVideo",
-        "label": "Edición de video",
-        "tipo": "keyword",
-        "categoria": "habilidad_deseable",
-        "keywords": [
-          "edicion de video",
-          "edicion de videos"
-        ]
-      },
-      {
-        "id": "motionGraphics",
-        "label": "Motion Graphics",
-        "tipo": "keyword",
-        "categoria": "habilidad_deseable",
-        "keywords": [
-          "motion graphics",
-          "motion graphic"
         ]
       },
       {
