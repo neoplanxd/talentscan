@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "version": 2,
-    "actualizado": "2026-08-05"
+    "version": 3,
+    "actualizado": "2026-08-06"
   },
   "editor_web": {
     "id": "editor_web",
@@ -26,8 +26,7 @@
         ],
         "keywordsParcial": [
           "comunicacion"
-        ],
-        "descarteSi": "no_cumple"
+        ]
       },
       {
         "id": "ubicacion",
@@ -254,8 +253,7 @@
         ],
         "keywordsParcial": [
           "diseno"
-        ],
-        "descarteSi": "no_cumple"
+        ]
       },
       {
         "id": "ubicacion",
@@ -268,7 +266,6 @@
           "ciudad de mexico",
           "cdmx"
         ],
-        "descarteSi": "no_cumple",
         "descarteMensaje": "Criterio de descarte: no se identificó residencia en CDMX o zona conurbada."
       },
       {
@@ -284,7 +281,6 @@
           "behance",
           "dribbble"
         ],
-        "descarteSi": "no_cumple",
         "descarteMensaje": "Criterio de descarte: no se encontró liga a portafolio en el CV."
       },
       {
@@ -321,7 +317,7 @@
         "label": "Figma",
         "tipo": "keyword",
         "categoria": "habilidad_indispensable",
-        "peso": 25,
+        "peso": 10,
         "keywords": [
           "figma"
         ]
