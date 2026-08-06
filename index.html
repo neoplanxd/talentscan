@@ -227,7 +227,7 @@
  * ============================================================================
  */
 
-const VERSION = "0.7";
+const VERSION = "0.9";
 
 const { useState, useCallback, useMemo, useEffect } = React;
 
@@ -312,8 +312,8 @@ const VACANTES_INICIALES = {
     perfil: { requisitosAdicionales: ["Disponibilidad para laborar de 16:00 horas al cierre (promedio 1:30 a.m.)", "Descansos entre semana"] },
     criterios: [
       { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "formacion", peso: 20, pesoParcial: 10, pesoNoCumple: 4, keywords: ["diseno grafico", "diseno digital", "diseno multimedia"], keywordsParcial: ["diseno"] },
-      { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "ubicacion", peso: 10, pesoNoCumple: 0, keywords: UBICACION_KEYWORDS, descarteSi: "no_cumple", descarteMensaje: "Criterio de descarte: no se identificó residencia en CDMX o zona conurbada." },
-      { id: "portafolio", label: "Liga a portafolio", tipo: "url", categoria: "habilidad_indispensable", peso: 10, pesoNoCumple: 0, keywords: ["portafolio", "portfolio", "behance", "dribbble"], descarteSi: "no_cumple", descarteMensaje: "Criterio de descarte: no se encontró liga a portafolio en el CV." },
+      { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "ubicacion", peso: 10, pesoNoCumple: 0, keywords: UBICACION_KEYWORDS, descarteSi: "no_cumple", descarteMensaje: "No se identificó residencia en CDMX o zona conurbada en el texto del CV — verificar manualmente." },
+      { id: "portafolio", label: "Liga a portafolio", tipo: "url", categoria: "habilidad_indispensable", peso: 10, pesoNoCumple: 0, keywords: ["portafolio", "portfolio", "behance", "dribbble"], descarteSi: "no_cumple", descarteMensaje: "No se encontró liga a portafolio en el texto del CV — puede ser que el CV la incluya como link no detectable; verificar manualmente." },
       { id: "experiencia", label: "Experiencia en diseño digital", tipo: "anios", categoria: "experiencia", peso: 15, anioMin: 1, anioMax: 3 },
       { id: "illustrator", label: "Adobe Illustrator", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["illustrator"] },
       { id: "photoshop", label: "Adobe Photoshop", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["photoshop"] },
@@ -341,6 +341,7 @@ const VACANTES_INICIALES = {
 const ESTADOS = {
   muy_recomendado: { label: "Muy recomendado", color: "#15803D", bg: "#DCFCE7" },
   recomendado: { label: "Recomendado", color: "#16A34A", bg: "#E7F6EE" },
+  interesante: { label: "Interesante — verificar", color: "#2563EB", bg: "#DBEAFE" },
   revisar: { label: "Revisar", color: "#FF9500", bg: "#FFEDE0" },
   baja: { label: "Baja compatibilidad", color: "#DC2626", bg: "#FBE9E7" },
 };
@@ -453,6 +454,7 @@ function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, s
   let score = 0;
   let maxScore = 0;
   let descarte = false;
+  let banderasFaltantes = [];
   let experienciaAniosDetectados = null;
 
   vacante.criterios.forEach((criterio) => {
@@ -519,20 +521,44 @@ function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, s
     if (criterio.descarteSi && status === criterio.descarteSi) {
       const anuladoPor = criterio.anularSiCumpleId && criteriosEval[criterio.anularSiCumpleId];
       const anulado = anuladoPor && anuladoPor.status === "cumple";
-      if (!anulado) { descarte = true; if (criterio.descarteMensaje) riesgos.unshift(criterio.descarteMensaje); }
+      if (!anulado) {
+        if (criterio.descarteMensaje) riesgos.unshift(criterio.descarteMensaje);
+        if (criterio.descarteSi === "cumple") {
+          // Se detectó algo que contradice el puesto (becario, creador de redes, etc.) — descarte directo, sin excepción.
+          descarte = true;
+        } else {
+          // Falta un dato (ubicación, portafolio, formación...) — puede ser un candidato fuerte que
+          // simplemente no lo puso en el CV. Se evalúa aparte, no se descarta de inmediato.
+          banderasFaltantes.push({ criterio, s });
+        }
+      }
     }
   });
 
   let compatibilidad = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
   compatibilidad = Math.max(0, Math.min(100, compatibilidad));
-  if (descarte) compatibilidad = Math.min(compatibilidad, 20);
 
   let estado;
-  if (descarte) estado = "baja";
-  else if (compatibilidad >= 85) estado = "muy_recomendado";
-  else if (compatibilidad >= 70) estado = "recomendado";
-  else if (compatibilidad >= 50) estado = "revisar";
-  else estado = "baja";
+  let compatibilidadAjustada = null;
+
+  if (descarte) {
+    compatibilidad = Math.min(compatibilidad, 20);
+    estado = "baja";
+  } else if (banderasFaltantes.length > 0) {
+    const pesoFaltante = banderasFaltantes.reduce((a, f) => a + f.criterio.peso, 0);
+    const sFaltante = banderasFaltantes.reduce((a, f) => a + f.s, 0);
+    const maxAjustado = maxScore - pesoFaltante;
+    const scoreAjustado = score - sFaltante;
+    compatibilidadAjustada = maxAjustado > 0 ? Math.round((scoreAjustado / maxAjustado) * 100) : 0;
+    if (compatibilidadAjustada >= 80) {
+      estado = "interesante";
+      compatibilidad = compatibilidadAjustada;
+    } else {
+      estado = compatibilidad >= 85 ? "muy_recomendado" : compatibilidad >= 70 ? "recomendado" : compatibilidad >= 50 ? "revisar" : "baja";
+    }
+  } else {
+    estado = compatibilidad >= 85 ? "muy_recomendado" : compatibilidad >= 70 ? "recomendado" : compatibilidad >= 50 ? "revisar" : "baja";
+  }
 
   const formEval = criteriosEval.formacion;
   const ubiEval = criteriosEval.ubicacion;
@@ -540,10 +566,14 @@ function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, s
     formEval ? (formEval.status === "cumple" ? "Cuenta con la formación requerida." : formEval.status === "parcial" ? "Formación parcialmente alineada; revisar manualmente." : "No se confirmó la formación requerida en el texto del CV.") : "",
     ubiEval ? (ubiEval.status === "cumple" ? "Reside en CDMX o zona conurbada." : "No se confirmó residencia en CDMX o zona conurbada.") : "",
     descarte ? "Se detectó al menos un criterio de descarte para esta vacante." : "",
+    estado === "interesante" ? `Cumple con ${compatibilidadAjustada}% de los criterios evaluables; falta confirmar información puntual.` : "",
   ].filter(Boolean).join(" ");
 
+  const listaFaltantes = banderasFaltantes.map((f) => f.criterio.label).join(", ");
   const recomendacion = descarte
     ? "Este perfil cumple con uno o más criterios de descarte definidos para la vacante; no se recomienda continuar el proceso."
+    : estado === "interesante"
+    ? `Perfil fuerte (${compatibilidadAjustada}% en los criterios que sí se pudieron confirmar), pero no se pudo verificar automáticamente: ${listaFaltantes}. Se recomienda que RH lo confirme directamente con el candidato o consulte con el jefe de área antes de descartarlo.`
     : estado === "muy_recomendado" ? "Perfil altamente alineado con la vacante. Se recomienda avanzar a entrevista."
     : estado === "recomendado" ? "Buen encaje general con la vacante. Se recomienda considerar para entrevista."
     : estado === "revisar" ? "Encaje parcial o con datos insuficientes; conviene revisar manualmente antes de decidir."
@@ -578,11 +608,11 @@ function ScanMeter({ value }) {
     </div>
   );
 }
-function CompatRing({ value, size = 42, stroke = 4, fontSize = 11 }) {
+function CompatRing({ value, estado, size = 42, stroke = 4, fontSize = 11 }) {
   if (value === null) {
     return <span className="ts-muted-sm" style={{ fontSize: 11 }}>—</span>;
   }
-  const cfg = value >= 85 ? ESTADOS.muy_recomendado : value >= 70 ? ESTADOS.recomendado : value >= 50 ? ESTADOS.revisar : ESTADOS.baja;
+  const cfg = estado && ESTADOS[estado] ? ESTADOS[estado] : (value >= 85 ? ESTADOS.muy_recomendado : value >= 70 ? ESTADOS.recomendado : value >= 50 ? ESTADOS.revisar : ESTADOS.baja);
   const radius = (size - stroke) / 2;
   const circumferencia = 2 * Math.PI * radius;
   const offset = circumferencia * (1 - value / 100);
@@ -803,6 +833,7 @@ function PasoPrincipal({ vacantes, vacanteActivaId, setVacanteActivaId, files, s
 function accionSugerida(estado) {
   if (estado === "muy_recomendado") return "Entrevistar";
   if (estado === "recomendado") return "Considerar para entrevista";
+  if (estado === "interesante") return "Confirmar con el candidato o el jefe de área";
   if (estado === "revisar") return "Revisar manualmente";
   return "No se recomienda continuar";
 }
@@ -863,12 +894,7 @@ function EvaluacionCriterios({ candidato, vacante }) {
 }
 
 function DetalleContenido({ candidato, vacante }) {
-  const cfg = candidato.compatibilidad === null
-    ? { color: "var(--ts-muted)" }
-    : candidato.compatibilidad >= 85 ? ESTADOS.muy_recomendado
-    : candidato.compatibilidad >= 70 ? ESTADOS.recomendado
-    : candidato.compatibilidad >= 50 ? ESTADOS.revisar
-    : ESTADOS.baja;
+  const cfg = candidato.compatibilidad === null ? { color: "var(--ts-muted)" } : (ESTADOS[candidato.estado] || ESTADOS.revisar);
 
   return (
     <div className="ts-detalle-inline">
@@ -924,7 +950,7 @@ function PasoResultados({ vacante, candidatos, onBack, onReiniciar }) {
   }, [vacante]);
 
   const conteos = useMemo(() => {
-    const c = { muy_recomendado: 0, recomendado: 0, revisar: 0, baja: 0 };
+    const c = { muy_recomendado: 0, recomendado: 0, interesante: 0, revisar: 0, baja: 0 };
     candidatos.forEach((cand) => (c[cand.estado] += 1));
     return c;
   }, [candidatos]);
@@ -960,6 +986,7 @@ function PasoResultados({ vacante, candidatos, onBack, onReiniciar }) {
           { id: "todos", label: `Todos (${candidatos.length})` },
           { id: "muy_recomendado", label: `Muy recomendados (${conteos.muy_recomendado})` },
           { id: "recomendado", label: `Recomendados (${conteos.recomendado})` },
+          { id: "interesante", label: `Interesantes — verificar (${conteos.interesante})` },
           { id: "revisar", label: `Revisar (${conteos.revisar})` },
           { id: "baja", label: `Baja compatibilidad (${conteos.baja})` },
         ].map((f) => (
@@ -993,7 +1020,7 @@ function PasoResultados({ vacante, candidatos, onBack, onReiniciar }) {
                   <div className="ts-fila-sub">{c.archivo}</div>
                 </div>
               </div>
-              <CompatRing value={c.compatibilidad} />
+              <CompatRing value={c.compatibilidad} estado={c.estado} />
               <div className="ts-fila-estado">
                 {cfg && <span className="ts-fila-estado-dot" style={{ backgroundColor: cfg.color }} />}
                 <span style={{ color: cfg ? cfg.color : "inherit" }}>{cfg ? cfg.label : "—"}</span>

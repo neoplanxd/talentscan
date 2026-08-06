@@ -148,8 +148,8 @@ const VACANTES_POR_DEFECTO = {
     perfil: { requisitosAdicionales: ["Disponibilidad para laborar de 16:00 horas al cierre (promedio 1:30 a.m.)", "Descansos entre semana"] },
     criterios: [
       { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "formacion", peso: 20, pesoParcial: 10, pesoNoCumple: 4, keywords: ["diseno grafico", "diseno digital", "diseno multimedia"], keywordsParcial: ["diseno"] },
-      { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "ubicacion", peso: 10, pesoNoCumple: 0, keywords: UBICACION_KEYWORDS, descarteSi: "no_cumple", descarteMensaje: "Criterio de descarte: no se identificó residencia en CDMX o zona conurbada." },
-      { id: "portafolio", label: "Liga a portafolio", tipo: "url", categoria: "habilidad_indispensable", peso: 10, pesoNoCumple: 0, keywords: ["portafolio", "portfolio", "behance", "dribbble"], descarteSi: "no_cumple", descarteMensaje: "Criterio de descarte: no se encontró liga a portafolio en el CV." },
+      { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "ubicacion", peso: 10, pesoNoCumple: 0, keywords: UBICACION_KEYWORDS, descarteSi: "no_cumple", descarteMensaje: "No se identificó residencia en CDMX o zona conurbada en el texto del CV — verificar manualmente." },
+      { id: "portafolio", label: "Liga a portafolio", tipo: "url", categoria: "habilidad_indispensable", peso: 10, pesoNoCumple: 0, keywords: ["portafolio", "portfolio", "behance", "dribbble"], descarteSi: "no_cumple", descarteMensaje: "No se encontró liga a portafolio en el texto del CV — puede ser que el CV la incluya como link no detectable; verificar manualmente." },
       { id: "experiencia", label: "Experiencia en diseño digital", tipo: "anios", categoria: "experiencia", peso: 15, anioMin: 1, anioMax: 3 },
       { id: "illustrator", label: "Adobe Illustrator", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["illustrator"] },
       { id: "photoshop", label: "Adobe Photoshop", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["photoshop"] },
@@ -200,7 +200,7 @@ function FilaCriterio({ criterio, onUpdate, onRemove }) {
       </div>
       <label className="ts-checkbox-row">
         <input type="checkbox" checked={descarte} onChange={(e) => { setDescarte(e.target.checked); onUpdate({ descarteSi: e.target.checked ? "no_cumple" : undefined }); }} />
-        Descartar si falta
+        Importante si falta
       </label>
       <button className="ts-remove-btn-row" onClick={onRemove} aria-label="Eliminar criterio"><Icon name="x" size={14} /></button>
     </div>
