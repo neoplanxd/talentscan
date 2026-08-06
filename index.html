@@ -36,10 +36,7 @@
   .ts-brand-name { font-size: 27px; font-weight: 800; letter-spacing: -0.02em; display: flex; align-items: baseline; gap: 9px; line-height: 1; }
   .ts-brand-org { font-size: 15px; font-weight: 700; color: var(--ts-primary); letter-spacing: 0.03em; }
   .ts-version-badge { display: inline-block; margin-top: 6px; font-size: 10.5px; font-weight: 700; color: var(--ts-muted); background: var(--ts-surface); border: 1px solid var(--ts-border); padding: 2px 9px; border-radius: 999px; }
-  .ts-link-solicitar {
-    display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; color: var(--ts-primary);
-    text-decoration: none; padding: 9px 15px; border: 1px solid var(--ts-border); border-radius: 999px; background: var(--ts-surface);
-  }
+  .ts-link-solicitar { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; color: var(--ts-primary); text-decoration: none; padding: 9px 15px; border: 1px solid var(--ts-border); border-radius: 999px; background: var(--ts-surface); }
   .ts-link-solicitar:hover { background: var(--ts-primary-soft); border-color: var(--ts-primary); }
   .ts-datos-linea { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--ts-muted); margin-bottom: 22px; }
 
@@ -53,17 +50,13 @@
   .ts-step-line { width: 50px; height: 1.5px; background: var(--ts-border); }
   .ts-step-line.is-done { background: var(--ts-primary); }
 
+  .ts-vacante-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .ts-vacante-chip { display: inline-flex; align-items: center; font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 10px; border: 1.5px solid var(--ts-border); background: var(--ts-surface); color: var(--ts-muted); cursor: pointer; }
+  .ts-vacante-chip.is-active { border-color: var(--ts-primary); background: var(--ts-primary-soft); color: var(--ts-primary); }
+
   .ts-fade-in { animation: tsFadeIn 0.25s ease; }
   @keyframes tsFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes tsSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-  .ts-vacante-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-  .ts-vacante-chip {
-    display: inline-flex; align-items: center; font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 10px;
-    border: 1.5px solid var(--ts-border); background: var(--ts-surface); color: var(--ts-muted); cursor: pointer;
-  }
-  .ts-vacante-chip.is-active { border-color: var(--ts-primary); background: var(--ts-primary-soft); color: var(--ts-primary); }
-  .ts-chip-dot { display: inline-block; width: 9px; height: 9px; border-radius: 999px; margin-right: 8px; flex-shrink: 0; }
 
   .ts-card { background: var(--ts-surface); border: 1px solid var(--ts-border); border-radius: 16px; padding: 22px 24px; }
   .ts-card--hero { background: linear-gradient(135deg, var(--ts-primary-soft), var(--ts-surface)); }
@@ -92,11 +85,7 @@
   .ts-btn--ghost { background: transparent; color: var(--ts-ink); border: 1px solid var(--ts-border); }
   .ts-btn--ghost:hover:not(:disabled) { background: var(--ts-primary-soft); }
 
-  .ts-collapse-btn {
-    display: flex; align-items: center; justify-content: space-between; width: 100%;
-    background: var(--ts-surface); border: 1px solid var(--ts-border); border-radius: 12px;
-    padding: 13px 18px; cursor: pointer; font-weight: 700; font-size: 13px; color: var(--ts-ink); margin: 16px 0;
-  }
+  .ts-collapse-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; background: var(--ts-surface); border: 1px solid var(--ts-border); border-radius: 12px; padding: 13px 18px; cursor: pointer; font-weight: 700; font-size: 13px; color: var(--ts-ink); margin: 16px 0; }
   .ts-collapse-btn:hover { background: var(--ts-primary-soft); }
 
   .ts-dropzone { margin-top: 4px; border: 1.5px dashed var(--ts-border); border-radius: 14px; padding: 34px 20px; text-align: center; cursor: pointer; transition: all 0.15s; }
@@ -104,8 +93,6 @@
   .ts-file-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
   .ts-file-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--ts-bg); border-radius: 8px; font-size: 13px; }
   .ts-file-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .ts-salario-mini { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
-  .ts-salario-mini input { width: 76px; border: 1px solid var(--ts-border); border-radius: 6px; padding: 3px 6px; font-size: 12.5px; background: var(--ts-surface); }
   .ts-icon-btn { border: none; background: transparent; cursor: pointer; color: var(--ts-muted); display: flex; align-items: center; padding: 4px; border-radius: 6px; flex-shrink: 0; }
   .ts-icon-btn:hover { background: var(--ts-border); color: var(--ts-ink); }
 
@@ -117,38 +104,6 @@
 
   .ts-resultados-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
   .ts-resultados-titulo { display: flex; align-items: center; gap: 10px; }
-  .ts-filtros { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
-  .ts-filtro-chip { font-size: 12.5px; font-weight: 600; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--ts-border); background: var(--ts-surface); color: var(--ts-muted); cursor: pointer; }
-  .ts-filtro-chip.is-active { background: var(--ts-ink); border-color: var(--ts-ink); color: white; }
-
-  .ts-candidatos-list { display: flex; flex-direction: column; gap: 12px; }
-  .ts-candidato-card { padding: 16px 18px; }
-  .ts-candidato-header { width: 100%; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; padding: 0; font: inherit; color: inherit; }
-  .ts-candidato-main { display: flex; align-items: center; gap: 12px; text-align: left; }
-  .ts-avatar { width: 38px; height: 38px; border-radius: 10px; background: var(--ts-primary-soft); color: var(--ts-primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; flex-shrink: 0; }
-  .ts-candidato-nombre { font-weight: 700; font-size: 14.5px; }
-  .ts-candidato-right { display: flex; align-items: center; gap: 14px; }
-  .ts-resumen { margin-top: 12px; color: var(--ts-muted); }
-
-  .ts-badge { font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
-
-  .ts-meter-wrap { display: flex; align-items: center; gap: 8px; }
-  .ts-meter-track { width: 84px; height: 6px; border-radius: 999px; background: var(--ts-border); overflow: hidden; }
-  .ts-meter-fill { height: 100%; border-radius: 999px; transition: width 0.6s ease; }
-  .ts-meter-value { font-family: ui-monospace, "SF Mono", monospace; font-weight: 700; font-size: 13px; width: 38px; }
-
-  .ts-detalle { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--ts-border); display: grid; grid-template-columns: 1.2fr 1fr; gap: 26px; }
-  @media (max-width: 640px) { .ts-detalle { grid-template-columns: 1fr; } }
-  .ts-detalle-heading { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--ts-muted); margin-bottom: 10px; }
-  .ts-criterios { display: flex; flex-direction: column; gap: 10px; }
-  .ts-criterio-row { display: flex; gap: 8px; align-items: flex-start; }
-  .ts-criterio-label { font-size: 13.5px; font-weight: 600; }
-  .ts-riesgos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-  .ts-riesgos li { display: flex; gap: 8px; font-size: 13px; line-height: 1.5; }
-
-  /* --- Resultados: layout tabla + panel de detalle --- */
-  .ts-detalle-inline { background: var(--ts-bg); border-radius: 12px; padding: 14px 16px; margin: -2px 0 10px; }
-
   .ts-count-pill { font-size: 12px; font-weight: 700; color: var(--ts-primary); background: var(--ts-primary-soft); padding: 3px 10px; border-radius: 999px; margin-left: 8px; }
   .ts-search-row { display: flex; gap: 8px; margin-bottom: 14px; }
   .ts-search-input { flex: 1; position: relative; }
@@ -156,14 +111,13 @@
   .ts-search-input input:focus { outline: none; border-color: var(--ts-primary); }
   .ts-search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--ts-muted); pointer-events: none; }
 
+  .ts-filtros { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .ts-filtro-chip { font-size: 12.5px; font-weight: 600; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--ts-border); background: var(--ts-surface); color: var(--ts-muted); cursor: pointer; }
+  .ts-filtro-chip.is-active { background: var(--ts-ink); border-color: var(--ts-ink); color: white; }
+
   .ts-tabla-header { display: grid; grid-template-columns: 30px 1.6fr 64px 1fr 56px 20px; gap: 10px; align-items: center; padding: 0 14px 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--ts-muted); }
   @media (max-width: 560px) { .ts-tabla-header { display: none; } }
-
-  .ts-fila-candidato {
-    display: grid; grid-template-columns: 30px 1.6fr 64px 1fr 56px 20px; gap: 10px; align-items: center;
-    width: 100%; text-align: left; padding: 12px 14px; border-radius: 12px; border: 1.5px solid transparent;
-    background: var(--ts-surface); cursor: pointer; margin-bottom: 8px; font: inherit; color: inherit;
-  }
+  .ts-fila-candidato { display: grid; grid-template-columns: 30px 1.6fr 64px 1fr 56px 20px; gap: 10px; align-items: center; width: 100%; text-align: left; padding: 12px 14px; border-radius: 12px; border: 1.5px solid transparent; background: var(--ts-surface); cursor: pointer; margin-bottom: 8px; font: inherit; color: inherit; }
   @media (max-width: 560px) { .ts-fila-candidato { grid-template-columns: 30px 1fr 64px 20px; } }
   .ts-fila-candidato:hover { background: var(--ts-primary-soft); }
   .ts-fila-candidato.is-selected { border-color: var(--ts-primary); background: var(--ts-primary-soft); }
@@ -173,37 +127,31 @@
   .ts-fila-sub { font-size: 11.5px; color: var(--ts-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .ts-fila-estado { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
   .ts-fila-estado-dot { width: 8px; height: 8px; border-radius: 999px; flex-shrink: 0; }
-  .ts-fila-riesgo { font-size: 11.5px; color: #FF9500; display: flex; align-items: center; gap: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  @media (max-width: 560px) { .ts-fila-estado, .ts-fila-riesgo { display: none; } }
+  @media (max-width: 560px) { .ts-fila-estado { display: none; } }
 
   .ts-ring-wrap { position: relative; display: inline-flex; align-items: center; justify-content: center; }
   .ts-ring-value { position: absolute; font-family: ui-monospace, "SF Mono", monospace; font-weight: 800; }
 
   .ts-paginacion { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; flex-wrap: wrap; gap: 10px; }
   .ts-paginacion-botones { display: flex; gap: 6px; }
-  .ts-pagina-btn {
-    width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--ts-border); background: var(--ts-surface);
-    color: var(--ts-muted); font-size: 12.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  }
+  .ts-pagina-btn { width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--ts-border); background: var(--ts-surface); color: var(--ts-muted); font-size: 12.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; }
   .ts-pagina-btn:hover:not(:disabled) { background: var(--ts-primary-soft); }
   .ts-pagina-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .ts-pagina-btn.is-active { background: var(--ts-primary); border-color: var(--ts-primary); color: white; }
 
-  .ts-panel-detalle { position: sticky; top: 20px; }
-  .ts-detalle-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
-  .ts-detalle-persona { display: flex; align-items: center; gap: 12px; }
-  .ts-avatar-grande { width: 52px; height: 52px; border-radius: 14px; background: var(--ts-primary-soft); color: var(--ts-primary); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; flex-shrink: 0; }
-  .ts-detalle-nombre { font-size: 17px; font-weight: 800; }
-  .ts-detalle-compat-row { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
-  .ts-detalle-compat-num { font-size: 32px; font-weight: 800; font-family: ui-monospace, "SF Mono", monospace; }
-  .ts-detalle-bar-track { height: 8px; border-radius: 999px; background: var(--ts-border); overflow: hidden; margin-top: 8px; }
-  .ts-detalle-bar-fill { height: 100%; border-radius: 999px; transition: width 0.6s ease; }
-  .ts-mini-card { border: 1px solid var(--ts-border); border-radius: 12px; padding: 14px 16px; margin-top: 12px; }
+  .ts-detalle-inline { background: var(--ts-bg); border-radius: 12px; padding: 14px 16px; margin: -2px 0 10px; }
+  .ts-mini-card { border: 1px solid var(--ts-border); border-radius: 12px; padding: 14px 16px; margin-top: 12px; background: var(--ts-surface); }
   .ts-mini-card-title { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: var(--ts-muted); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 8px; }
   .ts-eval-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; background: none; border: none; cursor: pointer; padding: 0; font: inherit; color: inherit; }
   .ts-eval-subheading { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 8px; }
   .ts-accion-sugerida { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
-  .ts-empty-detalle { display: flex; align-items: center; justify-content: center; height: 240px; color: var(--ts-muted); font-size: 13px; text-align: center; }
+
+  .ts-criterios { display: flex; flex-direction: column; gap: 10px; }
+  .ts-criterio-row { display: flex; gap: 8px; align-items: flex-start; }
+  .ts-criterio-label { font-size: 13.5px; font-weight: 600; }
+  .ts-riesgos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .ts-riesgos li { display: flex; gap: 8px; font-size: 13px; line-height: 1.5; }
+  .ts-badge { font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -214,20 +162,38 @@
  * ============================================================================
  * TALENT SCAN REFORMA — index.html (vista para RH, SOLO LECTURA)
  * ============================================================================
- * v0.3: vacante + subida de CVs fusionados en una sola pantalla, colores
- * distintivos por vacante (para evitar confundir a cuál se le está
- * subiendo CVs), y detalles completos en un bloque colapsable.
+ * v1.0 — Arquitectura de puntaje nueva:
  *
- * Los criterios de cada vacante se cargan desde vacantes.json (mismo
- * folder). Si falla, se usan los datos por defecto de abajo.
+ * - REQUISITOS (formación, ubicación, portafolio...): NO dan ni quitan
+ *   puntos. Si falta uno, se marca como riesgo/verificar, pero nunca
+ *   descartan por sí solos: si el resto del perfil (habilidades) es
+ *   fuerte, el candidato cae en "Interesante - verificar", no en
+ *   "Baja compatibilidad".
  *
- * Para crear o editar vacantes: vacantes-editor.html (link visible en el
- * header). Genera un vacantes.json que se le manda a quien mantiene el
- * sitio — no se publica automáticamente desde ahí.
+ * - HABILIDADES INDISPENSABLES: son las que SÍ definen el % de
+ *   compatibilidad. Cada vacante tiene un "presupuesto" total (ej. 100)
+ *   que se reparte automáticamente entre todas las habilidades
+ *   indispensables que tenga esa vacante - si agregas o quitas una, el
+ *   reparto se ajusta solo, sin tocar números manualmente.
+ *
+ * - DESEABLES: funcionan como bono. Tienen su propio presupuesto (ej. 20)
+ *   que se SUMA encima del % de indispensables si el candidato las
+ *   tiene - nunca restan si no las tiene.
+ *
+ * - CRITERIOS DE DESCARTE (becario, creador de contenido para redes,
+ *   branded content, área no relacionada): esto es distinto a
+ *   "requisito". Aquí se detectó algo que SÍ contradice el puesto - esto
+ *   sigue descartando directo, sin excepción, sin importar el resto del
+ *   puntaje.
+ *
+ * - Sin salario: se quitó por completo (ni puntos, ni captura, ni se
+ *   muestra) - es información pública en vacantes.json y no debía
+ *   estar ahí.
  * ============================================================================
  */
 
-const VERSION = "0.9";
+const VERSION = "1.0";
+const UMBRAL_INTERESANTE = 80;
 
 const { useState, useCallback, useMemo, useEffect } = React;
 
@@ -248,12 +214,8 @@ function Icon({ name, size = 16, style }) {
     case "chevrondown": return <svg {...common}><polyline points="6 9 12 15 18 9" /></svg>;
     case "chevronright": return <svg {...common}><polyline points="9 6 15 12 9 18" /></svg>;
     case "briefcase": return <svg {...common}><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>;
-    case "grad": return <svg {...common}><path d="M2 9l10-5 10 5-10 5-10-5z" /><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5" /></svg>;
-    case "wallet": return <svg {...common}><rect x="3" y="6" width="18" height="13" rx="2" /><path d="M3 10h18" /><circle cx="16" cy="14" r="1" fill="currentColor" stroke="none" /></svg>;
     case "shield": return <svg {...common}><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z" /><line x1="12" y1="9" x2="12" y2="13" /><circle cx="12" cy="16.3" r="0.6" fill="currentColor" stroke="none" /></svg>;
     case "sparkles": return <svg {...common}><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z" /><path d="M19 15l0.7 2 2 0.7-2 0.7-0.7 2-0.7-2-2-0.7 2-0.7z" /></svg>;
-    case "users": return <svg {...common}><circle cx="9" cy="8" r="3" /><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" /><circle cx="17" cy="9" r="2.5" /><path d="M15.5 14a5 5 0 0 1 5.5 5" /></svg>;
-    case "pin": return <svg {...common}><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.3" /></svg>;
     case "ban": return <svg {...common}><circle cx="12" cy="12" r="9" /><line x1="6" y1="18" x2="18" y2="6" /></svg>;
     case "arrowleft": return <svg {...common}><line x1="19" y1="12" x2="5" y2="12" /><polyline points="11 6 5 12 11 18" /></svg>;
     case "arrowright": return <svg {...common}><line x1="5" y1="12" x2="19" y2="12" /><polyline points="13 6 19 12 13 18" /></svg>;
@@ -266,7 +228,7 @@ function Icon({ name, size = 16, style }) {
 }
 
 /* ----------------------------------------------------------------------- */
-/* DATOS POR DEFECTO — se usan si vacantes.json no carga                   */
+/* DATOS POR DEFECTO - se usan si vacantes.json no carga                   */
 /* ----------------------------------------------------------------------- */
 
 const UBICACION_KEYWORDS = [
@@ -276,29 +238,24 @@ const UBICACION_KEYWORDS = [
   "coacalco", "tultitlan", "los reyes la paz",
 ];
 
-const ICONOS_CATEGORIA = {
-  formacion: "grad", ubicacion: "pin", experiencia: "users", salario: "wallet",
-  habilidad_indispensable: "sparkles", habilidad_deseable: "sparkles", descarte: "ban",
-};
-
 const VACANTES_INICIALES = {
   editor_web: {
     id: "editor_web", titulo: "Editor Web",
     resumenCorto: "Redacción y edición para medios digitales de alcance nacional.",
-    salarioOfrecido: 20000,
+    presupuestoIndispensables: 100,
+    presupuestoDeseables: 20,
     perfil: { requisitosAdicionales: [] },
     criterios: [
-      { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "formacion", peso: 25, pesoParcial: 12, pesoNoCumple: 4, keywords: ["periodismo", "ciencias de la comunicacion"], keywordsParcial: ["comunicacion"] },
-      { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "ubicacion", peso: 15, pesoNoCumple: 0, keywords: UBICACION_KEYWORDS },
-      { id: "medios", label: "Medios de alcance nacional", tipo: "keyword", categoria: "habilidad_indispensable", peso: 15, pesoNoCumple: 3, keywords: ["el universal", "excelsior", "milenio", "n+", "nmas", "infobae", "animal politico", "medio nacional", "alcance nacional"] },
-      { id: "experiencia", label: "Experiencia como Editor Web", tipo: "anios", categoria: "experiencia", peso: 15, anioMin: 1, anioMax: 3 },
-      { id: "redaccion", label: "Redacción", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["redaccion"] },
-      { id: "edicion", label: "Edición", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["edicion"] },
-      { id: "breaking", label: "Breaking News", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["breaking news", "ultima hora", "noticia de ultimo momento", "noticias de ultimo momento"] },
-      { id: "monitoreo", label: "Monitoreo de información", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["monitoreo de informacion", "monitoreo de medios", "monitoreo"] },
-      { id: "equipo", label: "Trabajo en equipo", tipo: "keyword", categoria: "habilidad_indispensable", peso: 4, keywords: ["trabajo en equipo", "trabajo colaborativo"] },
-      { id: "ingles", label: "Inglés", tipo: "keyword", categoria: "habilidad_deseable", peso: 5, keywords: ["ingles"] },
-      { id: "salario", label: "Compatibilidad salarial", tipo: "salario", categoria: "salario", peso: 5 },
+      { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "requisito", keywords: ["periodismo", "ciencias de la comunicacion"], keywordsParcial: ["comunicacion"] },
+      { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "requisito", keywords: UBICACION_KEYWORDS },
+      { id: "experiencia", label: "Experiencia como Editor Web", tipo: "anios", categoria: "habilidad_indispensable", anioMin: 1, anioMax: 3 },
+      { id: "medios", label: "Medios de alcance nacional", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["el universal", "excelsior", "milenio", "n+", "nmas", "infobae", "animal politico", "medio nacional", "alcance nacional"] },
+      { id: "redaccion", label: "Redacción", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["redaccion"] },
+      { id: "edicion", label: "Edición", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["edicion"] },
+      { id: "breaking", label: "Breaking News", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["breaking news", "ultima hora", "noticia de ultimo momento", "noticias de ultimo momento"] },
+      { id: "monitoreo", label: "Monitoreo de información", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["monitoreo de informacion", "monitoreo de medios", "monitoreo"] },
+      { id: "equipo", label: "Trabajo en equipo", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["trabajo en equipo", "trabajo colaborativo"] },
+      { id: "ingles", label: "Inglés", tipo: "keyword", categoria: "habilidad_deseable", keywords: ["ingles"] },
       { id: "becario", label: "Becario/practicante", tipo: "keyword", categoria: "descarte", soloDescarte: true, keywords: ["becario", "becaria", "practicante", "practicas profesionales", "servicio social"], descarteSi: "cumple", descarteMensaje: "Criterio de descarte: se detectó perfil de becario/practicante." },
       { id: "creadorRedes", label: "Creador de contenido para redes", tipo: "keyword", categoria: "descarte", soloDescarte: true, keywords: ["tiktoker", "tik toker", "youtuber", "content creator", "creador de contenido", "influencer"], descarteSi: "cumple", descarteMensaje: "Criterio de descarte: perfil orientado a creación de contenido para redes (TikTok/YouTube)." },
       { id: "brandedContent", label: "Branded content", tipo: "keyword", categoria: "descarte", soloDescarte: true, keywords: ["branded content", "contenido patrocinado", "publirreportaje", "contenido publicitario"], descarteSi: "cumple", descarteMensaje: "Criterio de descarte: experiencia en branded content / contenido publicitario." },
@@ -308,31 +265,30 @@ const VACANTES_INICIALES = {
   disenador_digital: {
     id: "disenador_digital", titulo: "Diseñador Digital",
     resumenCorto: "Diseño gráfico y digital para plataformas y contenido de marca.",
-    salarioOfrecido: 18000,
+    presupuestoIndispensables: 100,
+    presupuestoDeseables: 20,
     perfil: { requisitosAdicionales: ["Disponibilidad para laborar de 16:00 horas al cierre (promedio 1:30 a.m.)", "Descansos entre semana"] },
     criterios: [
-      { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "formacion", peso: 20, pesoParcial: 10, pesoNoCumple: 4, keywords: ["diseno grafico", "diseno digital", "diseno multimedia"], keywordsParcial: ["diseno"] },
-      { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "ubicacion", peso: 10, pesoNoCumple: 0, keywords: UBICACION_KEYWORDS, descarteSi: "no_cumple", descarteMensaje: "No se identificó residencia en CDMX o zona conurbada en el texto del CV — verificar manualmente." },
-      { id: "portafolio", label: "Liga a portafolio", tipo: "url", categoria: "habilidad_indispensable", peso: 10, pesoNoCumple: 0, keywords: ["portafolio", "portfolio", "behance", "dribbble"], descarteSi: "no_cumple", descarteMensaje: "No se encontró liga a portafolio en el texto del CV — puede ser que el CV la incluya como link no detectable; verificar manualmente." },
-      { id: "experiencia", label: "Experiencia en diseño digital", tipo: "anios", categoria: "experiencia", peso: 15, anioMin: 1, anioMax: 3 },
-      { id: "illustrator", label: "Adobe Illustrator", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["illustrator"] },
-      { id: "photoshop", label: "Adobe Photoshop", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["photoshop"] },
-      { id: "figma", label: "Figma", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["figma"] },
-      { id: "disenoRedes", label: "Diseño para redes sociales", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["diseno para redes sociales", "contenido para redes sociales"] },
-      { id: "trabajoEquipo", label: "Trabajo en equipo", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["trabajo en equipo", "trabajo colaborativo"] },
-      { id: "organizacion", label: "Organización", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["organizacion", "organizado"] },
-      { id: "creatividad", label: "Creatividad", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["creatividad", "creativo"] },
-      { id: "atencionDetalle", label: "Atención al detalle", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["atencion al detalle", "atencion a detalle"] },
-      { id: "comunicacionEfectiva", label: "Comunicación efectiva", tipo: "keyword", categoria: "habilidad_indispensable", peso: 3, keywords: ["comunicacion efectiva", "buena comunicacion"] },
-      { id: "html", label: "HTML", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["html"] },
-      { id: "css", label: "CSS", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["css"] },
-      { id: "disenoWeb", label: "Diseño web", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["diseno web"] },
-      { id: "disenoResponsivo", label: "Diseño responsivo", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["diseno responsivo", "responsive"] },
-      { id: "uxui", label: "UX/UI", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["ux/ui", "ux ui", "experiencia de usuario", "interfaz de usuario"] },
-      { id: "cms", label: "CMS", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["cms", "wordpress"] },
-      { id: "indesign", label: "Adobe InDesign", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["indesign"] },
-      { id: "edicionVideo", label: "Edición de video", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["edicion de video", "edicion de videos"] },
-      { id: "motionGraphics", label: "Motion Graphics", tipo: "keyword", categoria: "habilidad_deseable", peso: 2, keywords: ["motion graphics", "motion graphic"] },
+      { id: "formacion", label: "Formación académica", tipo: "keyword", categoria: "requisito", keywords: ["diseno grafico", "diseno digital", "diseno multimedia"], keywordsParcial: ["diseno"] },
+      { id: "ubicacion", label: "Ubicación (CDMX / zona conurbada)", tipo: "keyword", categoria: "requisito", keywords: UBICACION_KEYWORDS },
+      { id: "portafolio", label: "Liga a portafolio", tipo: "url", categoria: "requisito", keywords: ["portafolio", "portfolio", "behance", "dribbble"] },
+      { id: "experiencia", label: "Experiencia en diseño digital", tipo: "anios", categoria: "habilidad_indispensable", anioMin: 1, anioMax: 3 },
+      { id: "illustrator", label: "Adobe Illustrator", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["illustrator"] },
+      { id: "photoshop", label: "Adobe Photoshop", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["photoshop"] },
+      { id: "figma", label: "Figma", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["figma"] },
+      { id: "disenoRedes", label: "Diseño para redes sociales", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["diseno para redes sociales", "contenido para redes sociales"] },
+      { id: "creatividad", label: "Creatividad", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["creatividad", "creativo"] },
+      { id: "atencionDetalle", label: "Atención al detalle", tipo: "keyword", categoria: "habilidad_indispensable", keywords: ["atencion al detalle", "atencion a detalle"] },
+      { id: "trabajoEquipo", label: "Trabajo en equipo", tipo: "keyword", categoria: "feature", keywords: ["trabajo en equipo", "trabajo colaborativo"] },
+      { id: "organizacion", label: "Organización", tipo: "keyword", categoria: "feature", keywords: ["organizacion", "organizado"] },
+      { id: "comunicacionEfectiva", label: "Comunicación efectiva", tipo: "keyword", categoria: "feature", keywords: ["comunicacion efectiva", "buena comunicacion"] },
+      { id: "html", label: "HTML", tipo: "keyword", categoria: "habilidad_deseable", keywords: ["html"] },
+      { id: "css", label: "CSS", tipo: "keyword", categoria: "habilidad_deseable", keywords: ["css"] },
+      { id: "disenoWeb", label: "Diseño web", tipo: "keyword", categoria: "habilidad_deseable", keywords: ["diseno web"] },
+      { id: "disenoResponsivo", label: "Diseño responsivo", tipo: "keyword", categoria: "habilidad_deseable", keywords: ["diseno responsivo", "responsive"] },
+      { id: "uxui", label: "UX/UI", tipo: "keyword", categoria: "habilidad_deseable", keywords: ["ux/ui", "ux ui", "experiencia de usuario", "interfaz de usuario"] },
+      { id: "edicionVideo", label: "Edición de video", tipo: "keyword", categoria: "habilidad_deseable", keywords: ["edicion de video", "edicion de videos"] },
+      { id: "motionGraphics", label: "Motion Graphics", tipo: "keyword", categoria: "habilidad_deseable", keywords: ["motion graphics", "motion graphic"] },
       { id: "areaNoRelacionada", label: "Área no relacionada con diseño", tipo: "areaNoRelacionada", categoria: "descarte", soloDescarte: true, keywords: ["administracion", "ventas", "logistica", "atencion a clientes", "call center", "recursos humanos", "contabilidad"], keywordsExcluyentes: ["diseno grafico", "diseno digital", "illustrator", "photoshop", "figma", "diseno web", "ux/ui", "ui/ux"], descarteMensaje: "Criterio de descarte: la experiencia detectada parece estar exclusivamente en áreas no relacionadas con diseño (administración, ventas, logística, etc.)." },
     ],
   },
@@ -430,10 +386,10 @@ async function extraerTextoPDF(file) {
 }
 
 /* ----------------------------------------------------------------------- */
-/* MOTOR DE ANÁLISIS GENÉRICO                                              */
+/* MOTOR DE ANÁLISIS                                                        */
 /* ----------------------------------------------------------------------- */
 
-function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, salarioManual }) {
+function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante }) {
   const norm = normalizar(textoOriginal);
   const tieneTexto = norm.trim().length > 40;
 
@@ -443,26 +399,38 @@ function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, s
       compatibilidad: null, estado: "revisar",
       resumen: "No fue posible extraer texto de este PDF (probablemente es un documento escaneado o basado en imágenes). Se necesita revisión manual.",
       recomendacion: "Revisión manual requerida: el sistema no pudo leer el contenido del archivo.",
-      riesgos: ["No se pudo extraer texto del PDF."], criteriosEval: {},
-      salarioSolicitado: salarioManual || null, experienciaAnios: null,
+      riesgos: ["No se pudo extraer texto del PDF."], criteriosEval: {}, experienciaAnios: null,
     };
   }
 
   const nombre = extraerNombreProbable(textoOriginal, fileName);
   const riesgos = [];
   const criteriosEval = {};
-  let score = 0;
-  let maxScore = 0;
-  let descarte = false;
-  let banderasFaltantes = [];
+  let descarteDuro = false;
   let experienciaAniosDetectados = null;
+
+  const indispensables = vacante.criterios.filter((c) => c.categoria === "habilidad_indispensable");
+  const deseables = vacante.criterios.filter((c) => c.categoria === "habilidad_deseable");
+  const presupuestoIndispensables = vacante.presupuestoIndispensables || 100;
+  const presupuestoDeseables = vacante.presupuestoDeseables || 0;
+  const shareIndispensable = indispensables.length > 0 ? presupuestoIndispensables / indispensables.length : 0;
+  const shareDeseable = deseables.length > 0 ? presupuestoDeseables / deseables.length : 0;
+
+  let scoreIndispensable = 0;
+  let scoreDeseable = 0;
+  const requisitosFaltantes = [];
 
   vacante.criterios.forEach((criterio) => {
     if (criterio.tipo === "areaNoRelacionada") {
       const disparado = matchAny(norm, criterio.keywords) && !matchAny(norm, criterio.keywordsExcluyentes);
-      if (disparado) { descarte = true; riesgos.unshift(criterio.descarteMensaje); }
+      if (disparado) { descarteDuro = true; riesgos.unshift(criterio.descarteMensaje); }
       return;
     }
+
+    const esIndispensable = criterio.categoria === "habilidad_indispensable";
+    const esDeseable = criterio.categoria === "habilidad_deseable";
+    const esRequisito = criterio.categoria === "requisito";
+    const pesoEfectivo = esIndispensable ? shareIndispensable : esDeseable ? shareDeseable : 0;
 
     let status, s, comentario;
 
@@ -470,51 +438,39 @@ function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, s
       const ok = matchAny(norm, criterio.keywords);
       const parcialOk = !ok && criterio.keywordsParcial ? matchAny(norm, criterio.keywordsParcial) : false;
       status = ok ? "cumple" : parcialOk ? "parcial" : "no_cumple";
-      s = ok ? criterio.peso : parcialOk ? (criterio.pesoParcial !== undefined ? criterio.pesoParcial : Math.round(criterio.peso / 2)) : (criterio.pesoNoCumple !== undefined ? criterio.pesoNoCumple : 0);
+      s = ok ? pesoEfectivo : parcialOk ? pesoEfectivo * 0.5 : 0;
       comentario = comentarioGenerico(criterio.label, status);
     } else if (criterio.tipo === "url") {
       const urlRegex = /https?:\/\/|www\.|behance|dribbble/;
       const ok = urlRegex.test(norm) || matchAny(norm, criterio.keywords);
       status = ok ? "cumple" : "no_cumple";
-      s = ok ? criterio.peso : (criterio.pesoNoCumple !== undefined ? criterio.pesoNoCumple : 0);
+      s = ok ? pesoEfectivo : 0;
       comentario = comentarioGenerico(criterio.label, status);
     } else if (criterio.tipo === "anios") {
       const anios = extraerAniosExperiencia(norm);
       experienciaAniosDetectados = anios;
       if (anios === null) {
-        status = "parcial"; s = Math.round(criterio.peso * 0.45);
+        status = "parcial"; s = pesoEfectivo * 0.45;
         comentario = "No se pudo determinar automáticamente los años de experiencia; revisar manualmente.";
       } else if (anios >= criterio.anioMin && anios <= criterio.anioMax) {
-        status = "cumple"; s = criterio.peso;
+        status = "cumple"; s = pesoEfectivo;
         comentario = `${anios} año(s) de experiencia detectados, dentro del rango ideal.`;
       } else if (anios < criterio.anioMin) {
-        status = "no_cumple"; s = Math.max(Math.round(criterio.peso * (anios / Math.max(criterio.anioMin, 1)) * 0.5), 0);
+        status = "no_cumple"; s = Math.max(pesoEfectivo * (anios / Math.max(criterio.anioMin, 1)) * 0.5, 0);
         comentario = "Experiencia detectada por debajo del mínimo requerido.";
       } else {
         const exceso = anios - criterio.anioMax;
-        status = "parcial"; s = Math.max(criterio.peso - 2 * exceso, Math.round(criterio.peso * 0.4));
+        status = "parcial"; s = Math.max(pesoEfectivo - 2 * exceso, pesoEfectivo * 0.4);
         comentario = `${anios} año(s) de experiencia detectados (fuera del rango ideal de ${criterio.anioMin} a ${criterio.anioMax}).`;
-      }
-    } else if (criterio.tipo === "salario") {
-      if (!salarioManual) {
-        status = "parcial"; s = 0;
-        comentario = "Pretensión salarial no indicada (no suele venir en el CV); captúrala manualmente para evaluarla.";
-      } else {
-        const excedente = salarioManual / vacante.salarioOfrecido;
-        if (excedente <= 1.05) { status = "cumple"; s = criterio.peso; }
-        else if (excedente <= 1.15) { status = "parcial"; s = Math.round(criterio.peso * 0.4); }
-        else {
-          status = "no_cumple"; s = 0;
-          riesgos.push(`Pretensión salarial de $${salarioManual.toLocaleString("es-MX")} MXN, ${Math.round((excedente - 1) * 100)}% por encima del salario ofrecido ($${vacante.salarioOfrecido.toLocaleString("es-MX")} MXN).`);
-        }
-        comentario = `Pretensión indicada: $${salarioManual.toLocaleString("es-MX")} MXN vs. $${vacante.salarioOfrecido.toLocaleString("es-MX")} MXN ofrecidos.`;
       }
     }
 
-    if (!criterio.soloDescarte) { maxScore += criterio.peso; score += s; }
     criteriosEval[criterio.id] = { status, comentario };
+    if (esIndispensable) scoreIndispensable += s;
+    if (esDeseable) scoreDeseable += s;
 
-    if (!criterio.soloDescarte && status === "no_cumple" && ["formacion", "ubicacion", "habilidad_indispensable"].includes(criterio.categoria)) {
+    if (esRequisito && status === "no_cumple") {
+      requisitosFaltantes.push(criterio);
       riesgos.push(comentarioGenerico(criterio.label, "no_cumple"));
     }
 
@@ -522,66 +478,46 @@ function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante, s
       const anuladoPor = criterio.anularSiCumpleId && criteriosEval[criterio.anularSiCumpleId];
       const anulado = anuladoPor && anuladoPor.status === "cumple";
       if (!anulado) {
+        descarteDuro = true;
         if (criterio.descarteMensaje) riesgos.unshift(criterio.descarteMensaje);
-        if (criterio.descarteSi === "cumple") {
-          // Se detectó algo que contradice el puesto (becario, creador de redes, etc.) — descarte directo, sin excepción.
-          descarte = true;
-        } else {
-          // Falta un dato (ubicación, portafolio, formación...) — puede ser un candidato fuerte que
-          // simplemente no lo puso en el CV. Se evalúa aparte, no se descarta de inmediato.
-          banderasFaltantes.push({ criterio, s });
-        }
       }
     }
   });
 
-  let compatibilidad = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
-  compatibilidad = Math.max(0, Math.min(100, compatibilidad));
+  const baseIndispensable = presupuestoIndispensables > 0 && indispensables.length > 0
+    ? (scoreIndispensable / presupuestoIndispensables) * 100
+    : 0;
+  let compatibilidad = Math.round(Math.max(0, Math.min(100, baseIndispensable + scoreDeseable)));
 
   let estado;
-  let compatibilidadAjustada = null;
-
-  if (descarte) {
+  if (descarteDuro) {
     compatibilidad = Math.min(compatibilidad, 20);
     estado = "baja";
-  } else if (banderasFaltantes.length > 0) {
-    const pesoFaltante = banderasFaltantes.reduce((a, f) => a + f.criterio.peso, 0);
-    const sFaltante = banderasFaltantes.reduce((a, f) => a + f.s, 0);
-    const maxAjustado = maxScore - pesoFaltante;
-    const scoreAjustado = score - sFaltante;
-    compatibilidadAjustada = maxAjustado > 0 ? Math.round((scoreAjustado / maxAjustado) * 100) : 0;
-    if (compatibilidadAjustada >= 80) {
-      estado = "interesante";
-      compatibilidad = compatibilidadAjustada;
-    } else {
-      estado = compatibilidad >= 85 ? "muy_recomendado" : compatibilidad >= 70 ? "recomendado" : compatibilidad >= 50 ? "revisar" : "baja";
-    }
+  } else if (requisitosFaltantes.length > 0 && compatibilidad >= UMBRAL_INTERESANTE) {
+    estado = "interesante";
   } else {
     estado = compatibilidad >= 85 ? "muy_recomendado" : compatibilidad >= 70 ? "recomendado" : compatibilidad >= 50 ? "revisar" : "baja";
   }
 
-  const formEval = criteriosEval.formacion;
-  const ubiEval = criteriosEval.ubicacion;
+  const reqLabels = requisitosFaltantes.map((r) => r.label).join(", ");
   const resumen = [
-    formEval ? (formEval.status === "cumple" ? "Cuenta con la formación requerida." : formEval.status === "parcial" ? "Formación parcialmente alineada; revisar manualmente." : "No se confirmó la formación requerida en el texto del CV.") : "",
-    ubiEval ? (ubiEval.status === "cumple" ? "Reside en CDMX o zona conurbada." : "No se confirmó residencia en CDMX o zona conurbada.") : "",
-    descarte ? "Se detectó al menos un criterio de descarte para esta vacante." : "",
-    estado === "interesante" ? `Cumple con ${compatibilidadAjustada}% de los criterios evaluables; falta confirmar información puntual.` : "",
+    `Compatibilidad de habilidades: ${compatibilidad}%.`,
+    requisitosFaltantes.length > 0 ? `Falta confirmar: ${reqLabels}.` : "",
+    descarteDuro ? "Se detectó un criterio de descarte para esta vacante." : "",
   ].filter(Boolean).join(" ");
 
-  const listaFaltantes = banderasFaltantes.map((f) => f.criterio.label).join(", ");
-  const recomendacion = descarte
+  const recomendacion = descarteDuro
     ? "Este perfil cumple con uno o más criterios de descarte definidos para la vacante; no se recomienda continuar el proceso."
     : estado === "interesante"
-    ? `Perfil fuerte (${compatibilidadAjustada}% en los criterios que sí se pudieron confirmar), pero no se pudo verificar automáticamente: ${listaFaltantes}. Se recomienda que RH lo confirme directamente con el candidato o consulte con el jefe de área antes de descartarlo.`
+    ? `Buen dominio de las habilidades del puesto (${compatibilidad}%), pero no se pudo confirmar automáticamente: ${reqLabels}. Se recomienda verificar directamente con el candidato o consultar con el jefe de área antes de descartarlo.`
     : estado === "muy_recomendado" ? "Perfil altamente alineado con la vacante. Se recomienda avanzar a entrevista."
     : estado === "recomendado" ? "Buen encaje general con la vacante. Se recomienda considerar para entrevista."
-    : estado === "revisar" ? "Encaje parcial o con datos insuficientes; conviene revisar manualmente antes de decidir."
+    : estado === "revisar" ? "Encaje parcial; conviene revisar manualmente antes de decidir."
     : "El perfil se aleja de forma importante de los requisitos de la vacante.";
 
   return {
     id: `${fileName}-${norm.length}`, nombre, archivo: fileName, compatibilidad, estado, resumen, recomendacion, riesgos, criteriosEval,
-    salarioSolicitado: salarioManual || null, experienciaAnios: experienciaAniosDetectados,
+    experienciaAnios: experienciaAniosDetectados,
   };
 }
 
@@ -596,42 +532,24 @@ function EstadoBadge({ estado }) {
 function CriterioIcon({ status }) {
   if (status === "cumple") return <Icon name="check" size={16} style={{ color: "#1E8E5A" }} />;
   if (status === "parcial") return <Icon name="alert" size={16} style={{ color: "#FF9500" }} />;
-  return <Icon name="xcircle" size={16} style={{ color: "#B3261E" }} />;
-}
-function ScanMeter({ value }) {
-  if (value === null) return <span className="ts-muted-sm">Sin datos</span>;
-  const cfg = value >= 85 ? ESTADOS.muy_recomendado : value >= 70 ? ESTADOS.recomendado : value >= 50 ? ESTADOS.revisar : ESTADOS.baja;
-  return (
-    <div className="ts-meter-wrap">
-      <div className="ts-meter-track"><div className="ts-meter-fill" style={{ width: `${value}%`, backgroundColor: cfg.color }} /></div>
-      <span className="ts-meter-value" style={{ color: cfg.color }}>{value}%</span>
-    </div>
-  );
+  return <Icon name="xcircle" size={16} style={{ color: "#DC2626" }} />;
 }
 function CompatRing({ value, estado, size = 42, stroke = 4, fontSize = 11 }) {
-  if (value === null) {
-    return <span className="ts-muted-sm" style={{ fontSize: 11 }}>—</span>;
-  }
-  const cfg = estado && ESTADOS[estado] ? ESTADOS[estado] : (value >= 85 ? ESTADOS.muy_recomendado : value >= 70 ? ESTADOS.recomendado : value >= 50 ? ESTADOS.revisar : ESTADOS.baja);
+  if (value === null) return <span className="ts-muted-sm" style={{ fontSize: 11 }}>—</span>;
+  const cfg = estado && ESTADOS[estado] ? ESTADOS[estado] : ESTADOS.revisar;
   const radius = (size - stroke) / 2;
-  const circumferencia = 2 * Math.PI * radius;
-  const offset = circumferencia * (1 - value / 100);
+  const circunferencia = 2 * Math.PI * radius;
+  const offset = circunferencia * (1 - value / 100);
   return (
     <div className="ts-ring-wrap" style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="var(--ts-border)" strokeWidth={stroke} />
-        <circle
-          cx={size / 2} cy={size / 2} r={radius} fill="none" stroke={cfg.color} strokeWidth={stroke} strokeLinecap="round"
-          strokeDasharray={circunferenciaSegura(circumferencia)} strokeDashoffset={offset}
-          transform={`rotate(-90 ${size / 2} ${size / 2})`}
-          style={{ transition: "stroke-dashoffset 0.6s ease" }}
-        />
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke={cfg.color} strokeWidth={stroke} strokeLinecap="round" strokeDasharray={circunferencia} strokeDashoffset={offset} transform={`rotate(-90 ${size / 2} ${size / 2})`} style={{ transition: "stroke-dashoffset 0.6s ease" }} />
       </svg>
       <span className="ts-ring-value" style={{ color: cfg.color, fontSize }}>{value}%</span>
     </div>
   );
 }
-function circunferenciaSegura(c) { return c; }
 function Stepper({ step }) {
   const steps = [{ n: 1, label: "Vacante y candidatos" }, { n: 2, label: "Resultados" }];
   return (
@@ -639,9 +557,7 @@ function Stepper({ step }) {
       {steps.map((s, i) => (
         <React.Fragment key={s.n}>
           <div className="ts-step">
-            <div className={`ts-step-circle ${step === s.n ? "is-active" : step > s.n ? "is-done" : ""}`}>
-              {step > s.n ? <Icon name="check" size={16} /> : s.n}
-            </div>
+            <div className={`ts-step-circle ${step === s.n ? "is-active" : step > s.n ? "is-done" : ""}`}>{step > s.n ? <Icon name="check" size={16} /> : s.n}</div>
             <span className={`ts-step-label ${step === s.n ? "is-active" : ""}`}>{s.label}</span>
           </div>
           {i < steps.length - 1 && <div className={`ts-step-line ${step > s.n ? "is-done" : ""}`} />}
@@ -656,35 +572,33 @@ function Stepper({ step }) {
 /* ----------------------------------------------------------------------- */
 
 function ResumenCriterios({ vacante }) {
-  const porCategoria = (cat) => vacante.criterios.filter((c) => c.categoria === cat);
-  const formacion = porCategoria("formacion");
-  const ubicacion = porCategoria("ubicacion");
-  const experiencia = porCategoria("experiencia")[0];
-  const indispensables = porCategoria("habilidad_indispensable");
-  const deseables = porCategoria("habilidad_deseable");
-  const descarte = porCategoria("descarte");
+  const requisitos = vacante.criterios.filter((c) => c.categoria === "requisito");
+  const experiencia = vacante.criterios.find((c) => c.categoria === "habilidad_indispensable" && c.tipo === "anios");
+  const indispensables = vacante.criterios.filter((c) => c.categoria === "habilidad_indispensable" && c.tipo !== "anios");
+  const deseables = vacante.criterios.filter((c) => c.categoria === "habilidad_deseable");
+  const features = vacante.criterios.filter((c) => c.categoria === "feature");
+  const descarte = vacante.criterios.filter((c) => c.categoria === "descarte");
 
   return (
     <div className="ts-grid-2" style={{ marginBottom: 16 }}>
-      <div className="ts-card">
-        <div className="ts-card-title"><Icon name="grad" size={16} /> Formación</div>
-        <ul className="ts-list">{formacion.map((c) => <li key={c.id}>{c.label}</li>)}</ul>
-      </div>
-      <div className="ts-card">
-        <div className="ts-card-title"><Icon name="pin" size={16} /> Ubicación</div>
-        <ul className="ts-list">{ubicacion.map((c) => <li key={c.id}>{c.label}</li>)}</ul>
+      <div className="ts-card" style={{ gridColumn: "1 / -1" }}>
+        <div className="ts-card-title"><Icon name="shield" size={16} /> Requisitos (no dan puntos, solo alertan si faltan)</div>
+        <ul className="ts-list">{requisitos.map((c) => <li key={c.id}>{c.label}</li>)}</ul>
+        {experiencia && <p className="ts-muted-sm" style={{ marginTop: 6 }}>Experiencia ideal: {experiencia.anioMin} a {experiencia.anioMax} años.</p>}
       </div>
       <div className="ts-card" style={{ gridColumn: "1 / -1" }}>
-        <div className="ts-card-title"><Icon name="users" size={16} /> Experiencia</div>
-        {experiencia && <p className="ts-body">{experiencia.anioMin} a {experiencia.anioMax} años — {experiencia.label}</p>}
-      </div>
-      <div className="ts-card" style={{ gridColumn: "1 / -1" }}>
-        <div className="ts-card-title"><Icon name="sparkles" size={16} /> Habilidades indispensables</div>
+        <div className="ts-card-title"><Icon name="sparkles" size={16} /> Habilidades indispensables (definen el % de compatibilidad)</div>
         <div className="ts-chip-row">{indispensables.map((c) => <span className="ts-chip" key={c.id}>{c.label}</span>)}</div>
         {deseables.length > 0 && (
           <>
-            <div className="ts-card-title" style={{ marginTop: 16 }}>Habilidades deseables</div>
+            <div className="ts-card-title" style={{ marginTop: 16 }}>Deseables (bono extra, nunca restan)</div>
             <div className="ts-chip-row">{deseables.map((c) => <span className="ts-chip ts-chip--soft" key={c.id}>{c.label}</span>)}</div>
+          </>
+        )}
+        {features.length > 0 && (
+          <>
+            <div className="ts-card-title" style={{ marginTop: 16 }}>Características (informativas, no puntúan)</div>
+            <div className="ts-chip-row">{features.map((c) => <span className="ts-chip ts-chip--soft" key={c.id}>{c.label}</span>)}</div>
           </>
         )}
       </div>
@@ -706,7 +620,7 @@ function ResumenCriterios({ vacante }) {
 /* PASO 1 — VACANTE + SUBIR CVs (fusionado)                                */
 /* ----------------------------------------------------------------------- */
 
-function PasoPrincipal({ vacantes, vacanteActivaId, setVacanteActivaId, files, setFiles, salarios, setSalarios, onAnalyze, isAnalyzing, progress, pdfStatus }) {
+function PasoPrincipal({ vacantes, vacanteActivaId, setVacanteActivaId, files, setFiles, onAnalyze, isAnalyzing, progress, pdfStatus }) {
   const vacante = vacantes[vacanteActivaId];
   const [detallesAbiertos, setDetallesAbiertos] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -715,7 +629,6 @@ function PasoPrincipal({ vacantes, vacanteActivaId, setVacanteActivaId, files, s
     if (id === vacanteActivaId) return;
     setVacanteActivaId(id);
     setFiles([]);
-    setSalarios({});
   };
 
   const addFiles = useCallback((fileList) => {
@@ -738,23 +651,14 @@ function PasoPrincipal({ vacantes, vacanteActivaId, setVacanteActivaId, files, s
     <div className="ts-fade-in">
       <div className="ts-vacante-selector">
         {Object.values(vacantes).map((v) => (
-          <button
-            key={v.id}
-            className={`ts-vacante-chip ${v.id === vacanteActivaId ? "is-active" : ""}`}
-            onClick={() => seleccionarVacante(v.id)}
-          >
-            {v.titulo}
-          </button>
+          <button key={v.id} className={`ts-vacante-chip ${v.id === vacanteActivaId ? "is-active" : ""}`} onClick={() => seleccionarVacante(v.id)}>{v.titulo}</button>
         ))}
       </div>
 
       <div className="ts-card ts-card--hero">
-        <div className="ts-eyebrow">
-          <Icon name="briefcase" size={14} /><span>Vacante activa</span>
-        </div>
+        <div className="ts-eyebrow"><Icon name="briefcase" size={14} /><span>Vacante activa</span></div>
         <h1 className="ts-vacante-titulo-grande">{vacante.titulo}</h1>
-        <p className="ts-muted" style={{ maxWidth: 560, marginBottom: 12 }}>{vacante.resumenCorto}</p>
-        <p className="ts-body">Salario ofrecido: <strong>${vacante.salarioOfrecido.toLocaleString("es-MX")} MXN / mes</strong></p>
+        <p className="ts-muted" style={{ maxWidth: 560 }}>{vacante.resumenCorto}</p>
       </div>
 
       <button className="ts-collapse-btn" onClick={() => setDetallesAbiertos((v) => !v)}>
@@ -765,14 +669,7 @@ function PasoPrincipal({ vacantes, vacanteActivaId, setVacanteActivaId, files, s
 
       <div className="ts-card">
         <div className="ts-card-title"><Icon name="upload" size={16} /> Sube los CVs en PDF</div>
-
-        <div
-          className={`ts-dropzone ${isDragging ? "is-dragging" : ""}`}
-          onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-          onDragLeave={() => setIsDragging(false)}
-          onDrop={handleDrop}
-          onClick={() => document.getElementById("ts-file-input").click()}
-        >
+        <div className={`ts-dropzone ${isDragging ? "is-dragging" : ""}`} onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }} onDragLeave={() => setIsDragging(false)} onDrop={handleDrop} onClick={() => document.getElementById("ts-file-input").click()}>
           <Icon name="upload" size={28} style={{ opacity: 0.55 }} />
           <p className="ts-body" style={{ margin: "8px 0 2px" }}>Arrastra los archivos aquí o haz clic para seleccionarlos</p>
           <p className="ts-muted-sm">Solo PDF con texto seleccionable · puedes subir varios a la vez</p>
@@ -781,28 +678,19 @@ function PasoPrincipal({ vacantes, vacanteActivaId, setVacanteActivaId, files, s
 
         {files.length > 0 && (
           <div className="ts-file-list">
-            {files.map((f, i) => {
-              const key = f.name + f.size;
-              return (
-                <div className="ts-file-row" key={key}>
-                  <Icon name="filetext" size={16} style={{ opacity: 0.6, flexShrink: 0 }} />
-                  <span className="ts-file-name">{f.name}</span>
-                  <span className="ts-muted-sm">{(f.size / 1024).toFixed(0)} KB</span>
-                  <div className="ts-salario-mini">
-                    <span className="ts-muted-sm">Pretensión $</span>
-                    <input type="number" placeholder="opcional" value={salarios[key] || ""} onChange={(e) => setSalarios((prev) => ({ ...prev, [key]: e.target.value ? Number(e.target.value) : undefined }))} />
-                  </div>
-                  <button className="ts-icon-btn" onClick={() => removeFile(i)} aria-label={`Quitar ${f.name}`}><Icon name="x" size={14} /></button>
-                </div>
-              );
-            })}
+            {files.map((f, i) => (
+              <div className="ts-file-row" key={f.name + f.size}>
+                <Icon name="filetext" size={16} style={{ opacity: 0.6, flexShrink: 0 }} />
+                <span className="ts-file-name">{f.name}</span>
+                <span className="ts-muted-sm">{(f.size / 1024).toFixed(0)} KB</span>
+                <button className="ts-icon-btn" onClick={() => removeFile(i)} aria-label={`Quitar ${f.name}`}><Icon name="x" size={14} /></button>
+              </div>
+            ))}
           </div>
         )}
 
         {pdfStatus === "error" && (
-          <div className="ts-notice ts-notice--warn">
-            No se pudo cargar el lector de PDF (revisa tu conexión a internet), así que no es posible analizar automáticamente. Puedes reintentar recargando la página.
-          </div>
+          <div className="ts-notice ts-notice--warn">No se pudo cargar el lector de PDF (revisa tu conexión a internet). Puedes reintentar recargando la página.</div>
         )}
 
         {isAnalyzing && (
@@ -838,52 +726,72 @@ function accionSugerida(estado) {
   return "No se recomienda continuar";
 }
 
+function RequisitosResumen({ candidato, vacante }) {
+  const requisitos = vacante.criterios.filter((c) => c.categoria === "requisito");
+  if (requisitos.length === 0) return null;
+  return (
+    <div className="ts-mini-card">
+      <div className="ts-mini-card-title"><Icon name="shield" size={13} /> Requisitos</div>
+      <div className="ts-criterios">
+        {requisitos.map((c) => {
+          const ev = candidato.criteriosEval[c.id];
+          if (!ev) return null;
+          return (
+            <div className="ts-criterio-row" key={c.id}>
+              <CriterioIcon status={ev.status} />
+              <div><div className="ts-criterio-label">{c.label}</div><div className="ts-muted-sm">{ev.comentario}</div></div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function CaracteristicasDetectadas({ candidato, vacante }) {
+  const features = vacante.criterios.filter((c) => c.categoria === "feature");
+  if (features.length === 0) return null;
+  const detectadas = features.filter((c) => candidato.criteriosEval[c.id] && candidato.criteriosEval[c.id].status === "cumple");
+  return (
+    <div className="ts-mini-card">
+      <div className="ts-mini-card-title"><Icon name="sparkles" size={13} /> Características detectadas (no puntúan)</div>
+      {detectadas.length === 0 ? (
+        <p className="ts-muted-sm">No se detectó ninguna en el texto del CV.</p>
+      ) : (
+        <div className="ts-chip-row">{detectadas.map((c) => <span className="ts-chip ts-chip--soft" key={c.id}>{c.label}</span>)}</div>
+      )}
+    </div>
+  );
+}
+
 function EvaluacionCriterios({ candidato, vacante }) {
   const [abierto, setAbierto] = useState(false);
-  const criteriosVisibles = vacante.criterios.filter((c) => !c.soloDescarte);
-
-  const filas = criteriosVisibles
-    .map((c) => ({ c, ev: candidato.criteriosEval[c.id] }))
-    .filter((x) => x.ev);
+  const habilidades = vacante.criterios.filter((c) => c.categoria === "habilidad_indispensable" || c.categoria === "habilidad_deseable");
+  const filas = habilidades.map((c) => ({ c, ev: candidato.criteriosEval[c.id] })).filter((x) => x.ev);
   const coinciden = filas.filter((x) => x.ev.status === "cumple");
   const noCoinciden = filas.filter((x) => x.ev.status !== "cumple");
 
   return (
     <div className="ts-mini-card">
       <button className="ts-eval-toggle" onClick={() => setAbierto((v) => !v)}>
-        <span className="ts-mini-card-title" style={{ marginBottom: 0 }}><Icon name="sliders" size={13} /> Evaluación de criterios</span>
+        <span className="ts-mini-card-title" style={{ marginBottom: 0 }}><Icon name="sliders" size={13} /> Evaluación de habilidades</span>
         <Icon name={abierto ? "chevrondown" : "chevronright"} size={15} />
       </button>
       {abierto && (
         <div style={{ marginTop: 12 }}>
-          <div className="ts-eval-subheading" style={{ color: "#15803D" }}>
-            <Icon name="check" size={13} /> Coinciden ({coinciden.length})
-          </div>
-          {coinciden.length === 0 ? (
-            <p className="ts-muted-sm" style={{ marginBottom: 14 }}>Ninguno.</p>
-          ) : (
+          <div className="ts-eval-subheading" style={{ color: "#15803D" }}><Icon name="check" size={13} /> Coinciden ({coinciden.length})</div>
+          {coinciden.length === 0 ? <p className="ts-muted-sm" style={{ marginBottom: 14 }}>Ninguna.</p> : (
             <div className="ts-criterios" style={{ marginBottom: 14 }}>
               {coinciden.map(({ c, ev }) => (
-                <div className="ts-criterio-row" key={c.id}>
-                  <CriterioIcon status={ev.status} />
-                  <div><div className="ts-criterio-label">{c.label}</div><div className="ts-muted-sm">{ev.comentario}</div></div>
-                </div>
+                <div className="ts-criterio-row" key={c.id}><CriterioIcon status={ev.status} /><div><div className="ts-criterio-label">{c.label}</div><div className="ts-muted-sm">{ev.comentario}</div></div></div>
               ))}
             </div>
           )}
-
-          <div className="ts-eval-subheading" style={{ color: "#DC2626" }}>
-            <Icon name="xcircle" size={13} /> No coinciden ({noCoinciden.length})
-          </div>
-          {noCoinciden.length === 0 ? (
-            <p className="ts-muted-sm">Ninguno.</p>
-          ) : (
+          <div className="ts-eval-subheading" style={{ color: "#DC2626" }}><Icon name="xcircle" size={13} /> No coinciden ({noCoinciden.length})</div>
+          {noCoinciden.length === 0 ? <p className="ts-muted-sm">Ninguna.</p> : (
             <div className="ts-criterios">
               {noCoinciden.map(({ c, ev }) => (
-                <div className="ts-criterio-row" key={c.id}>
-                  <CriterioIcon status={ev.status} />
-                  <div><div className="ts-criterio-label">{c.label}</div><div className="ts-muted-sm">{ev.comentario}</div></div>
-                </div>
+                <div className="ts-criterio-row" key={c.id}><CriterioIcon status={ev.status} /><div><div className="ts-criterio-label">{c.label}</div><div className="ts-muted-sm">{ev.comentario}</div></div></div>
               ))}
             </div>
           )}
@@ -895,13 +803,14 @@ function EvaluacionCriterios({ candidato, vacante }) {
 
 function DetalleContenido({ candidato, vacante }) {
   const cfg = candidato.compatibilidad === null ? { color: "var(--ts-muted)" } : (ESTADOS[candidato.estado] || ESTADOS.revisar);
-
   return (
     <div className="ts-detalle-inline">
       <div className="ts-mini-card">
         <div className="ts-mini-card-title"><Icon name="sparkles" size={13} /> Resumen</div>
         <p className="ts-body">{candidato.resumen}</p>
       </div>
+
+      {!candidato.sinTexto && <RequisitosResumen candidato={candidato} vacante={vacante} />}
 
       {!candidato.sinTexto && (
         <div className="ts-mini-card">
@@ -913,18 +822,13 @@ function DetalleContenido({ candidato, vacante }) {
 
       <div className="ts-mini-card">
         <div className="ts-mini-card-title"><Icon name="alert" size={13} /> Riesgos detectados</div>
-        {candidato.riesgos.length === 0 ? (
-          <p className="ts-muted-sm">No se detectaron riesgos relevantes.</p>
-        ) : (
-          <ul className="ts-riesgos">
-            {candidato.riesgos.map((r, i) => (
-              <li key={i}><Icon name="alert" size={14} style={{ color: "#FF9500", flexShrink: 0, marginTop: 2 }} /><span>{r}</span></li>
-            ))}
-          </ul>
+        {candidato.riesgos.length === 0 ? <p className="ts-muted-sm">No se detectaron riesgos relevantes.</p> : (
+          <ul className="ts-riesgos">{candidato.riesgos.map((r, i) => <li key={i}><Icon name="alert" size={14} style={{ color: "#FF9500", flexShrink: 0, marginTop: 2 }} /><span>{r}</span></li>)}</ul>
         )}
       </div>
 
       {!candidato.sinTexto && <EvaluacionCriterios candidato={candidato} vacante={vacante} />}
+      {!candidato.sinTexto && <CaracteristicasDetectadas candidato={candidato} vacante={vacante} />}
     </div>
   );
 }
@@ -945,9 +849,7 @@ function PasoResultados({ vacante, candidatos, onBack, onReiniciar }) {
     });
   }, [candidatos]);
 
-  useEffect(() => {
-    if (ordenados.length > 0) setExpandedId(ordenados[0].id);
-  }, [vacante]);
+  useEffect(() => { if (ordenados.length > 0) setExpandedId(ordenados[0].id); }, [vacante]);
 
   const conteos = useMemo(() => {
     const c = { muy_recomendado: 0, recomendado: 0, interesante: 0, revisar: 0, baja: 0 };
@@ -971,12 +873,8 @@ function PasoResultados({ vacante, candidatos, onBack, onReiniciar }) {
   return (
     <div className="ts-fade-in">
       <div className="ts-resultados-header">
-        <div>
-          <div className="ts-resultados-titulo">
-            <h2 className="ts-h2" style={{ margin: 0, fontSize: 22, fontWeight: 700 }}>
-              Resultados — {vacante.titulo} <span className="ts-count-pill">{candidatos.length} analizados</span>
-            </h2>
-          </div>
+        <div className="ts-resultados-titulo">
+          <h2 className="ts-h2" style={{ margin: 0, fontSize: 22, fontWeight: 700 }}>Resultados — {vacante.titulo} <span className="ts-count-pill">{candidatos.length} analizados</span></h2>
         </div>
         <button className="ts-btn ts-btn--ghost" onClick={onReiniciar}>Nuevo análisis</button>
       </div>
@@ -1001,9 +899,7 @@ function PasoResultados({ vacante, candidatos, onBack, onReiniciar }) {
         </div>
       </div>
 
-      <div className="ts-tabla-header">
-        <span>#</span><span>Candidato</span><span>Compat.</span><span>Estado</span><span>Exp.</span><span></span>
-      </div>
+      <div className="ts-tabla-header"><span>#</span><span>Candidato</span><span>Compat.</span><span>Estado</span><span>Exp.</span><span></span></div>
 
       {visibles.map((c, i) => {
         const cfg = c.estado ? ESTADOS[c.estado] : null;
@@ -1014,7 +910,7 @@ function PasoResultados({ vacante, candidatos, onBack, onReiniciar }) {
             <button className={`ts-fila-candidato ${abierto ? "is-selected" : ""}`} onClick={() => setExpandedId(abierto ? null : c.id)}>
               <span className="ts-fila-rank">{rank}</span>
               <div className="ts-fila-candidato-main">
-                <div className="ts-avatar">{c.nombre.charAt(0)}</div>
+                <div style={{ width: 38, height: 38, borderRadius: 10, background: "var(--ts-primary-soft)", color: "var(--ts-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 15, flexShrink: 0 }}>{c.nombre.charAt(0)}</div>
                 <div style={{ minWidth: 0 }}>
                   <div className="ts-fila-nombre">{c.nombre}</div>
                   <div className="ts-fila-sub">{c.archivo}</div>
@@ -1033,9 +929,7 @@ function PasoResultados({ vacante, candidatos, onBack, onReiniciar }) {
         );
       })}
 
-      {visibles.length === 0 && (
-        <div className="ts-card" style={{ textAlign: "center", color: "var(--ts-muted)" }}>No hay candidatos que coincidan.</div>
-      )}
+      {visibles.length === 0 && <div className="ts-card" style={{ textAlign: "center", color: "var(--ts-muted)" }}>No hay candidatos que coincidan.</div>}
 
       {totalPaginas > 1 && (
         <div className="ts-paginacion">
@@ -1050,9 +944,7 @@ function PasoResultados({ vacante, candidatos, onBack, onReiniciar }) {
         </div>
       )}
 
-      <div className="ts-actions-left">
-        <button className="ts-btn ts-btn--ghost" onClick={onBack}><Icon name="arrowleft" size={16} /> Volver</button>
-      </div>
+      <div className="ts-actions-left"><button className="ts-btn ts-btn--ghost" onClick={onBack}><Icon name="arrowleft" size={16} /> Volver</button></div>
     </div>
   );
 }
@@ -1068,7 +960,6 @@ function TalentScan() {
   const [datosEstado, setDatosEstado] = useState("cargando");
   const [metaDatos, setMetaDatos] = useState(null);
   const [files, setFiles] = useState([]);
-  const [salarios, setSalarios] = useState({});
   const [candidatos, setCandidatos] = useState([]);
   const [vacanteEvaluada, setVacanteEvaluada] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -1084,12 +975,8 @@ function TalentScan() {
           setVacantes(soloVacantes);
           setVacanteActivaId(Object.keys(soloVacantes)[0]);
         }
-        if (_meta) {
-          setMetaDatos(_meta);
-          setDatosEstado("listo");
-        } else {
-          setDatosEstado("sin_meta");
-        }
+        if (_meta) { setMetaDatos(_meta); setDatosEstado("listo"); }
+        else setDatosEstado("sin_meta");
       })
       .catch(() => setDatosEstado("error"));
   }, []);
@@ -1104,12 +991,11 @@ function TalentScan() {
 
     for (let i = 0; i < files.length; i++) {
       const f = files[i];
-      const key = f.name + f.size;
       try {
         const texto = await extraerTextoPDF(f);
-        resultados.push(analizarCandidatoPorCoincidencias({ textoOriginal: texto, fileName: f.name, vacante: vacanteUsada, salarioManual: salarios[key] }));
+        resultados.push(analizarCandidatoPorCoincidencias({ textoOriginal: texto, fileName: f.name, vacante: vacanteUsada }));
       } catch (e) {
-        resultados.push(analizarCandidatoPorCoincidencias({ textoOriginal: "", fileName: f.name, vacante: vacanteUsada, salarioManual: salarios[key] }));
+        resultados.push(analizarCandidatoPorCoincidencias({ textoOriginal: "", fileName: f.name, vacante: vacanteUsada }));
       }
       setProgress(Math.round(((i + 1) / files.length) * 100));
     }
@@ -1120,12 +1006,7 @@ function TalentScan() {
     setStep(2);
   };
 
-  const reiniciar = () => {
-    setFiles([]);
-    setSalarios({});
-    setCandidatos([]);
-    setStep(1);
-  };
+  const reiniciar = () => { setFiles([]); setCandidatos([]); setStep(1); };
 
   return (
     <div className="ts-root">
@@ -1138,34 +1019,20 @@ function TalentScan() {
               <span className="ts-version-badge">v{VERSION}</span>
             </div>
           </div>
-          <a className="ts-link-solicitar" href="./vacantes-editor.html" target="_blank" rel="noopener">
-            <Icon name="pencil" size={14} /> Solicitar vacante nueva o cambios
-          </a>
+          <a className="ts-link-solicitar" href="./vacantes-editor.html" target="_blank" rel="noopener"><Icon name="pencil" size={14} /> Solicitar vacante nueva o cambios</a>
         </div>
 
         <div className="ts-datos-linea">
-          {datosEstado === "cargando" && (
-            <><Icon name="loader" size={13} style={{ animation: "tsSpin 0.9s linear infinite" }} /> Cargando datos de vacantes…</>
-          )}
-          {datosEstado === "listo" && (
-            <><Icon name="check" size={13} style={{ color: "#15803D" }} /> Datos v{metaDatos.version || "?"} · actualizados el {fechaAmigable(metaDatos.actualizado)}</>
-          )}
-          {datosEstado === "sin_meta" && (
-            <><Icon name="alert" size={13} style={{ color: "#FF9500" }} /> vacantes.json cargó, pero no trae fecha de actualización registrada.</>
-          )}
-          {datosEstado === "error" && (
-            <><Icon name="alert" size={13} style={{ color: "#FF9500" }} /> No se pudo cargar vacantes.json; usando los valores integrados en la página.</>
-          )}
+          {datosEstado === "cargando" && <><Icon name="loader" size={13} style={{ animation: "tsSpin 0.9s linear infinite" }} /> Cargando datos de vacantes…</>}
+          {datosEstado === "listo" && <><Icon name="check" size={13} style={{ color: "#15803D" }} /> Datos v{metaDatos.version || "?"} · actualizados el {fechaAmigable(metaDatos.actualizado)}</>}
+          {datosEstado === "sin_meta" && <><Icon name="alert" size={13} style={{ color: "#FF9500" }} /> vacantes.json cargó, pero no trae fecha de actualización registrada.</>}
+          {datosEstado === "error" && <><Icon name="alert" size={13} style={{ color: "#FF9500" }} /> No se pudo cargar vacantes.json; usando los valores integrados en la página.</>}
         </div>
 
         <Stepper step={step} />
 
         {step === 1 && (
-          <PasoPrincipal
-            vacantes={vacantes} vacanteActivaId={vacanteActivaId} setVacanteActivaId={setVacanteActivaId}
-            files={files} setFiles={setFiles} salarios={salarios} setSalarios={setSalarios}
-            onAnalyze={analizar} isAnalyzing={isAnalyzing} progress={progress} pdfStatus={pdfStatus}
-          />
+          <PasoPrincipal vacantes={vacantes} vacanteActivaId={vacanteActivaId} setVacanteActivaId={setVacanteActivaId} files={files} setFiles={setFiles} onAnalyze={analizar} isAnalyzing={isAnalyzing} progress={progress} pdfStatus={pdfStatus} />
         )}
         {step === 2 && <PasoResultados vacante={vacanteEvaluada} candidatos={candidatos} onBack={() => setStep(1)} onReiniciar={reiniciar} />}
       </div>
