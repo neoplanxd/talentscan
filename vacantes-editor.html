@@ -223,7 +223,7 @@ function FilaDescarte({ criterio, onUpdate, onRemove }) {
   );
 }
 
-function FilaExperiencia({ criterio, onUpdate }) {
+function FilaExperiencia({ criterio, onUpdate, onRemove }) {
   const [anioMin, setAnioMin] = useState(criterio.anioMin);
   const [anioMax, setAnioMax] = useState(criterio.anioMax);
   return (
@@ -236,12 +236,12 @@ function FilaExperiencia({ criterio, onUpdate }) {
         <span className="ts-field-label-sm">Años máximo (ideal)</span>
         <input className="ts-field-input" type="number" value={anioMax} onChange={(e) => { setAnioMax(e.target.value); onUpdate({ anioMax: Number(e.target.value) || 0 }); }} />
       </div>
-      <p className="ts-muted-sm" style={{ alignSelf: "center", margin: 0 }}>Cuenta como una habilidad indispensable más — comparte el presupuesto de esa categoría.</p>
+      {onRemove && <button className="ts-remove-btn-row" onClick={onRemove} aria-label="Eliminar"><Icon name="x" size={14} /></button>}
     </div>
   );
 }
 
-function SeccionRequisitos({ criterios, onUpdate, onRemove, onAdd }) {
+function SeccionRequisitos({ criterios, onUpdate, onRemove, onAdd, onAddAnios }) {
   return (
     <div className="ts-editor-section">
       <div className="ts-editor-section-title"><Icon name="shield" size={14} /> Requisitos</div>
@@ -249,15 +249,18 @@ function SeccionRequisitos({ criterios, onUpdate, onRemove, onAdd }) {
       {criterios.length === 0 && <p className="ts-muted-sm">Sin requisitos configurados.</p>}
       {criterios.map((c) => (
         c.tipo === "anios"
-          ? <FilaExperiencia key={c.id} criterio={c} onUpdate={(patch) => onUpdate(c.id, patch)} />
+          ? <FilaExperiencia key={c.id} criterio={c} onUpdate={(patch) => onUpdate(c.id, patch)} onRemove={() => onRemove(c.id)} />
           : <FilaSimple key={c.id} criterio={c} onUpdate={(patch) => onUpdate(c.id, patch)} onRemove={() => onRemove(c.id)} placeholderNombre="ej. Licencia de conducir" />
       ))}
-      <button className="ts-add-btn" onClick={onAdd}>+ Agregar requisito</button>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <button className="ts-add-btn" onClick={onAdd}>+ Agregar requisito</button>
+        <button className="ts-add-btn" onClick={onAddAnios}>+ Agregar experiencia (años)</button>
+      </div>
     </div>
   );
 }
 
-function SeccionHabilidades({ titulo, ayuda, criterios, presupuesto, onPresupuestoChange, onUpdate, onRemove, onAdd }) {
+function SeccionHabilidades({ titulo, ayuda, criterios, presupuesto, onPresupuestoChange, onUpdate, onRemove, onAdd, onAddAnios }) {
   const [presupuestoLocal, setPresupuestoLocal] = useState(presupuesto);
   const shareAprox = criterios.length > 0 ? (presupuestoLocal / criterios.length).toFixed(1) : 0;
 
@@ -273,10 +276,13 @@ function SeccionHabilidades({ titulo, ayuda, criterios, presupuesto, onPresupues
       {criterios.length === 0 && <p className="ts-muted-sm">Sin habilidades en esta sección.</p>}
       {criterios.map((c) => (
         c.tipo === "anios"
-          ? <FilaExperiencia key={c.id} criterio={c} onUpdate={(patch) => onUpdate(c.id, patch)} />
+          ? <FilaExperiencia key={c.id} criterio={c} onUpdate={(patch) => onUpdate(c.id, patch)} onRemove={() => onRemove(c.id)} />
           : <FilaSimple key={c.id} criterio={c} onUpdate={(patch) => onUpdate(c.id, patch)} onRemove={() => onRemove(c.id)} placeholderNombre="ej. Excel avanzado" />
       ))}
-      <button className="ts-add-btn" onClick={onAdd}>+ Agregar habilidad</button>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <button className="ts-add-btn" onClick={onAdd}>+ Agregar habilidad</button>
+        <button className="ts-add-btn" onClick={onAddAnios}>+ Agregar experiencia (años)</button>
+      </div>
     </div>
   );
 }
@@ -397,13 +403,18 @@ function EditorVacantes() {
     }));
   };
 
-  const agregarCriterio = (categoria) => {
+  const agregarCriterio = (categoria, tipoOverride) => {
     setVacantes((prev) => {
       const v = prev[vacanteActivaId];
       const nuevoId = `custom_${categoria}_${Date.now()}`;
-      const nuevo = categoria === "descarte"
-        ? { id: nuevoId, label: "Nuevo criterio de descarte", tipo: "keyword", categoria, soloDescarte: true, keywords: [], descarteSi: "cumple", descarteMensaje: "Criterio de descarte." }
-        : { id: nuevoId, label: "Nuevo criterio", tipo: "keyword", categoria, keywords: [] };
+      let nuevo;
+      if (categoria === "descarte") {
+        nuevo = { id: nuevoId, label: "Nuevo criterio de descarte", tipo: "keyword", categoria, soloDescarte: true, keywords: [], descarteSi: "cumple", descarteMensaje: "Criterio de descarte." };
+      } else if (tipoOverride === "anios") {
+        nuevo = { id: nuevoId, label: "Experiencia", tipo: "anios", categoria, anioMin: 1, anioMax: 3 };
+      } else {
+        nuevo = { id: nuevoId, label: "Nuevo criterio", tipo: "keyword", categoria, keywords: [] };
+      }
       return { ...prev, [vacanteActivaId]: { ...v, criterios: [...v.criterios, nuevo] } };
     });
   };
@@ -426,7 +437,9 @@ function EditorVacantes() {
       id, titulo, resumenCorto: "",
       presupuestoIndispensables: 100, presupuestoDeseables: 20,
       perfil: { requisitosAdicionales: [] },
-      criterios: [],
+      criterios: [
+        { id: "experiencia", label: "Experiencia", tipo: "anios", categoria: "requisito", anioMin: 1, anioMax: 3 },
+      ],
     };
     setVacantes((prev) => ({ ...prev, [id]: nueva }));
     setVacanteActivaId(id);
@@ -533,6 +546,7 @@ function EditorVacantes() {
             onUpdate={actualizarCriterio}
             onRemove={eliminarCriterio}
             onAdd={() => agregarCriterio("requisito")}
+            onAddAnios={() => agregarCriterio("requisito", "anios")}
           />
 
           <SeccionHabilidades
