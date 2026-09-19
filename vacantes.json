@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "version": 7,
-    "actualizado": "2026-08-06T21:53:34.512Z"
+    "version": 9,
+    "actualizado": "2026-09-19T00:05:36.934Z"
   },
   "editor_web": {
     "id": "editor_web",
@@ -405,6 +405,222 @@
           "ui/ux"
         ],
         "descarteMensaje": "Criterio de descarte: la experiencia detectada parece estar exclusivamente en áreas no relacionadas con diseño (administración, ventas, logística, etc.)."
+      }
+    ]
+  },
+  "disenador_editorial": {
+    "id": "disenador_editorial",
+    "titulo": "Diseñador Editorial",
+    "resumenCorto": "Diseñador para el área de Nacional",
+    "presupuestoIndispensables": 100,
+    "presupuestoDeseables": 20,
+    "perfil": {
+      "requisitosAdicionales": [
+        "Disponibilidad para laborar de 16:00 horas al cierre (promedio 1:30 a.m.)",
+        "Descansos entre semana"
+      ]
+    },
+    "criterios": [
+      {
+        "id": "experiencia",
+        "label": "Experiencia",
+        "tipo": "anios",
+        "categoria": "requisito",
+        "anioMin": 1,
+        "anioMax": 3
+      },
+      {
+        "id": "custom_requisito_1789774258159",
+        "label": "Formación acádemica",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "diseño gráfico",
+          "diseño editorial",
+          "diseño y comunicación visual"
+        ]
+      },
+      {
+        "id": "custom_requisito_1789774321935",
+        "label": "Ubicación",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "cdmx. ciudad de méxico",
+          "coyoácan",
+          "benito juárez",
+          "venustiano carranza",
+          "gustavo a. madero",
+          "iztacalco",
+          "iztapalapa"
+        ]
+      },
+      {
+        "id": "custom_requisito_1789774388903",
+        "label": "Liga de portafolio",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "portafolio",
+          "portfolio",
+          "behance",
+          "dribbble",
+          "drive"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789774475079",
+        "label": "Adobe Illustrator",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "illustrator",
+          "ai"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789774508441",
+        "label": "Adobe Photoshop",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "photoshop",
+          "ps"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789774537856",
+        "label": "Adobe Indesing",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "indesing",
+          "id"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789774571425",
+        "label": "",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": []
+      },
+      {
+        "id": "custom_requisito_1789774623497",
+        "label": "diseño editorial",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "diseño editorial",
+          "maquetador",
+          "libros",
+          "revistas",
+          "periódico",
+          "catálogos",
+          "editor gráfico"
+        ]
+      },
+      {
+        "id": "custom_habilidad_deseable_1789775227775",
+        "label": "jeraquización ",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "jerarquización visual"
+        ]
+      },
+      {
+        "id": "custom_habilidad_deseable_1789775260486",
+        "label": "maquetación",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "maquetación"
+        ]
+      },
+      {
+        "id": "custom_habilidad_deseable_1789775295327",
+        "label": "edición fotográfico",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "reencuadre fotografía"
+        ]
+      },
+      {
+        "id": "custom_habilidad_deseable_1789775345223",
+        "label": "jerarquización informativa",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "jerarquización de información"
+        ]
+      },
+      {
+        "id": "custom_habilidad_deseable_1789775373543",
+        "label": "",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": []
+      },
+      {
+        "id": "custom_feature_1789775488287",
+        "label": "trabajo en equipo",
+        "tipo": "keyword",
+        "categoria": "feature",
+        "keywords": [
+          "trabajo en equipo",
+          "trabajo colaborativo"
+        ]
+      },
+      {
+        "id": "custom_feature_1789775561471",
+        "label": "Comunicación efectiva",
+        "tipo": "keyword",
+        "categoria": "feature",
+        "keywords": [
+          "comunicación efectiva",
+          "buena comunicación"
+        ]
+      },
+      {
+        "id": "custom_feature_1789775645777",
+        "label": "atención al detalle",
+        "tipo": "keyword",
+        "categoria": "feature",
+        "keywords": [
+          "atención al detalle"
+        ]
+      },
+      {
+        "id": "custom_feature_1789775746266",
+        "label": "agilidad",
+        "tipo": "keyword",
+        "categoria": "feature",
+        "keywords": [
+          "agilidad",
+          "rápidez"
+        ]
+      },
+      {
+        "id": "custom_descarte_1789775771393",
+        "label": "Área no relacionada con diseño",
+        "tipo": "keyword",
+        "categoria": "descarte",
+        "soloDescarte": true,
+        "keywords": [
+          "comunicación",
+          "periodismo",
+          "administración",
+          "ventas",
+          "logística",
+          "atención a clientes",
+          "call center",
+          "recursos humanos",
+          "contabilidad. community manager"
+        ],
+        "descarteSi": "cumple",
+        "descarteMensaje": "diseno grafico, diseno digital, illustrator, photoshop, figma, diseno web, ux/ui, ui/ux, premiere,canva, "
       }
     ]
   }
