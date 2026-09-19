@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "version": 10,
-    "actualizado": "2026-09-19T01:05:27.125Z"
+    "version": 11,
+    "actualizado": "2026-09-19T01:19:43.752Z"
   },
   "editor_web": {
     "id": "editor_web",
@@ -723,7 +723,8 @@
         "keywords": [
           "titulado",
           "titulación",
-          "tutulada"
+          "titulada",
+          "en proceso de titulación"
         ]
       },
       {
@@ -743,7 +744,8 @@
         "keywords": [
           "redacción",
           "buena redacción",
-          "excelente redacción"
+          "excelente redacción",
+          "redactando"
         ]
       },
       {
@@ -948,7 +950,22 @@
           "contabilidad. community manager"
         ],
         "descarteSi": "cumple",
-        "descarteMensaje": "haber trabajado en dependencias de gobierno"
+        "descarteMensaje": "haber trabajado en dependencias de gobierno, oficinas de gobierno, imss, sat, alcaldías, tribunales, "
+      },
+      {
+        "id": "custom_descarte_1789780726560",
+        "label": "diplomado",
+        "tipo": "keyword",
+        "categoria": "descarte",
+        "soloDescarte": true,
+        "keywords": [
+          "diplomado",
+          "diplomados",
+          "maestría",
+          "maestrías"
+        ],
+        "descarteSi": "cumple",
+        "descarteMensaje": "Criterio de descarte."
       }
     ]
   }
