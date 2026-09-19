@@ -1,0 +1,955 @@
+{
+  "_meta": {
+    "version": 10,
+    "actualizado": "2026-09-19T01:05:27.125Z"
+  },
+  "editor_web": {
+    "id": "editor_web",
+    "titulo": "Editor Web",
+    "resumenCorto": "Redacción y edición para medios digitales de alcance nacional.",
+    "presupuestoIndispensables": 100,
+    "presupuestoDeseables": 20,
+    "perfil": {
+      "requisitosAdicionales": []
+    },
+    "criterios": [
+      {
+        "id": "formacion",
+        "label": "Formación académica",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "periodismo",
+          "ciencias de la comunicacion"
+        ],
+        "keywordsParcial": [
+          "comunicacion"
+        ]
+      },
+      {
+        "id": "ubicacion",
+        "label": "Ubicación (CDMX / zona conurbada)",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "ciudad de mexico",
+          "cdmx",
+          "estado de mexico",
+          "edomex",
+          "zona metropolitana",
+          "zona conurbada",
+          "naucalpan",
+          "ecatepec",
+          "nezahualcoyotl",
+          "tlalnepantla",
+          "atizapan",
+          "cuautitlan",
+          "huixquilucan",
+          "chalco",
+          "chimalhuacan",
+          "coacalco",
+          "tultitlan",
+          "los reyes la paz"
+        ]
+      },
+      {
+        "id": "experiencia",
+        "label": "Experiencia como Editor Web",
+        "tipo": "anios",
+        "categoria": "requisito",
+        "anioMin": 1,
+        "anioMax": 3
+      },
+      {
+        "id": "medios",
+        "label": "Medios de alcance nacional",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "el universal",
+          "excelsior",
+          "milenio",
+          "n+",
+          "nmas",
+          "infobae",
+          "animal politico",
+          "medio nacional",
+          "alcance nacional"
+        ]
+      },
+      {
+        "id": "redaccion",
+        "label": "Redacción",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "redaccion"
+        ]
+      },
+      {
+        "id": "edicion",
+        "label": "Edición",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "edicion"
+        ]
+      },
+      {
+        "id": "breaking",
+        "label": "Breaking News",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "breaking news",
+          "ultima hora",
+          "noticia de ultimo momento",
+          "noticias de ultimo momento"
+        ]
+      },
+      {
+        "id": "monitoreo",
+        "label": "Monitoreo de información",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "monitoreo de informacion",
+          "monitoreo de medios",
+          "monitoreo"
+        ]
+      },
+      {
+        "id": "equipo",
+        "label": "Trabajo en equipo",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "trabajo en equipo",
+          "trabajo colaborativo"
+        ]
+      },
+      {
+        "id": "ingles",
+        "label": "Inglés",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "ingles"
+        ]
+      },
+      {
+        "id": "becario",
+        "label": "Becario/practicante",
+        "tipo": "keyword",
+        "categoria": "descarte",
+        "soloDescarte": true,
+        "keywords": [
+          "becario",
+          "becaria",
+          "practicante",
+          "practicas profesionales",
+          "servicio social"
+        ],
+        "descarteSi": "cumple",
+        "descarteMensaje": "Criterio de descarte: se detectó perfil de becario/practicante."
+      },
+      {
+        "id": "creadorRedes",
+        "label": "Creador de contenido para redes",
+        "tipo": "keyword",
+        "categoria": "descarte",
+        "soloDescarte": true,
+        "keywords": [
+          "tiktoker",
+          "tik toker",
+          "youtuber",
+          "content creator",
+          "creador de contenido",
+          "influencer"
+        ],
+        "descarteSi": "cumple",
+        "descarteMensaje": "Criterio de descarte: perfil orientado a creación de contenido para redes (TikTok/YouTube)."
+      },
+      {
+        "id": "brandedContent",
+        "label": "Branded content",
+        "tipo": "keyword",
+        "categoria": "descarte",
+        "soloDescarte": true,
+        "keywords": [
+          "branded content",
+          "contenido patrocinado",
+          "publirreportaje",
+          "contenido publicitario"
+        ],
+        "descarteSi": "cumple",
+        "descarteMensaje": "Criterio de descarte: experiencia en branded content / contenido publicitario."
+      },
+      {
+        "id": "medioPequeno",
+        "label": "Medio sin alcance nacional",
+        "tipo": "keyword",
+        "categoria": "descarte",
+        "soloDescarte": true,
+        "keywords": [
+          "pagina de facebook",
+          "canal de youtube",
+          "periodico local",
+          "periodico estatal",
+          "medio estatal"
+        ],
+        "descarteSi": "cumple",
+        "anularSiCumpleId": "medios",
+        "descarteMensaje": "Criterio de descarte: experiencia limitada a medios estatales pequeños, Facebook o YouTube sin alcance nacional."
+      }
+    ]
+  },
+  "disenador_digital": {
+    "id": "disenador_digital",
+    "titulo": "Diseñador Digital",
+    "resumenCorto": "Diseño gráfico y digital para plataformas y contenido de marca.",
+    "presupuestoIndispensables": 100,
+    "presupuestoDeseables": 40,
+    "perfil": {
+      "requisitosAdicionales": [
+        "Disponibilidad para laborar de 16:00 horas al cierre (promedio 1:30 a.m.)",
+        "Descansos entre semana"
+      ]
+    },
+    "criterios": [
+      {
+        "id": "formacion",
+        "label": "Formación académica",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "diseno grafico",
+          "diseno digital",
+          "diseno multimedia",
+          "diseno ux/ui",
+          "diseno comunicacion grafica"
+        ],
+        "keywordsParcial": [
+          "diseno"
+        ]
+      },
+      {
+        "id": "ubicacion",
+        "label": "Ubicación (CDMX / zona conurbada)",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "ciudad de mexico",
+          "cdmx"
+        ]
+      },
+      {
+        "id": "portafolio",
+        "label": "Liga a portafolio",
+        "tipo": "url",
+        "categoria": "requisito",
+        "keywords": [
+          "portafolio",
+          "portfolio",
+          "behance",
+          "dribbble"
+        ]
+      },
+      {
+        "id": "experiencia",
+        "label": "Experiencia en diseño digital",
+        "tipo": "anios",
+        "categoria": "requisito",
+        "anioMin": 1,
+        "anioMax": 3
+      },
+      {
+        "id": "illustrator",
+        "label": "Adobe Illustrator",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "illustrator"
+        ]
+      },
+      {
+        "id": "photoshop",
+        "label": "Adobe Photoshop",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "photoshop"
+        ]
+      },
+      {
+        "id": "figma",
+        "label": "Figma",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "figma"
+        ]
+      },
+      {
+        "id": "disenoRedes",
+        "label": "Diseño para redes sociales",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "diseno para redes sociales",
+          "contenido para redes sociales"
+        ]
+      },
+      {
+        "id": "trabajoEquipo",
+        "label": "Trabajo en equipo",
+        "tipo": "keyword",
+        "categoria": "feature",
+        "keywords": [
+          "trabajo en equipo",
+          "trabajo colaborativo"
+        ]
+      },
+      {
+        "id": "organizacion",
+        "label": "Organización",
+        "tipo": "keyword",
+        "categoria": "feature",
+        "keywords": [
+          "organizacion",
+          "organizado"
+        ]
+      },
+      {
+        "id": "comunicacionEfectiva",
+        "label": "Comunicación efectiva",
+        "tipo": "keyword",
+        "categoria": "feature",
+        "keywords": [
+          "comunicacion efectiva",
+          "buena comunicacion"
+        ]
+      },
+      {
+        "id": "html",
+        "label": "HTML",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "html"
+        ]
+      },
+      {
+        "id": "css",
+        "label": "CSS",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "css"
+        ]
+      },
+      {
+        "id": "disenoWeb",
+        "label": "Diseño web",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "diseno web"
+        ]
+      },
+      {
+        "id": "disenoResponsivo",
+        "label": "Diseño responsivo",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "diseno responsivo",
+          "responsive"
+        ]
+      },
+      {
+        "id": "uxui",
+        "label": "UX/UI",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "ux/ui",
+          "ux ui",
+          "experiencia de usuario",
+          "interfaz de usuario"
+        ]
+      },
+      {
+        "id": "areaNoRelacionada",
+        "label": "Área no relacionada con diseño",
+        "tipo": "areaNoRelacionada",
+        "categoria": "descarte",
+        "soloDescarte": true,
+        "keywords": [
+          "administracion",
+          "ventas",
+          "logistica",
+          "atencion a clientes",
+          "call center",
+          "recursos humanos",
+          "contabilidad"
+        ],
+        "keywordsExcluyentes": [
+          "diseno grafico",
+          "diseno digital",
+          "illustrator",
+          "photoshop",
+          "figma",
+          "diseno web",
+          "ux/ui",
+          "ui/ux"
+        ],
+        "descarteMensaje": "Criterio de descarte: la experiencia detectada parece estar exclusivamente en áreas no relacionadas con diseño (administración, ventas, logística, etc.)."
+      }
+    ]
+  },
+  "disenador_editorial": {
+    "id": "disenador_editorial",
+    "titulo": "Diseñador Editorial",
+    "resumenCorto": "Diseñador para el área de Nacional",
+    "presupuestoIndispensables": 100,
+    "presupuestoDeseables": 20,
+    "perfil": {
+      "requisitosAdicionales": [
+        "Disponibilidad para laborar de 16:00 horas al cierre (promedio 1:30 a.m.)",
+        "Descansos entre semana"
+      ]
+    },
+    "criterios": [
+      {
+        "id": "experiencia",
+        "label": "Experiencia",
+        "tipo": "anios",
+        "categoria": "requisito",
+        "anioMin": 1,
+        "anioMax": 4
+      },
+      {
+        "id": "custom_requisito_1789774258159",
+        "label": "Formación acádemica",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "diseño gráfico",
+          "diseño editorial",
+          "diseño y comunicación visual"
+        ]
+      },
+      {
+        "id": "custom_requisito_1789774321935",
+        "label": "Ubicación",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "cdmx. ciudad de méxico",
+          "coyoácan",
+          "benito juárez",
+          "venustiano carranza",
+          "gustavo a. madero",
+          "iztacalco",
+          "iztapalapa"
+        ]
+      },
+      {
+        "id": "custom_requisito_1789774388903",
+        "label": "Liga de portafolio",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "portafolio",
+          "portfolio",
+          "behance",
+          "dribbble",
+          "drive"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789774475079",
+        "label": "Adobe Illustrator",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "illustrator",
+          "ai"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789774508441",
+        "label": "Adobe Photoshop",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "photoshop",
+          "ps"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789774537856",
+        "label": "Adobe Indesing",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "indesing",
+          "id"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789774571425",
+        "label": "",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": []
+      },
+      {
+        "id": "custom_requisito_1789774623497",
+        "label": "diseño editorial",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "diseño editorial",
+          "maquetador",
+          "libros",
+          "revistas",
+          "periódico",
+          "catálogos",
+          "editor gráfico"
+        ]
+      },
+      {
+        "id": "custom_habilidad_deseable_1789775227775",
+        "label": "jeraquización ",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "jerarquización visual"
+        ]
+      },
+      {
+        "id": "custom_habilidad_deseable_1789775260486",
+        "label": "maquetación",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "maquetación"
+        ]
+      },
+      {
+        "id": "custom_habilidad_deseable_1789775295327",
+        "label": "edición fotográfico",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "reencuadre fotografía"
+        ]
+      },
+      {
+        "id": "custom_habilidad_deseable_1789775345223",
+        "label": "jerarquización informativa",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": [
+          "jerarquización de información"
+        ]
+      },
+      {
+        "id": "custom_habilidad_deseable_1789775373543",
+        "label": "",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": []
+      },
+      {
+        "id": "custom_feature_1789775488287",
+        "label": "trabajo en equipo",
+        "tipo": "keyword",
+        "categoria": "feature",
+        "keywords": [
+          "trabajo en equipo",
+          "trabajo colaborativo"
+        ]
+      },
+      {
+        "id": "custom_feature_1789775561471",
+        "label": "Comunicación efectiva",
+        "tipo": "keyword",
+        "categoria": "feature",
+        "keywords": [
+          "comunicación efectiva",
+          "buena comunicación"
+        ]
+      },
+      {
+        "id": "custom_feature_1789775645777",
+        "label": "atención al detalle",
+        "tipo": "keyword",
+        "categoria": "feature",
+        "keywords": [
+          "atención al detalle"
+        ]
+      },
+      {
+        "id": "custom_feature_1789775746266",
+        "label": "agilidad",
+        "tipo": "keyword",
+        "categoria": "feature",
+        "keywords": [
+          "agilidad",
+          "rápidez"
+        ]
+      },
+      {
+        "id": "custom_descarte_1789775771393",
+        "label": "Área no relacionada con diseño",
+        "tipo": "keyword",
+        "categoria": "descarte",
+        "soloDescarte": true,
+        "keywords": [
+          "comunicación",
+          "periodismo",
+          "administración",
+          "ventas",
+          "logística",
+          "atención a clientes",
+          "call center",
+          "recursos humanos",
+          "contabilidad. community manager"
+        ],
+        "descarteSi": "cumple",
+        "descarteMensaje": "diseno grafico, diseno digital, illustrator, photoshop, figma, diseno web, ux/ui, ui/ux, premiere,canva, "
+      }
+    ]
+  },
+  "asesor_juridico": {
+    "id": "asesor_juridico",
+    "titulo": "Asesor Jurídico",
+    "resumenCorto": "",
+    "presupuestoIndispensables": 100,
+    "presupuestoDeseables": 20,
+    "perfil": {
+      "requisitosAdicionales": [
+        "trabajo a presión",
+        "autogestión, capacidad para realizar varias actividades y tareas"
+      ]
+    },
+    "criterios": [
+      {
+        "id": "experiencia",
+        "label": "Experiencia",
+        "tipo": "anios",
+        "categoria": "requisito",
+        "anioMin": 1,
+        "anioMax": 3
+      },
+      {
+        "id": "custom_requisito_1789776955397",
+        "label": "Formación acádemica",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "licenciatura en derecho",
+          "derecho corporativo",
+          "derecho mercantil",
+          "mercantil"
+        ]
+      },
+      {
+        "id": "custom_requisito_1789777093252",
+        "label": "ubicación",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "cdmx",
+          "ciudad de méxico",
+          "benito juárez",
+          "venustiano carranza",
+          "iztacalco",
+          "iztapalapa",
+          "gustavo a. madero",
+          "coyoácan"
+        ]
+      },
+      {
+        "id": "custom_requisito_1789777236892",
+        "label": "",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": []
+      },
+      {
+        "id": "custom_requisito_1789777301477",
+        "label": "Experiencia",
+        "tipo": "anios",
+        "categoria": "requisito",
+        "anioMin": 1,
+        "anioMax": 4
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789777535725",
+        "label": "capacidad de análisis",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "análisis jurídico"
+        ]
+      },
+      {
+        "id": "custom_habilidad_deseable_1789777621975",
+        "label": "",
+        "tipo": "keyword",
+        "categoria": "habilidad_deseable",
+        "keywords": []
+      },
+      {
+        "id": "custom_requisito_1789777642215",
+        "label": "licenciatura",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "licenciatura en derecho",
+          "derecho",
+          "derecho corporativo"
+        ]
+      },
+      {
+        "id": "custom_requisito_1789777655374",
+        "label": "titulación",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "titulado",
+          "titulación",
+          "tutulada"
+        ]
+      },
+      {
+        "id": "custom_requisito_1789777693223",
+        "label": "cédula profesional",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "cédula profesional"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789777729750",
+        "label": "redacción",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "redacción",
+          "buena redacción",
+          "excelente redacción"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789777737502",
+        "label": "atención al detalle",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "atención al detalle"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789777763535",
+        "label": "organización",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "organización",
+          "organizado",
+          "organizada"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789777790167",
+        "label": "proactividad",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "proactividad"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789777807502",
+        "label": "comunicación efectiva",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "comunicación efectiva",
+          "buena comunicación",
+          "excelente comunicación"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789777867888",
+        "label": "trabajo de equipo",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "trabajo en equipo"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789777888305",
+        "label": "sentido de urgencia",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "prontitud",
+          "premura",
+          "inmediatez",
+          "agilidad",
+          "diligencia"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789777979937",
+        "label": "seguimiento",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "seguimiento a trámites",
+          "seguimiento en dependencias",
+          "monitoreo de actividades",
+          "acompañamiento",
+          "observación"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789778055784",
+        "label": "capacidad resolutiva",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "eficiencia",
+          "resolución",
+          "efectividad",
+          "competencia",
+          "diligencia",
+          "agilidad mental"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789778183649",
+        "label": "contratos",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "contratos",
+          "contrato con proveedores",
+          "contrato de proveedores",
+          "contrato con clientes",
+          "contratos de clientes",
+          "riesgos",
+          "obligaciones"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789778257035",
+        "label": "escrituras",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "revisar escrituras",
+          "revisar poderes",
+          "poderes",
+          "revisar actas",
+          "actas",
+          "revisar documentación"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789778447292",
+        "label": "elaboración de documentos",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "elaboración de cartas",
+          "cartas",
+          "elaboración de oficios",
+          "oficios",
+          "elaboración escritos",
+          "escritos",
+          "elaboración de documentos",
+          "documentos",
+          "documentos jurídicos",
+          "convenios"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789778852311",
+        "label": "manejo de expedientes",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": [
+          "control de expedientes",
+          "expedientes físicos y digítales",
+          "expedientes"
+        ]
+      },
+      {
+        "id": "custom_habilidad_indispensable_1789779203303",
+        "label": "",
+        "tipo": "keyword",
+        "categoria": "habilidad_indispensable",
+        "keywords": []
+      },
+      {
+        "id": "custom_feature_1789779384633",
+        "label": "área no relacionada con derecho",
+        "tipo": "keyword",
+        "categoria": "feature",
+        "keywords": [
+          "derecho civil",
+          "comunicación",
+          "periodismo",
+          "administración",
+          "ventas",
+          "logística",
+          "atención a clientes",
+          "call center",
+          "recursos humanos",
+          "contabilidad. community manager"
+        ]
+      },
+      {
+        "id": "custom_requisito_1789779535178",
+        "label": "paquetería office",
+        "tipo": "keyword",
+        "categoria": "requisito",
+        "keywords": [
+          "office",
+          "excel",
+          "word"
+        ]
+      },
+      {
+        "id": "custom_descarte_1789779699819",
+        "label": "área no relacionada con derecho",
+        "tipo": "keyword",
+        "categoria": "descarte",
+        "soloDescarte": true,
+        "keywords": [
+          "derecho civil",
+          "comunicación",
+          "periodismo",
+          "administración",
+          "ventas",
+          "logística",
+          "atención a clientes",
+          "call center",
+          "recursos humanos",
+          "contabilidad. community manager"
+        ],
+        "descarteSi": "cumple",
+        "descarteMensaje": "haber trabajado en dependencias de gobierno"
+      }
+    ]
+  }
+}
