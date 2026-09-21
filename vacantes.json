@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "version": 11,
-    "actualizado": "2026-09-19T01:19:43.752Z"
+    "version": 12,
+    "actualizado": "2026-09-21T19:55:56.000Z"
   },
   "editor_web": {
     "id": "editor_web",
@@ -674,21 +674,6 @@
         ]
       },
       {
-        "id": "custom_requisito_1789777236892",
-        "label": "",
-        "tipo": "keyword",
-        "categoria": "requisito",
-        "keywords": []
-      },
-      {
-        "id": "custom_requisito_1789777301477",
-        "label": "Experiencia",
-        "tipo": "anios",
-        "categoria": "requisito",
-        "anioMin": 1,
-        "anioMax": 4
-      },
-      {
         "id": "custom_habilidad_indispensable_1789777535725",
         "label": "capacidad de análisis",
         "tipo": "keyword",
@@ -696,13 +681,6 @@
         "keywords": [
           "análisis jurídico"
         ]
-      },
-      {
-        "id": "custom_habilidad_deseable_1789777621975",
-        "label": "",
-        "tipo": "keyword",
-        "categoria": "habilidad_deseable",
-        "keywords": []
       },
       {
         "id": "custom_requisito_1789777642215",
@@ -740,12 +718,13 @@
         "id": "custom_habilidad_indispensable_1789777729750",
         "label": "redacción",
         "tipo": "keyword",
-        "categoria": "habilidad_indispensable",
+        "categoria": "habilidad_deseable",
         "keywords": [
           "redacción",
           "buena redacción",
           "excelente redacción",
-          "redactando"
+          "redactando",
+          "redactar"
         ]
       },
       {
@@ -896,19 +875,11 @@
         ]
       },
       {
-        "id": "custom_habilidad_indispensable_1789779203303",
-        "label": "",
-        "tipo": "keyword",
-        "categoria": "habilidad_indispensable",
-        "keywords": []
-      },
-      {
         "id": "custom_feature_1789779384633",
         "label": "área no relacionada con derecho",
         "tipo": "keyword",
         "categoria": "feature",
         "keywords": [
-          "derecho civil",
           "comunicación",
           "periodismo",
           "administración",
@@ -917,7 +888,8 @@
           "atención a clientes",
           "call center",
           "recursos humanos",
-          "contabilidad. community manager"
+          "contabilidad",
+          "community manager"
         ]
       },
       {
@@ -934,11 +906,10 @@
       {
         "id": "custom_descarte_1789779699819",
         "label": "área no relacionada con derecho",
-        "tipo": "keyword",
+        "tipo": "areaNoRelacionada",
         "categoria": "descarte",
         "soloDescarte": true,
         "keywords": [
-          "derecho civil",
           "comunicación",
           "periodismo",
           "administración",
@@ -947,10 +918,38 @@
           "atención a clientes",
           "call center",
           "recursos humanos",
-          "contabilidad. community manager"
+          "contabilidad",
+          "community manager"
+        ],
+        "descarteMensaje": "Criterio de descarte: la experiencia detectada parece estar exclusivamente en áreas no relacionadas con derecho (comunicación, ventas, administración, etc.).",
+        "keywordsExcluyentes": [
+          "licenciatura en derecho",
+          "abogado",
+          "abogada",
+          "derecho corporativo",
+          "derecho mercantil",
+          "jurídic"
+        ]
+      },
+      {
+        "id": "custom_descarte_gobierno",
+        "label": "Experiencia en dependencias de gobierno",
+        "tipo": "keyword",
+        "categoria": "descarte",
+        "soloDescarte": true,
+        "keywords": [
+          "dependencias de gobierno",
+          "dependencia de gobierno",
+          "oficinas de gobierno",
+          "dependencias gubernamentales",
+          "imss",
+          "servicio de administración tributaria",
+          "alcaldía",
+          "alcaldías",
+          "tribunales"
         ],
         "descarteSi": "cumple",
-        "descarteMensaje": "haber trabajado en dependencias de gobierno, oficinas de gobierno, imss, sat, alcaldías, tribunales, "
+        "descarteMensaje": "Criterio de descarte: se detectó experiencia en dependencias de gobierno (IMSS, SAT, alcaldías, tribunales, etc.)."
       },
       {
         "id": "custom_descarte_1789780726560",
