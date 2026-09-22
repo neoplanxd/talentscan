@@ -192,7 +192,7 @@
  * ============================================================================
  */
 
-const VERSION = "1.3";
+const VERSION = "1.4";
 const UMBRAL_INTERESANTE = 80;
 
 const { useState, useCallback, useMemo, useEffect } = React;
@@ -469,9 +469,8 @@ function analizarCandidatoPorCoincidencias({ textoOriginal, fileName, vacante })
         status = "no_cumple"; s = Math.max(pesoEfectivo * (anios / Math.max(criterio.anioMin, 1)) * 0.5, 0);
         comentario = "Experiencia detectada por debajo del mínimo requerido.";
       } else {
-        const exceso = anios - criterio.anioMax;
-        status = "parcial"; s = Math.max(pesoEfectivo - 2 * exceso, pesoEfectivo * 0.4);
-        comentario = `${anios} año(s) de experiencia detectados (fuera del rango ideal de ${criterio.anioMin} a ${criterio.anioMax}).`;
+        status = "cumple"; s = pesoEfectivo;
+        comentario = `${anios} año(s) de experiencia detectados (por encima del rango ideal de ${criterio.anioMin} a ${criterio.anioMax}); no se penaliza por exceso, ya que la extracción automática puede subestimar la experiencia acumulada en varios empleos.`;
       }
     }
 
